@@ -52,7 +52,9 @@ class Bot(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_wallet: str
     name: str
-    avatar: str = "default_bot_1"
+    gender: str = "male"  # male, female
+    avatar: str = "male_1"
+    avatar_emoji: str = "🤖"
     level: int = 1
     experience: int = 0
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -66,6 +68,10 @@ class Bot(BaseModel):
     # Bot abilities
     abilities: List[str] = Field(default_factory=lambda: ["Spot Trading"])
     status: str = "active"  # active, paused
+    
+    # VIP & Gamification
+    vip_level: int = 1
+    owned_assets: List[str] = Field(default_factory=list)  # IDs of purchased virtual assets
 
 class Trade(BaseModel):
     model_config = ConfigDict(extra="ignore")
