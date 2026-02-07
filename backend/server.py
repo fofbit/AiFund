@@ -320,6 +320,88 @@ async def mark_notification_read(notification_id: str):
     await notification_service.mark_as_read(notification_id)
     return {"success": True}
 
+@api_router.get("/global-vision/opportunities")
+async def get_global_vision_opportunities():
+    """Get historical investment opportunities"""
+    opportunities = global_vision_service.get_historical_opportunities()
+    return {"opportunities": opportunities}
+
+@api_router.get("/global-vision/featured")
+async def get_featured_opportunity():
+    """Get today's featured opportunity"""
+    featured = global_vision_service.get_featured_opportunity()
+    return {"featured": featured}
+
+@api_router.get("/global-vision/potential")
+async def calculate_total_potential():
+    """Calculate total potential if bot caught all opportunities"""
+    opportunities = global_vision_service.get_historical_opportunities()
+    potential = global_vision_service.calculate_total_potential(opportunities)
+    return {"potential": potential}
+
+@api_router.post("/global-vision/unlock")
+async def unlock_global_vision(req: DepositRequest):
+    """Unlock Global Vision feature (9.9U)"""
+    wallet_address = req.wallet_address.lower()
+    
+    # Check if user exists
+    user = await db.users.find_one({"wallet_address": wallet_address})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if already has global vision
+    if user.get("has_global_vision"):
+        return {"success": True, "message": "Already unlocked"}
+    
+    # Process payment (9.9U)
+    if req.amount < 9.9:
+        raise HTTPException(status_code=400, detail="Global Vision requires 9.9U payment")
+    
+    # Get current prices
+    prices = await get_crypto_prices()
+    
+    if req.currency not in prices:
+        raise HTTPException(status_code=400, detail=f"Unsupported currency: {req.currency}")
+    
+    usd_value = req.amount * prices[req.currency]
+    
+    if usd_value < 9.9:
+        raise HTTPException(status_code=400, detail="Payment too low for Global Vision")
+    
+    # Record payment
+    deposit = Deposit(
+        wallet_address=wallet_address,
+        currency=req.currency,
+        amount=req.amount,
+        usd_value=usd_value,
+        tx_hash=req.tx_hash,
+        status="confirmed"
+    )
+    
+    deposit_dict = deposit.model_dump()
+    deposit_dict['timestamp'] = deposit_dict['timestamp'].isoformat()
+    await db.deposits.insert_one(deposit_dict)
+    
+    # Update user balance and unlock feature
+    await db.users.update_one(
+        {"wallet_address": wallet_address},
+        {
+            "$inc": {"balance_usd": usd_value},
+            "$set": {"has_global_vision": True}
+        }
+    )
+    
+    # Update tier if needed
+    await update_user_tier(wallet_address)
+    
+    logger.info(f"Global Vision unlocked for {wallet_address}")
+    
+    return {
+        "success": True,
+        "message": "Global Vision unlocked!",
+        "new_balance": user["balance_usd"] + usd_value
+    }
+
 # Include router
 app.include_router(api_router)
 
