@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe } from 'lucide-react';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
 import BotDashboard from './BotDashboard';
 import NotificationPanel from './NotificationPanel';
+import GlobalVisionPage from './GlobalVisionPage';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -13,6 +14,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showCreateBotModal, setShowCreateBotModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showGlobalVision, setShowGlobalVision] = useState(false);
   const [botData, setBotData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
