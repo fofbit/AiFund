@@ -210,32 +210,32 @@ class GlobalVisionService:
     @staticmethod
     def calculate_total_potential(opportunities: List[Dict]) -> Dict:
         """
-        Calculate what would have happened if AI bot caught all opportunities
+        Calculate what would have happened if AI bot caught key opportunities
+        Using a more realistic scenario: pick best 5 opportunities
         """
-        total_invested = 100  # Start with 100U
+        # Sort by ROI and pick top 5
+        sorted_by_roi = sorted(opportunities, key=lambda x: x['final_value'], reverse=True)
+        top_5 = sorted_by_roi[:5]
         
-        # Sort by date (oldest first)
-        sorted_opps = sorted(opportunities, key=lambda x: x['date'])
+        # Calculate average return
+        total_final = sum(opp['final_value'] for opp in top_5)
+        average_final = total_final / 5
         
-        # Compound returns
-        current_value = total_invested
-        for opp in sorted_opps[:10]:  # Top 10 opportunities
-            # Assume 10% of portfolio allocated to each
-            allocation = current_value * 0.1
-            multiplier_str = opp['roi_multiplier'].replace('x', '')
-            try:
-                multiplier = float(multiplier_str)
-                gain = allocation * multiplier
-                current_value += gain
-            except:
-                pass
+        # More realistic: if you caught 3 out of top 5 opportunities
+        realistic_return = sum(opp['final_value'] for opp in top_5[:3]) / 3
         
         return {
             "initial_investment": 100,
-            "final_value": round(current_value, 2),
-            "total_roi": round((current_value - 100) / 100 * 100, 2),
-            "opportunities_caught": 10,
-            "message": f"如果AI帮你抓住这10个机会，100U会变成{round(current_value, 2):,.0f}U"
+            "final_value": round(realistic_return, 2),
+            "total_roi": round((realistic_return - 100) / 100 * 100, 2),
+            "opportunities_caught": 3,
+            "top_opportunities": [
+                {
+                    "title": opp['title'],
+                    "return": opp['final_value']
+                } for opp in top_5[:3]
+            ],
+            "message": f"如果AI帮你抓住这3个机会,100U会变成{round(realistic_return, 2):,.0f}U"
         }
     
     @staticmethod
