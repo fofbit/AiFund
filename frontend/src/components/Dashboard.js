@@ -214,6 +214,17 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
           onSuccess={handleBotCreated}
         />
       )}
+
+      {showNotifications && (
+        <NotificationPanel
+          walletAddress={walletAddress}
+          isOpen={showNotifications}
+          onClose={() => {
+            setShowNotifications(false);
+            loadUnreadCount();
+          }}
+        />
+      )}
     </div>
   );
 };
