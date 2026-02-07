@@ -21,7 +21,17 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
     if (userData?.has_bot) {
       loadBotData();
     }
+    loadUnreadCount();
   }, [userData]);
+
+  const loadUnreadCount = async () => {
+    try {
+      const response = await axios.get(`${API}/notifications/${walletAddress}?unread_only=true`);
+      setUnreadCount(response.data.notifications.length);
+    } catch (error) {
+      console.error('Error loading unread count:', error);
+    }
+  };
 
   const loadBotData = async () => {
     try {
