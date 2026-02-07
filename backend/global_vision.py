@@ -222,10 +222,11 @@ class GlobalVisionService:
         for opp in sorted_opps[:10]:  # Top 10 opportunities
             # Assume 10% of portfolio allocated to each
             allocation = current_value * 0.1
-            gain = allocation * (opp['roi_multiplier'].replace('x', ''))
+            multiplier_str = opp['roi_multiplier'].replace('x', '')
             try:
-                gain_float = float(gain)
-                current_value += gain_float
+                multiplier = float(multiplier_str)
+                gain = allocation * multiplier
+                current_value += gain
             except:
                 pass
         
