@@ -38,14 +38,20 @@ db = client[os.environ['DB_NAME']]
 ai_engine = AITradingEngine()
 
 async def get_market_data():
-    """Get current market data"""
-    return {
-        "BTC": {"price": 95000 + random.uniform(-1000, 1000), "trend": "up"},
-        "ETH": {"price": 3500 + random.uniform(-100, 100), "trend": "up"},
-        "SOL": {"price": 180 + random.uniform(-10, 10), "trend": "neutral"},
-        "BNB": {"price": 650 + random.uniform(-20, 20), "trend": "up"},
-        "XRP": {"price": 2.5 + random.uniform(-0.2, 0.2), "trend": "neutral"},
-    }
+    """Get current market data with real prices"""
+    analysis = await market_service.get_market_analysis()
+    
+    market_data = {}
+    for symbol, price in analysis['prices'].items():
+        if symbol in ['USDT', 'USDC']:  # Skip stablecoins
+            continue
+        market_data[symbol] = {
+            "price": price,
+            "trend": analysis['trends'].get(symbol, 'neutral'),
+            "volatility": analysis['volatility'].get(symbol, 'medium')
+        }
+    
+    return market_data
 
 async def execute_trade(bot, decision, market_data):
     """Execute a simulated trade based on AI decision"""
