@@ -40,10 +40,11 @@ class User(BaseModel):
     wallet_address: str
     username: Optional[str] = None
     balance_usd: float = 0.0  # USD equivalent
-    tier: str = "inactive"  # inactive, basic, vip
+    tier: str = "inactive"  # inactive, basic, global_vision, vip
     joined_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     referral_code: str = Field(default_factory=lambda: str(uuid.uuid4())[:8])
     referred_by: Optional[str] = None
+    has_global_vision: bool = False  # Paid 9.9U for Global Vision feature
 
 class Bot(BaseModel):
     model_config = ConfigDict(extra="ignore")
