@@ -303,6 +303,21 @@ async def get_leaderboard():
     
     return {"leaderboard": bots}
 
+@api_router.get("/notifications/{wallet_address}")
+async def get_notifications(wallet_address: str, unread_only: bool = False):
+    """Get user notifications"""
+    notifications = await notification_service.get_user_notifications(
+        wallet_address, 
+        unread_only
+    )
+    return {"notifications": notifications}
+
+@api_router.post("/notifications/{notification_id}/read")
+async def mark_notification_read(notification_id: str):
+    """Mark notification as read"""
+    await notification_service.mark_as_read(notification_id)
+    return {"success": True}
+
 # Include router
 app.include_router(api_router)
 
