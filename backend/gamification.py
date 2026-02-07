@@ -107,7 +107,7 @@ class VIPLevelSystem:
                 "perks": ["可购买私人飞机", "帝王专属特权"]
             },
             {
-                "level": 9",
+                "level": 9,
                 "name": "世界首富",
                 "min_profit": 500000,
                 "icon": "🌍",
