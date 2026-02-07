@@ -13,6 +13,7 @@ import asyncio
 from market_data import market_service
 from notifications import notification_service
 from global_vision import global_vision_service
+from gamification import bot_customization_service, vip_level_system, virtual_asset_store
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
