@@ -106,6 +106,8 @@ class ConnectWalletRequest(BaseModel):
 class CreateBotRequest(BaseModel):
     wallet_address: str
     bot_name: str
+    gender: str = "male"  # male or female
+    avatar_id: str = "male_1"
 
 class DepositRequest(BaseModel):
     wallet_address: str
