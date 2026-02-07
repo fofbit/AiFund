@@ -16,6 +16,7 @@ import logging
 sys.path.append(str(Path(__file__).parent))
 
 from ai_engine import AITradingEngine
+from market_data import market_service
 
 # Load environment
 ROOT_DIR = Path(__file__).parent
