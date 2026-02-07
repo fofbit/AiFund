@@ -124,6 +124,22 @@ async def execute_trade(bot, decision, market_data):
     
     logger.info(f"Trade executed for {bot['name']}: {decision['action']} {symbol} @ ${price:.2f} | P/L: ${profit_loss:.2f}")
     
+    # Notify about big profit
+    if profit_loss > 500:
+        await notification_service.notify_big_profit(
+            bot['user_wallet'],
+            bot['name'],
+            profit_loss
+        )
+    
+    # Notify about level up
+    if new_level > bot['level']:
+        await notification_service.notify_level_up(
+            bot['user_wallet'],
+            bot['name'],
+            new_level
+        )
+    
     # Check if bot should learn new ability
     if new_level > bot['level'] and len(bot.get('abilities', [])) < 5:
         new_ability = await ai_engine.discover_new_ability({
