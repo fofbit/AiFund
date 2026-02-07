@@ -12,8 +12,10 @@ const API = `${BACKEND_URL}/api`;
 const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showCreateBotModal, setShowCreateBotModal] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [botData, setBotData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     if (userData?.has_bot) {
