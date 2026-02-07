@@ -16,10 +16,47 @@ class GlobalVisionService:
     def get_historical_opportunities() -> List[Dict]:
         """
         Get a curated list of historical investment opportunities
-        Sorted from most recent to oldest
+        Expanded with more categories and subcategories
         """
         
         opportunities = [
+            # === 昨天的机会! (最刺激) ===
+            {
+                "id": "yesterday_btc",
+                "category": "Cryptocurrency",
+                "subcategory": "BTC生态",
+                "title": "昨天的比特币波动",
+                "date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+                "description": "昨天低点买入比特币",
+                "initial_investment": 100,
+                "final_value": 103.2,
+                "roi_percentage": 3.2,
+                "roi_multiplier": "1.032x",
+                "icon": "⚡",
+                "color": "from-yellow-500 to-orange-500",
+                "tags": ["昨天", "比特币", "波动"],
+                "what_happened": "昨天BTC在68,200触底后反弹至70,380",
+                "lesson": "AI能实时捕捉每日波动机会",
+                "time_sensitivity": "极高"
+            },
+            {
+                "id": "yesterday_ai_token",
+                "category": "Cryptocurrency", 
+                "subcategory": "AI代币",
+                "title": "AI板块异动",
+                "date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+                "description": "昨天某AI代币暴涨",
+                "initial_investment": 100,
+                "final_value": 145,
+                "roi_percentage": 45,
+                "roi_multiplier": "1.45x",
+                "icon": "🤖",
+                "color": "from-cyan-500 to-blue-600",
+                "tags": ["昨天", "AI代币", "热点"],
+                "what_happened": "某AI概念代币单日暴涨45%",
+                "lesson": "AI能第一时间发现AI板块机会",
+                "time_sensitivity": "极高"
+            },
             # === 加密货币 ===
             {
                 "id": "btc_2015",
