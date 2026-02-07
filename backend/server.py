@@ -286,6 +286,12 @@ async def get_prices():
     prices = await get_crypto_prices()
     return {"prices": prices}
 
+@api_router.get("/market/analysis")
+async def get_market_analysis():
+    """Get comprehensive market analysis"""
+    analysis = await market_service.get_market_analysis()
+    return {"analysis": analysis}
+
 @api_router.get("/leaderboard")
 async def get_leaderboard():
     """Get top performing bots"""
