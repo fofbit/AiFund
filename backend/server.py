@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import asyncio
 from market_data import market_service
 from notifications import notification_service
+from global_vision import global_vision_service
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
