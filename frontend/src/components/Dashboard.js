@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell } from 'lucide-react';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
 import BotDashboard from './BotDashboard';
+import NotificationPanel from './NotificationPanel';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
