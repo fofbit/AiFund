@@ -156,6 +156,13 @@ async def execute_trade(bot, decision, market_data):
                 {"$push": {"abilities": new_ability}}
             )
             logger.info(f"🎉 {bot['name']} learned new ability: {new_ability}")
+            
+            # Notify user about new ability
+            await notification_service.notify_new_ability(
+                bot['user_wallet'],
+                bot['name'],
+                new_ability
+            )
     
     return trade
 
