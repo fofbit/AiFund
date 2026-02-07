@@ -254,6 +254,18 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
           }}
         />
       )}
+
+      {showGlobalVision && (
+        <GlobalVisionPage
+          walletAddress={walletAddress}
+          userData={userData}
+          onClose={() => setShowGlobalVision(false)}
+          onUnlock={() => {
+            setShowGlobalVision(false);
+            onRefresh();
+          }}
+        />
+      )}
     </div>
   );
 };
