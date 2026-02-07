@@ -107,20 +107,8 @@ class DepositRequest(BaseModel):
 
 async def get_crypto_prices() -> Dict[str, float]:
     """Get current crypto prices in USD"""
-    # For now, return mock prices. Will integrate CoinGecko later
-    return {
-        "BTC": 95000.0,
-        "ETH": 3500.0,
-        "USDT": 1.0,
-        "USDC": 1.0,
-        "BNB": 650.0,
-        "SOL": 180.0,
-        "XRP": 2.5,
-        "ADA": 1.2,
-        "DOGE": 0.35,
-        "DOT": 25.0,
-        "FB": 5.0  # Fractal Bitcoin
-    }
+    # Use real market data from CoinGecko
+    return await market_service.fetch_prices()
 
 async def update_user_tier(wallet_address: str):
     """Update user tier based on balance"""
