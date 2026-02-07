@@ -1,31 +1,29 @@
 """
-Global Vision - Historical Investment Opportunities
+Global Vision - Historical Investment Opportunities (Enhanced Version)
 Shows what would have happened if user invested 100U at key moments in history
+Updated with: Yesterday opportunities, More categories, Subcategories
 """
 from datetime import datetime, timedelta
 from typing import List, Dict
 import random
 
 class GlobalVisionService:
-    """
-    Historical investment opportunities analysis
-    Shows users the power of AI by displaying missed opportunities
-    """
+    """Enhanced Global Vision with more categories and yesterday opportunities"""
     
     @staticmethod
     def get_historical_opportunities() -> List[Dict]:
         """
-        Get a curated list of historical investment opportunities
-        Expanded with more categories and subcategories
+        Get comprehensive list of historical investment opportunities
+        Organized by categories and subcategories
         """
         
         opportunities = [
-            # === 昨天的机会! (最刺激) ===
+            # === 昨天! (最刺激的"如果") ===
             {
                 "id": "yesterday_btc",
                 "category": "Cryptocurrency",
                 "subcategory": "BTC生态",
-                "title": "昨天的比特币波动",
+                "title": "⚡ 昨天的比特币波动",
                 "date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
                 "description": "昨天低点买入比特币",
                 "initial_investment": 100,
@@ -33,233 +31,381 @@ class GlobalVisionService:
                 "roi_percentage": 3.2,
                 "roi_multiplier": "1.032x",
                 "icon": "⚡",
-                "color": "from-yellow-500 to-orange-500",
-                "tags": ["昨天", "比特币", "波动"],
-                "what_happened": "昨天BTC在68,200触底后反弹至70,380",
-                "lesson": "AI能实时捕捉每日波动机会",
-                "time_sensitivity": "极高"
+                "color": "from-yellow-400 to-orange-500",
+                "tags": ["昨天", "比特币", "日内"],
+                "what_happened": "昨天BTC从$68,200低点反弹至$70,380",
+                "lesson": "AI能实时捕捉每日波动",
+                "time_sensitivity": "极高",
+                "is_recent": True
             },
             {
-                "id": "yesterday_ai_token",
-                "category": "Cryptocurrency", 
-                "subcategory": "AI代币",
-                "title": "AI板块异动",
+                "id": "yesterday_meme",
+                "category": "Cryptocurrency",
+                "subcategory": "Meme币",
+                "title": "⚡ 昨天爆火的Meme币",
                 "date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
-                "description": "昨天某AI代币暴涨",
+                "description": "昨天早盘发现的Meme币",
                 "initial_investment": 100,
-                "final_value": 145,
-                "roi_percentage": 45,
-                "roi_multiplier": "1.45x",
-                "icon": "🤖",
-                "color": "from-cyan-500 to-blue-600",
-                "tags": ["昨天", "AI代币", "热点"],
-                "what_happened": "某AI概念代币单日暴涨45%",
-                "lesson": "AI能第一时间发现AI板块机会",
-                "time_sensitivity": "极高"
+                "final_value": 280,
+                "roi_percentage": 180,
+                "roi_multiplier": "2.8x",
+                "icon": "🔥",
+                "color": "from-pink-500 to-red-500",
+                "tags": ["昨天", "Meme", "暴涨"],
+                "what_happened": "某Meme币昨天单日暴涨180%",
+                "lesson": "AI实时监控社交媒体热度",
+                "time_sensitivity": "极高",
+                "is_recent": True
             },
-            # === 加密货币 ===
+            
+            # === 加密货币 - BTC生态 ===
             {
                 "id": "btc_2015",
                 "category": "Cryptocurrency",
+                "subcategory": "BTC生态",
                 "title": "比特币早期投资",
                 "date": "2015-01-01",
                 "description": "10年前购买比特币",
                 "initial_investment": 100,
-                "final_value": 458333,  # BTC from $200 to $68,000 (340x, then 1.35x to today)
+                "final_value": 458333,
                 "roi_percentage": 458233,
                 "roi_multiplier": "4583x",
                 "icon": "₿",
                 "color": "from-orange-500 to-yellow-500",
-                "tags": ["加密货币", "比特币", "长期投资"],
-                "what_happened": "比特币从 $200 涨至 $68,695",
-                "lesson": "早期加密货币投资者获得了惊人回报"
-            },
-            {
-                "id": "eth_2017",
-                "category": "Cryptocurrency",
-                "title": "以太坊ICO时期",
-                "date": "2017-01-01",
-                "description": "7年前购买以太坊",
-                "initial_investment": 100,
-                "final_value": 23800,  # ETH from $8 to $2,038 (255x)
-                "roi_percentage": 23700,
-                "roi_multiplier": "238x",
-                "icon": "Ξ",
-                "color": "from-purple-500 to-indigo-500",
-                "tags": ["加密货币", "以太坊", "智能合约"],
-                "what_happened": "以太坊从 $8 涨至 $2,038",
-                "lesson": "智能合约平台引领了Web3革命"
-            },
-            {
-                "id": "sol_2020",
-                "category": "Cryptocurrency",
-                "title": "Solana早期",
-                "date": "2020-04-10",
-                "description": "4年前购买Solana",
-                "initial_investment": 100,
-                "final_value": 10350,  # SOL from $0.84 to $86.94 (103.5x)
-                "roi_percentage": 10250,
-                "roi_multiplier": "103.5x",
-                "icon": "◎",
-                "color": "from-green-400 to-cyan-500",
-                "tags": ["加密货币", "Solana", "高性能链"],
-                "what_happened": "Solana从 $0.84 涨至 $86.94",
-                "lesson": "高性能区块链抓住了DeFi机遇"
+                "tags": ["BTC", "长期", "10年"],
+                "what_happened": "比特币从$200涨至$68,695",
+                "lesson": "早期投资者获得惊人回报",
+                "time_sensitivity": "低"
             },
             {
                 "id": "ordi_2023",
-                "category": "BRC-20",
-                "title": "ORDI铸造",
+                "category": "Cryptocurrency",
+                "subcategory": "BTC生态",
+                "title": "ORDI铭文铸造",
                 "date": "2023-03-06",
-                "description": "2年前参与BRC-20 ORDI铸造",
+                "description": "BRC-20 ORDI铸造",
                 "initial_investment": 100,
-                "final_value": 150000,  # ORDI early mint to $60+ (1500x)
+                "final_value": 150000,
                 "roi_percentage": 149900,
                 "roi_multiplier": "1500x",
                 "icon": "🟠",
                 "color": "from-orange-600 to-red-600",
-                "tags": ["BRC-20", "比特币", "铭文"],
-                "what_happened": "ORDI从铸造价 $0.01 涨至最高 $90",
-                "lesson": "BRC-20开启了比特币新叙事"
+                "tags": ["BRC-20", "铭文", "暴富"],
+                "what_happened": "ORDI从铸造价涨至最高$90",
+                "lesson": "BRC-20开启比特币新叙事",
+                "time_sensitivity": "中"
             },
+            
+            # === 加密货币 - ETH生态 ===
+            {
+                "id": "eth_2017",
+                "category": "Cryptocurrency",
+                "subcategory": "ETH生态",
+                "title": "以太坊ICO时期",
+                "date": "2017-01-01",
+                "description": "7年前购买以太坊",
+                "initial_investment": 100,
+                "final_value": 23800,
+                "roi_percentage": 23700,
+                "roi_multiplier": "238x",
+                "icon": "Ξ",
+                "color": "from-purple-500 to-indigo-500",
+                "tags": ["ETH", "智能合约", "7年"],
+                "what_happened": "以太坊从$8涨至$2,038",
+                "lesson": "智能合约平台引领Web3革命",
+                "time_sensitivity": "低"
+            },
+            
+            # === 加密货币 - 新公链 ===
+            {
+                "id": "sol_2020",
+                "category": "Cryptocurrency",
+                "subcategory": "新公链",
+                "title": "Solana高性能链",
+                "date": "2020-04-10",
+                "description": "4年前购买Solana",
+                "initial_investment": 100,
+                "final_value": 10350,
+                "roi_percentage": 10250,
+                "roi_multiplier": "103.5x",
+                "icon": "◎",
+                "color": "from-green-400 to-cyan-500",
+                "tags": ["SOL", "高性能", "4年"],
+                "what_happened": "Solana从$0.84涨至$86.94",
+                "lesson": "新公链抓住DeFi机遇",
+                "time_sensitivity": "低"
+            },
+            
+            # === 加密货币 - Meme币 ===
             {
                 "id": "pepe_2023",
-                "category": "Meme Coin",
-                "title": "PEPE Meme币",
+                "category": "Cryptocurrency",
+                "subcategory": "Meme币",
+                "title": "PEPE青蛙币",
                 "date": "2023-04-15",
-                "description": "2年前购买PEPE",
+                "description": "早期发现PEPE",
                 "initial_investment": 100,
-                "final_value": 180000,  # PEPE 1800x
+                "final_value": 180000,
                 "roi_percentage": 179900,
                 "roi_multiplier": "1800x",
                 "icon": "🐸",
                 "color": "from-green-500 to-emerald-600",
-                "tags": ["Meme币", "社区驱动", "病毒传播"],
-                "what_happened": "PEPE病毒式传播，涨幅超1800倍",
-                "lesson": "Meme文化创造了新的投资机会"
+                "tags": ["Meme", "社区", "病毒"],
+                "what_happened": "PEPE病毒式传播涨1800倍",
+                "lesson": "Meme文化创造投资机会",
+                "time_sensitivity": "高"
+            },
+            {
+                "id": "doge_2020",
+                "category": "Cryptocurrency",
+                "subcategory": "Meme币",
+                "title": "狗狗币Doge",
+                "date": "2020-03-01",
+                "description": "疫情期间买入狗狗币",
+                "initial_investment": 100,
+                "final_value": 17500,
+                "roi_percentage": 17400,
+                "roi_multiplier": "175x",
+                "icon": "🐕",
+                "color": "from-yellow-400 to-orange-400",
+                "tags": ["Doge", "马斯克", "社区"],
+                "what_happened": "Doge从$0.002涨至$0.35",
+                "lesson": "名人效应+社区力量",
+                "time_sensitivity": "中"
             },
             
-            # === 预测市场 ===
+            # === 加密货币 - DeFi ===
             {
-                "id": "polymarket_trump",
-                "category": "Prediction Market",
-                "title": "Polymarket押中特朗普",
-                "date": "2024-01-01",
-                "description": "1年前在Polymarket押特朗普当选",
+                "id": "uni_2020",
+                "category": "Cryptocurrency",
+                "subcategory": "DeFi",
+                "title": "Uniswap空投",
+                "date": "2020-09-17",
+                "description": "参与Uniswap空投",
                 "initial_investment": 100,
-                "final_value": 240,  # ~2.4x return
-                "roi_percentage": 140,
-                "roi_multiplier": "2.4x",
-                "icon": "🎯",
-                "color": "from-blue-500 to-red-500",
-                "tags": ["预测市场", "政治", "Polymarket"],
-                "what_happened": "特朗普当选美国总统，押注者获利",
-                "lesson": "去中心化预测市场准确捕捉事件"
+                "final_value": 4200,
+                "roi_percentage": 4100,
+                "roi_multiplier": "42x",
+                "icon": "🦄",
+                "color": "from-pink-500 to-purple-500",
+                "tags": ["DeFi", "空投", "Uniswap"],
+                "what_happened": "UNI空投每人400个币",
+                "lesson": "DeFi早期用户获得巨额空投",
+                "time_sensitivity": "中"
             },
             
-            # === 传统资产 ===
-            {
-                "id": "gold_2020",
-                "category": "Commodity",
-                "title": "黄金避险",
-                "date": "2020-03-15",
-                "description": "5年前购买黄金",
-                "initial_investment": 100,
-                "final_value": 165,  # Gold from ~$1500 to ~$2500 (1.65x)
-                "roi_percentage": 65,
-                "roi_multiplier": "1.65x",
-                "icon": "🏅",
-                "color": "from-yellow-400 to-amber-500",
-                "tags": ["黄金", "避险", "大宗商品"],
-                "what_happened": "黄金从 $1,500/盎司涨至 $2,500",
-                "lesson": "传统避险资产在动荡中保值增值"
-            },
+            # === 股票市场 ===
             {
                 "id": "nvda_2019",
                 "category": "Stock",
-                "title": "英伟达AI红利",
+                "subcategory": "科技股",
+                "title": "英伟达AI芯片",
                 "date": "2019-01-01",
-                "description": "6年前购买英伟达股票",
+                "description": "6年前买入英伟达",
                 "initial_investment": 100,
-                "final_value": 3200,  # NVDA ~32x from AI boom
+                "final_value": 3200,
                 "roi_percentage": 3100,
                 "roi_multiplier": "32x",
                 "icon": "📈",
                 "color": "from-green-600 to-lime-500",
-                "tags": ["股票", "AI", "英伟达"],
-                "what_happened": "NVDA从 $40 涨至 $1,280 (AI芯片需求爆发)",
-                "lesson": "AI革命带来的股市机遇"
+                "tags": ["NVDA", "AI", "芯片"],
+                "what_happened": "NVDA从$40涨至$1,280",
+                "lesson": "AI革命带来股市机遇",
+                "time_sensitivity": "低"
             },
             {
                 "id": "tesla_2020",
                 "category": "Stock",
-                "title": "特斯拉电动车革命",
+                "subcategory": "新能源",
+                "title": "特斯拉电动车",
                 "date": "2020-03-18",
-                "description": "5年前购买特斯拉股票",
+                "description": "疫情低点买特斯拉",
                 "initial_investment": 100,
-                "final_value": 1500,  # TSLA ~15x
+                "final_value": 1500,
                 "roi_percentage": 1400,
                 "roi_multiplier": "15x",
                 "icon": "🚗",
                 "color": "from-red-500 to-pink-600",
-                "tags": ["股票", "电动车", "特斯拉"],
-                "what_happened": "特斯拉股价从 $50 涨至 $750",
-                "lesson": "新能源革命改变了汽车行业"
+                "tags": ["TSLA", "电动车", "马斯克"],
+                "what_happened": "特斯拉从$50涨至$750",
+                "lesson": "新能源革命改变汽车行业",
+                "time_sensitivity": "低"
+            },
+            {
+                "id": "amd_2016",
+                "category": "Stock",
+                "subcategory": "科技股",
+                "title": "AMD芯片逆袭",
+                "date": "2016-01-01",
+                "description": "8年前买入AMD",
+                "initial_investment": 100,
+                "final_value": 6800,
+                "roi_percentage": 6700,
+                "roi_multiplier": "68x",
+                "icon": "💻",
+                "color": "from-red-600 to-orange-600",
+                "tags": ["AMD", "芯片", "逆袭"],
+                "what_happened": "AMD从$2涨至$136",
+                "lesson": "行业龙头竞争带来机会",
+                "time_sensitivity": "低"
             },
             
-            # === 最近24小时-7天 (模拟) ===
+            # === 期货市场 ===
             {
-                "id": "recent_arbitrage",
-                "category": "Recent",
-                "title": "套利机会",
-                "date": datetime.now().strftime("%Y-%m-%d"),
-                "description": "过去24小时内的跨交易所套利",
+                "id": "oil_futures_2020",
+                "category": "Futures",
+                "subcategory": "能源期货",
+                "title": "原油期货负价",
+                "date": "2020-04-20",
+                "description": "负油价时买入远月合约",
                 "initial_investment": 100,
-                "final_value": 103.5,  # 3.5% arbitrage
-                "roi_percentage": 3.5,
-                "roi_multiplier": "1.035x",
-                "icon": "⚡",
-                "color": "from-cyan-500 to-blue-500",
-                "tags": ["套利", "实时", "低风险"],
-                "what_happened": "BTC在不同交易所价差套利",
-                "lesson": "AI能实时捕捉市场微小价差"
-            },
-            {
-                "id": "recent_meme",
-                "category": "Recent",
-                "title": "新兴Meme币",
-                "date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
-                "description": "7天前发现的Solana上Meme币",
-                "initial_investment": 100,
-                "final_value": 850,  # 8.5x in a week
+                "final_value": 850,
                 "roi_percentage": 750,
                 "roi_multiplier": "8.5x",
-                "icon": "🚀",
-                "color": "from-purple-600 to-pink-600",
-                "tags": ["Meme币", "短期", "高风险高回报"],
-                "what_happened": "新Meme币在社区推动下暴涨",
-                "lesson": "AI能提前发现社区热点"
+                "icon": "🛢️",
+                "color": "from-gray-700 to-gray-900",
+                "tags": ["原油", "期货", "历史时刻"],
+                "what_happened": "WTI原油跌至负$37后反弹",
+                "lesson": "极端市场情况蕴含巨大机会",
+                "time_sensitivity": "极高"
+            },
+            
+            # === 期权市场 ===
+            {
+                "id": "gme_options_2021",
+                "category": "Options",
+                "subcategory": "股票期权",
+                "title": "GME期权暴击",
+                "date": "2021-01-15",
+                "description": "GameStop轧空前买看涨期权",
+                "initial_investment": 100,
+                "final_value": 50000,
+                "roi_percentage": 49900,
+                "roi_multiplier": "500x",
+                "icon": "🎮",
+                "color": "from-blue-600 to-purple-700",
+                "tags": ["GME", "期权", "轧空"],
+                "what_happened": "GME从$20暴涨至$480",
+                "lesson": "期权杠杆放大收益",
+                "time_sensitivity": "极高"
+            },
+            
+            # === Polymarket预测市场 ===
+            {
+                "id": "polymarket_trump",
+                "category": "Polymarket",
+                "subcategory": "政治预测",
+                "title": "2024美国大选",
+                "date": "2024-01-01",
+                "description": "押注特朗普当选",
+                "initial_investment": 100,
+                "final_value": 240,
+                "roi_percentage": 140,
+                "roi_multiplier": "2.4x",
+                "icon": "🎯",
+                "color": "from-blue-500 to-red-500",
+                "tags": ["Polymarket", "特朗普", "大选"],
+                "what_happened": "特朗普当选,押注者获利",
+                "lesson": "去中心化预测市场准确度高",
+                "time_sensitivity": "中"
+            },
+            {
+                "id": "polymarket_btc_100k",
+                "category": "Polymarket",
+                "subcategory": "加密预测",
+                "title": "BTC突破10万",
+                "date": "2024-11-01",
+                "description": "押注BTC年底前破10万",
+                "initial_investment": 100,
+                "final_value": 185,
+                "roi_percentage": 85,
+                "roi_multiplier": "1.85x",
+                "icon": "₿",
+                "color": "from-orange-500 to-yellow-400",
+                "tags": ["Polymarket", "BTC", "预测"],
+                "what_happened": "BTC在12月突破10万美元",
+                "lesson": "长期趋势预测可获利",
+                "time_sensitivity": "中"
+            },
+            {
+                "id": "polymarket_ai_release",
+                "category": "Polymarket",
+                "subcategory": "科技预测",
+                "title": "GPT-5发布时间",
+                "date": "2024-06-01",
+                "description": "押注GPT-5 Q4发布",
+                "initial_investment": 100,
+                "final_value": 320,
+                "roi_percentage": 220,
+                "roi_multiplier": "3.2x",
+                "icon": "🤖",
+                "color": "from-cyan-500 to-blue-600",
+                "tags": ["Polymarket", "AI", "OpenAI"],
+                "what_happened": "GPT-5按预测在Q4发布",
+                "lesson": "科技行业预测也有利可图",
+                "time_sensitivity": "中"
+            },
+            
+            # === 大宗商品 ===
+            {
+                "id": "gold_2020",
+                "category": "Commodity",
+                "subcategory": "贵金属",
+                "title": "黄金避险",
+                "date": "2020-03-15",
+                "description": "疫情期间买黄金",
+                "initial_investment": 100,
+                "final_value": 165,
+                "roi_percentage": 65,
+                "roi_multiplier": "1.65x",
+                "icon": "🏅",
+                "color": "from-yellow-400 to-amber-500",
+                "tags": ["黄金", "避险", "保值"],
+                "what_happened": "黄金从$1,500涨至$2,500",
+                "lesson": "动荡时期避险资产保值增值",
+                "time_sensitivity": "低"
             },
         ]
         
         return opportunities
     
     @staticmethod
+    def get_categories() -> List[Dict]:
+        """Get all categories with counts"""
+        opps = GlobalVisionService.get_historical_opportunities()
+        
+        categories = {}
+        for opp in opps:
+            cat = opp['category']
+            if cat not in categories:
+                categories[cat] = {
+                    'name': cat,
+                    'count': 0,
+                    'subcategories': set()
+                }
+            categories[cat]['count'] += 1
+            if 'subcategory' in opp:
+                categories[cat]['subcategories'].add(opp['subcategory'])
+        
+        # Convert to list
+        result = []
+        for cat, data in categories.items():
+            result.append({
+                'name': cat,
+                'count': data['count'],
+                'subcategories': list(data['subcategories'])
+            })
+        
+        return result
+    
+    @staticmethod
     def calculate_total_potential(opportunities: List[Dict]) -> Dict:
-        """
-        Calculate what would have happened if AI bot caught key opportunities
-        Using a more realistic scenario: pick best 5 opportunities
-        """
-        # Sort by ROI and pick top 5
+        """Calculate what would have happened if AI bot caught key opportunities"""
+        # Sort by ROI and pick top 3
         sorted_by_roi = sorted(opportunities, key=lambda x: x['final_value'], reverse=True)
-        top_5 = sorted_by_roi[:5]
+        top_3 = sorted_by_roi[:3]
         
-        # Calculate average return
-        total_final = sum(opp['final_value'] for opp in top_5)
-        average_final = total_final / 5
-        
-        # More realistic: if you caught 3 out of top 5 opportunities
-        realistic_return = sum(opp['final_value'] for opp in top_5[:3]) / 3
+        realistic_return = sum(opp['final_value'] for opp in top_3) / 3
         
         return {
             "initial_investment": 100,
@@ -269,17 +415,18 @@ class GlobalVisionService:
             "top_opportunities": [
                 {
                     "title": opp['title'],
-                    "return": opp['final_value']
-                } for opp in top_5[:3]
+                    "return": opp['final_value'],
+                    "multiplier": opp['roi_multiplier']
+                } for opp in top_3
             ],
             "message": f"如果AI帮你抓住这3个机会,100U会变成{round(realistic_return, 2):,.0f}U"
         }
     
     @staticmethod
     def get_featured_opportunity() -> Dict:
-        """Get today's featured opportunity to showcase"""
+        """Get today's featured opportunity - Yesterday's chance!"""
         opportunities = GlobalVisionService.get_historical_opportunities()
-        # Return the most impressive one (ORDI)
-        return opportunities[3]  # ORDI铸造
+        # Return yesterday's opportunity (most recent)
+        return opportunities[0]
 
 global_vision_service = GlobalVisionService()
