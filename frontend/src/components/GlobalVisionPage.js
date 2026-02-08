@@ -18,6 +18,7 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   const [timeTravelOpportunity, setTimeTravelOpportunity] = useState(null);
 
   const hasAccess = userData?.user?.has_global_vision || false;
+  const [demoUsed, setDemoUsed] = useState(false); // Track if demo has been used
 
   useEffect(() => {
     loadData();
@@ -93,6 +94,13 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   const handleTimeTravel = (opp) => {
     setTimeTravelOpportunity(opp);
     setShowTimeTravel(true);
+  };
+
+  // Demo mode - allow one free time travel for non-unlocked users
+  const handleDemoTimeTravel = (opp) => {
+    setTimeTravelOpportunity(opp);
+    setShowTimeTravel(true);
+    setDemoUsed(true);
   };
 
   return (
