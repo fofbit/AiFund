@@ -329,6 +329,97 @@ async def mark_notification_read(notification_id: str):
     await notification_service.mark_as_read(notification_id)
     return {"success": True}
 
+# ============ GAMIFICATION APIs ============
+
+@api_router.get("/gamification/bot-avatars")
+async def get_bot_avatars():
+    """Get available bot avatars by gender"""
+    avatars = bot_customization_service.get_bot_avatars()
+    return {"avatars": avatars}
+
+@api_router.get("/gamification/vip-levels")
+async def get_vip_levels():
+    """Get all VIP levels"""
+    levels = vip_level_system.get_vip_levels()
+    return {"levels": levels}
+
+@api_router.get("/gamification/user-vip/{wallet_address}")
+async def get_user_vip_level(wallet_address: str):
+    """Get user's current VIP level"""
+    bot = await db.bots.find_one({"user_wallet": wallet_address.lower()}, {"_id": 0})
+    if not bot:
+        return {"error": "Bot not found"}
+    
+    vip_info = vip_level_system.get_user_vip_level(bot.get("total_profit", 0))
+    return {"vip_info": vip_info}
+
+@api_router.get("/gamification/store")
+async def get_virtual_store():
+    """Get virtual asset store items"""
+    items = virtual_asset_store.get_store_items()
+    rarity_colors = virtual_asset_store.get_rarity_colors()
+    return {"store": items, "rarity_colors": rarity_colors}
+
+@api_router.post("/gamification/buy-asset")
+async def buy_virtual_asset(req: dict):
+    """Purchase a virtual asset"""
+    wallet_address = req.get("wallet_address", "").lower()
+    asset_id = req.get("asset_id")
+    
+    bot = await db.bots.find_one({"user_wallet": wallet_address})
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    store = virtual_asset_store.get_store_items()
+    
+    asset_found = None
+    for category, data in store.items():
+        for item in data["items"]:
+            if item["id"] == asset_id:
+                asset_found = item
+                break
+        if asset_found:
+            break
+    
+    if not asset_found:
+        raise HTTPException(status_code=404, detail="Asset not found")
+    
+    if bot["total_profit"] < asset_found["price"]:
+        raise HTTPException(status_code=400, detail="Insufficient profit")
+    
+    if asset_id in bot.get("owned_assets", []):
+        raise HTTPException(status_code=400, detail="Already owned")
+    
+    new_profit = bot["total_profit"] - asset_found["price"]
+    
+    await db.bots.update_one(
+        {"user_wallet": wallet_address},
+        {
+            "$set": {"total_profit": new_profit},
+            "$push": {"owned_assets": asset_id}
+        }
+    )
+    
+    return {"success": True, "asset": asset_found, "new_profit": new_profit}
+
+@api_router.get("/gamification/user-assets/{wallet_address}")
+async def get_user_assets(wallet_address: str):
+    """Get user's owned virtual assets"""
+    bot = await db.bots.find_one({"user_wallet": wallet_address.lower()}, {"_id": 0})
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    owned_asset_ids = bot.get("owned_assets", [])
+    store = virtual_asset_store.get_store_items()
+    owned_assets = []
+    
+    for category, data in store.items():
+        for item in data["items"]:
+            if item["id"] in owned_asset_ids:
+                owned_assets.append({**item, "category": category})
+    
+    return {"owned_assets": owned_assets, "total_value": sum(a["price"] for a in owned_assets)}
+
 @api_router.get("/global-vision/opportunities")
 async def get_global_vision_opportunities():
     """Get historical investment opportunities"""
