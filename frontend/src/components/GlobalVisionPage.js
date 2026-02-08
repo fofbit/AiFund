@@ -353,6 +353,26 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
                         时光旅行
                       </button>
                     )}
+
+                    {/* Demo Time Travel Button - First card only, one-time use */}
+                    {!hasAccess && index === 0 && !demoUsed && (
+                      <button
+                        onClick={() => handleDemoTimeTravel(opp)}
+                        className="w-full mt-3 p-2 bg-gradient-to-r from-yellow-500/40 to-orange-500/40 hover:from-yellow-500/60 hover:to-orange-500/60 rounded-lg flex items-center justify-center text-white text-sm font-semibold transition-all border border-yellow-500/50 animate-pulse"
+                        data-testid="demo-time-travel-btn"
+                      >
+                        <Rocket className="w-4 h-4 mr-2" />
+                        🎁 免费试玩时光旅行
+                      </button>
+                    )}
+
+                    {/* Demo used indicator */}
+                    {!hasAccess && index === 0 && demoUsed && (
+                      <div className="w-full mt-3 p-2 bg-gray-600/30 rounded-lg flex items-center justify-center text-gray-400 text-sm border border-gray-500/30">
+                        <Rocket className="w-4 h-4 mr-2" />
+                        试玩已使用 · 解锁查看更多
+                      </div>
+                    )}
                   </div>
                 );
               })}
