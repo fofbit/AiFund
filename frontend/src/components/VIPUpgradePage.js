@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Crown, TrendingUp, Shield, Zap, DollarSign, X, Check, AlertCircle, Rocket, Percent, Wallet, ArrowRight } from 'lucide-react';
+import { Crown, TrendingUp, Shield, Zap, DollarSign, X, Check, AlertCircle, Rocket, Percent, Wallet, ArrowRight, Play, BarChart3 } from 'lucide-react';
+import VIPTradingCommands from './VIPTradingCommands';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -9,6 +10,7 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState('USDT');
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showTradingCommands, setShowTradingCommands] = useState(false);
 
   const isVIP = userData?.user?.tier === 'vip';
   const currentBalance = userData?.user?.balance_usd || 0;
@@ -34,6 +36,11 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
       setLoading(false);
     }
   };
+
+  // Show trading commands demo
+  if (showTradingCommands) {
+    return <VIPTradingCommands onClose={() => setShowTradingCommands(false)} />;
+  }
 
   return (
     <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
