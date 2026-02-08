@@ -16,8 +16,9 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('all');
   const [showTimeTravel, setShowTimeTravel] = useState(false);
   const [timeTravelOpportunity, setTimeTravelOpportunity] = useState(null);
+  const [localHasAccess, setLocalHasAccess] = useState(userData?.user?.has_global_vision || false);
 
-  const hasAccess = userData?.user?.has_global_vision || false;
+  const hasAccess = localHasAccess || userData?.user?.has_global_vision || false;
   const [demoUsed, setDemoUsed] = useState(false); // Track if demo has been used
 
   useEffect(() => {
