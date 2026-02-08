@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2 } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2, Sparkles, X, ArrowRight } from 'lucide-react';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
 import BotDashboard from './BotDashboard';
@@ -12,7 +12,7 @@ import ShareAchievementModal from './ShareAchievementModal';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
+const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMode, onExitDemo, onConnectReal }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showCreateBotModal, setShowCreateBotModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -23,10 +23,18 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
   const [botData, setBotData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [showDemoBanner, setShowDemoBanner] = useState(true);
+  const [showWelcomeGuide, setShowWelcomeGuide] = useState(false);
 
   useEffect(() => {
     if (userData?.has_bot) {
       loadBotData();
+    }
+    
+    // Show welcome guide for demo mode
+    if (isDemoMode && !localStorage.getItem('demo_guide_shown')) {
+      setShowWelcomeGuide(true);
+      localStorage.setItem('demo_guide_shown', 'true');
     }
     loadUnreadCount();
   }, [userData]);
