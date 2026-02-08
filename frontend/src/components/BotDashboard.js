@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock, MessageCircle } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock, MessageCircle, Crown, Share2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import BotChatInterface from './BotChatInterface';
 
-const BotDashboard = ({ botData, userData, onRefresh }) => {
+const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievement }) => {
   const { bot, recent_trades } = botData;
   const [profitData, setProfitData] = useState([]);
   const [showChat, setShowChat] = useState(false);
@@ -198,14 +198,60 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
 
       {/* VIP Upgrade CTA */}
       {userData?.user?.tier !== 'vip' && (
+        <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-2xl p-6 border-2 border-yellow-400 shadow-lg shadow-yellow-500/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center mb-2">
+                <Crown className="w-8 h-8 text-white mr-2" />
+                <h3 className="text-2xl font-bold text-white">升级到VIP</h3>
+              </div>
+              <p className="text-white/90 mb-1">解锁API自动交易，让Bot用真金白银赚钱！</p>
+              <div className="flex items-center space-x-4 text-sm text-white/80">
+                <span>✓ 10%利润分成</span>
+                <span>✓ 亏损不收费</span>
+                <span>✓ 资金安全</span>
+              </div>
+            </div>
+            <div className="flex flex-col items-end">
+              <div className="text-white text-5xl mb-2">🚀</div>
+              <button
+                onClick={onShowVIP}
+                className="px-6 py-3 bg-white hover:bg-gray-100 text-orange-600 font-bold rounded-lg transition-all shadow-lg"
+                data-testid="vip-upgrade-cta-btn"
+              >
+                立即升级 99U
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Share Achievement Button */}
+      {userData?.user?.tier === 'vip' && (
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 border border-purple-400">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2">升级到VIP</h3>
-              <p className="text-white/80 mb-1">解锁API自动交易，让Bot用真金白银赚钱！</p>
-              <p className="text-white/60 text-sm">充值 ≥$100 等值加密货币自动升级</p>
+              <h3 className="text-2xl font-bold text-white mb-2 flex items-center">
+                <Crown className="w-6 h-6 text-yellow-400 mr-2" />
+                您已是VIP会员
+              </h3>
+              <p className="text-white/80">分享您的成就，让朋友也来体验AI交易!</p>
             </div>
-            <div className="text-white text-5xl">🚀</div>
+            <button
+              onClick={() => onShareAchievement && onShareAchievement({
+                type: 'profit_milestone',
+                botName: bot.name,
+                botEmoji: botEmoji,
+                botLevel: bot.level,
+                amount: bot.total_profit,
+                roi: ((bot.total_profit / 10000) * 100).toFixed(2)
+              })}
+              className="px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg transition-all flex items-center"
+              data-testid="share-achievement-btn"
+            >
+              <Share2 className="w-5 h-5 mr-2" />
+              分享成就
+            </button>
           </div>
         </div>
       )}
