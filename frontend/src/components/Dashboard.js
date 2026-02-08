@@ -78,7 +78,11 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Bot className="w-8 h-8 text-purple-400 mr-3" />
-              <h1 className="text-2xl font-bold text-white">
+              <h1 
+                className="text-2xl font-bold text-white cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() => window.location.reload()}
+                title="返回首页"
+              >
                 AI<span className="text-purple-400">fund</span>
               </h1>
             </div>
