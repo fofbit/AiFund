@@ -107,6 +107,83 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Demo Mode Banner */}
+      {isDemoMode && showDemoBanner && (
+        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-4 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center">
+              <Sparkles className="w-5 h-5 mr-2 animate-pulse" />
+              <span className="font-semibold">演示模式</span>
+              <span className="mx-2">·</span>
+              <span className="text-cyan-100">您正在体验完整功能，所有数据为模拟数据</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={onConnectReal}
+                className="px-4 py-1.5 bg-white text-cyan-600 font-semibold rounded-lg hover:bg-cyan-50 transition-all flex items-center"
+              >
+                连接真实钱包
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </button>
+              <button
+                onClick={() => setShowDemoBanner(false)}
+                className="p-1 hover:bg-white/20 rounded transition-all"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Welcome Guide Modal for Demo */}
+      {showWelcomeGuide && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-lg w-full p-8 border border-purple-500/50 shadow-2xl">
+            <div className="text-center mb-6">
+              <div className="text-6xl mb-4">🎉</div>
+              <h2 className="text-3xl font-bold text-white mb-2">欢迎体验 AIFund!</h2>
+              <p className="text-gray-300">我们已为您创建了一个演示账户</p>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div className="flex items-start bg-white/5 rounded-lg p-4">
+                <span className="text-2xl mr-3">🤖</span>
+                <div>
+                  <h4 className="text-white font-semibold">您的专属Bot</h4>
+                  <p className="text-gray-400 text-sm">「体验Bot」已就绪，正在24/7为您模拟交易</p>
+                </div>
+              </div>
+              <div className="flex items-start bg-white/5 rounded-lg p-4">
+                <span className="text-2xl mr-3">💰</span>
+                <div>
+                  <h4 className="text-white font-semibold">虚拟资金</h4>
+                  <p className="text-gray-400 text-sm">$10,000虚拟资金，观察AI如何帮您赚钱</p>
+                </div>
+              </div>
+              <div className="flex items-start bg-white/5 rounded-lg p-4">
+                <span className="text-2xl mr-3">🌍</span>
+                <div>
+                  <h4 className="text-white font-semibold">全球视野</h4>
+                  <p className="text-gray-400 text-sm">探索历史投资机会，体验"时光旅行"</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowWelcomeGuide(false)}
+              className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg rounded-xl hover:opacity-90 transition-all"
+            >
+              开始探索 🚀
+            </button>
+
+            <p className="text-center text-gray-500 text-sm mt-4">
+              随时可以连接真实钱包，开启真正的AI投资之旅
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-black/30 backdrop-blur-lg border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -120,6 +197,11 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               >
                 AI<span className="text-purple-400">fund</span>
               </h1>
+              {isDemoMode && (
+                <span className="ml-3 px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/30">
+                  演示模式
+                </span>
+              )}
             </div>
 
             <div className="flex items-center space-x-4">
@@ -140,7 +222,9 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               <div className="text-right">
                 <div className="flex items-center">
                   <Wallet className="w-4 h-4 text-gray-400 mr-2" />
-                  <span className="text-white font-mono">{formatAddress(walletAddress)}</span>
+                  <span className="text-white font-mono">
+                    {isDemoMode ? '演示账户' : formatAddress(walletAddress)}
+                  </span>
                 </div>
                 <div className="flex items-center mt-1">
                   <span className={`text-xs px-2 py-1 rounded-full ${tierBadge.color} text-white`}>
@@ -153,9 +237,9 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               </div>
 
               <button
-                onClick={onDisconnect}
+                onClick={isDemoMode ? onExitDemo : onDisconnect}
                 className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
-                title="断开连接"
+                title={isDemoMode ? "退出演示" : "断开连接"}
               >
                 <LogOut className="w-5 h-5" />
               </button>
