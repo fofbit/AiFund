@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock, MessageCircle } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import BotChatInterface from './BotChatInterface';
 
 const BotDashboard = ({ botData, userData, onRefresh }) => {
   const { bot, recent_trades } = botData;
   const [profitData, setProfitData] = useState([]);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     // Generate mock profit data for chart
