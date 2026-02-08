@@ -59,7 +59,7 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 mb-4">
           <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
             <div className="text-white/70 text-sm mb-1">虚拟余额</div>
             <div className="text-2xl font-bold text-white">
@@ -84,6 +84,15 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
             <div className="text-2xl font-bold text-white">{bot.win_rate.toFixed(1)}%</div>
           </div>
         </div>
+
+        {/* Chat Button */}
+        <button
+          onClick={() => setShowChat(true)}
+          className="w-full p-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 rounded-lg flex items-center justify-center text-white font-semibold transition-all"
+        >
+          <MessageCircle className="w-5 h-5 mr-2" />
+          查看交易对话与复盘
+        </button>
       </div>
 
       {/* Abilities Section */}
