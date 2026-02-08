@@ -224,6 +224,11 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
             botData={botData} 
             userData={userData}
             onRefresh={loadBotData}
+            onShowVIP={() => setShowVIPUpgrade(true)}
+            onShareAchievement={(achievement) => {
+              setShareAchievement(achievement);
+              setShowShareModal(true);
+            }}
           />
         )}
 
@@ -236,7 +241,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
 
         {/* Quick Actions */}
         {userData?.user?.tier !== 'inactive' && (
-          <div className="mt-8 grid md:grid-cols-2 gap-4">
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
             <button
               onClick={() => setShowDepositModal(true)}
               className="p-6 bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-xl border border-white/20 hover:border-purple-400 transition-all text-left"
@@ -245,6 +250,18 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
               <h4 className="text-lg font-semibold text-white mb-1">充值</h4>
               <p className="text-gray-400 text-sm">增加余额或升级到VIP</p>
             </button>
+
+            {userData?.user?.tier !== 'vip' && (
+              <button
+                onClick={() => setShowVIPUpgrade(true)}
+                className="p-6 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 backdrop-blur-lg rounded-xl border border-yellow-500/50 hover:border-yellow-400 transition-all text-left"
+                data-testid="vip-upgrade-quick-btn"
+              >
+                <Crown className="w-8 h-8 text-yellow-400 mb-2" />
+                <h4 className="text-lg font-semibold text-white mb-1">升级VIP</h4>
+                <p className="text-yellow-200 text-sm">10%利润分成 · 真金白银</p>
+              </button>
+            )}
 
             <button
               onClick={onRefresh}
