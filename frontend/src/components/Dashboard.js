@@ -339,7 +339,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
 
         {/* Quick Actions */}
         {userData?.user?.tier !== 'inactive' && (
-          <div className="mt-8 grid md:grid-cols-4 gap-4">
+          <div className="mt-8 grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <button
               onClick={() => setShowDepositModal(true)}
               className="p-6 bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-xl border border-white/20 hover:border-purple-400 transition-all text-left"
@@ -361,6 +361,18 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               </button>
             )}
 
+            {userData?.user?.tier === 'vip' && (
+              <button
+                onClick={() => setShowApiSettings(true)}
+                className="p-6 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 backdrop-blur-lg rounded-xl border border-yellow-500/50 hover:border-yellow-400 transition-all text-left"
+                data-testid="api-settings-quick-btn"
+              >
+                <Crown className="w-8 h-8 text-yellow-400 mb-2" />
+                <h4 className="text-lg font-semibold text-white mb-1">API设置</h4>
+                <p className="text-yellow-200 text-sm">连接交易所自动交易</p>
+              </button>
+            )}
+
             <button
               onClick={() => setShowBacktest(true)}
               className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 backdrop-blur-lg rounded-xl border border-cyan-500/50 hover:border-cyan-400 transition-all text-left"
@@ -370,6 +382,28 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               <h4 className="text-lg font-semibold text-white mb-1">模拟回测</h4>
               <p className="text-cyan-200 text-sm">验证Bot历史表现</p>
             </button>
+
+            <button
+              onClick={() => setShowGlobalVision(true)}
+              className="p-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 backdrop-blur-lg rounded-xl border border-purple-500/50 hover:border-purple-400 transition-all text-left"
+              data-testid="global-vision-quick-btn"
+            >
+              <Globe className="w-8 h-8 text-purple-400 mb-2" />
+              <h4 className="text-lg font-semibold text-white mb-1">全球视野</h4>
+              <p className="text-purple-200 text-sm">历史暴富机会探索</p>
+            </button>
+
+            {botData && (
+              <button
+                onClick={() => setShowBotShowcase(true)}
+                className="p-6 bg-gradient-to-br from-pink-500/20 to-orange-500/20 hover:from-pink-500/30 hover:to-orange-500/30 backdrop-blur-lg rounded-xl border border-pink-500/50 hover:border-pink-400 transition-all text-left"
+                data-testid="bot-showcase-quick-btn"
+              >
+                <Sparkles className="w-8 h-8 text-pink-400 mb-2" />
+                <h4 className="text-lg font-semibold text-white mb-1">Bot成长</h4>
+                <p className="text-pink-200 text-sm">等级 · 成就 · 排行</p>
+              </button>
+            )}
 
             <button
               onClick={onRefresh}
