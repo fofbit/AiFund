@@ -179,7 +179,7 @@ const LandingPage = ({ onConnect, loading }) => {
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-white mb-2">VIP版</h3>
                 <div className="text-5xl font-bold text-white mb-4">
-                  ≥100 <span className="text-2xl">U</span>
+                  99 <span className="text-2xl">U</span>
                 </div>
                 <p className="text-white/90 mb-6">接入真实交易</p>
                 <ul className="text-left space-y-3 mb-8">
