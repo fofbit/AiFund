@@ -1,39 +1,112 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Play, Pause, SkipForward, Rocket, TrendingUp, Calendar, DollarSign } from 'lucide-react';
+import axios from 'axios';
+import { X, Play, Pause, SkipForward, Rocket, TrendingUp, Calendar, DollarSign, FastForward, Rewind } from 'lucide-react';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
-  const [phase, setPhase] = useState('intro'); // intro, traveling, arrived, result
+  const [phase, setPhase] = useState('loading'); // loading, intro, traveling, arrived, result
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [speed, setSpeed] = useState(1);
+  const [priceData, setPriceData] = useState([]);
+  const [milestones, setMilestones] = useState([]);
+  const [assetInfo, setAssetInfo] = useState(null);
+  const [currentMilestone, setCurrentMilestone] = useState(null);
+  const [currentPrice, setCurrentPrice] = useState(0);
+  const [currentDate, setCurrentDate] = useState('');
+  const [investmentValue, setInvestmentValue] = useState(100);
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
 
-  // Price chart data simulation
-  const generatePriceData = () => {
+  // Map opportunity to asset ID
+  const getAssetId = () => {
+    const title = opportunity?.title?.toLowerCase() || '';
+    if (title.includes('btc') || title.includes('比特币')) return 'btc_2015';
+    if (title.includes('eth') || title.includes('以太坊')) return 'eth_2016';
+    if (title.includes('pepe')) return 'pepe_2023';
+    if (title.includes('sol') || title.includes('solana')) return 'sol_2020';
+    if (title.includes('nvda') || title.includes('英伟达')) return 'nvda_2019';
+    if (title.includes('tsla') || title.includes('特斯拉')) return 'tsla_2020';
+    return 'btc_2015'; // Default to BTC
+  };
+
+  useEffect(() => {
+    loadHistoricalData();
+  }, [opportunity]);
+
+  const loadHistoricalData = async () => {
+    try {
+      const assetId = getAssetId();
+      const response = await axios.get(`${API}/historical/price-curve/${assetId}?points=300`);
+      
+      setPriceData(response.data.curve);
+      setMilestones(response.data.milestones);
+      setAssetInfo(response.data.asset);
+      setPhase('intro');
+      
+      // Start animation after a delay
+      setTimeout(() => setPhase('traveling'), 2000);
+    } catch (error) {
+      console.error('Error loading historical data:', error);
+      // Fallback to generated data
+      generateFallbackData();
+    }
+  };
+
+  const generateFallbackData = () => {
     const points = [];
     const startPrice = opportunity.initial_investment;
     const endPrice = opportunity.final_value;
-    const steps = 100;
+    const steps = 300;
     
     for (let i = 0; i <= steps; i++) {
-      const progress = i / steps;
-      // Create a realistic price curve with some volatility
-      const basePrice = startPrice + (endPrice - startPrice) * Math.pow(progress, 0.7);
+      const prog = i / steps;
+      const basePrice = startPrice + (endPrice - startPrice) * Math.pow(prog, 0.7);
       const volatility = (Math.random() - 0.5) * basePrice * 0.1;
       points.push({
         x: i,
-        y: Math.max(startPrice * 0.5, basePrice + volatility)
+        price: Math.max(startPrice * 0.5, basePrice + volatility),
+        progress: prog
       });
     }
-    return points;
+    setPriceData(points);
+    setPhase('intro');
+    setTimeout(() => setPhase('traveling'), 2000);
   };
 
-  const [priceData] = useState(generatePriceData());
+  // Update current values during animation
+  useEffect(() => {
+    if (priceData.length > 0 && phase === 'traveling') {
+      const index = Math.min(Math.floor((progress / 100) * (priceData.length - 1)), priceData.length - 1);
+      const point = priceData[index];
+      if (point) {
+        setCurrentPrice(point.price);
+        setCurrentDate(point.date || '');
+        
+        // Calculate investment value
+        const startPrice = priceData[0]?.price || 1;
+        const multiplier = point.price / startPrice;
+        setInvestmentValue(100 * multiplier);
+        
+        // Find current milestone
+        if (milestones.length > 0) {
+          const milestone = milestones.find((m, i) => {
+            const nextM = milestones[i + 1];
+            if (!nextM) return true;
+            return point.date >= m.date && point.date < nextM.date;
+          });
+          setCurrentMilestone(milestone);
+        }
+      }
+    }
+  }, [progress, priceData, milestones, phase]);
 
   // Draw the animated canvas
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || priceData.length === 0) return;
 
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
@@ -51,8 +124,8 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
 
       // Draw stars
       ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 50; i++) {
-        const x = (i * 47) % width;
+      for (let i = 0; i < 80; i++) {
+        const x = (i * 47 + Date.now() / 50) % width;
         const y = (i * 31) % height;
         const size = (i % 3) + 1;
         const twinkle = Math.sin(Date.now() / 500 + i) * 0.5 + 0.5;
@@ -63,23 +136,32 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
       }
       ctx.globalAlpha = 1;
 
+      // Chart dimensions
+      const chartStartX = 100;
+      const chartEndX = width - 100;
+      const chartHeight = height * 0.5;
+      const chartTop = height * 0.25;
+
+      // Calculate price range
+      const prices = priceData.map(p => p.price);
+      const maxPrice = Math.max(...prices);
+      const minPrice = Math.min(...prices);
+      const priceRange = maxPrice - minPrice || 1;
+
       // Draw time portal at start
       if (phase === 'intro' || phase === 'traveling') {
-        const portalX = 80;
+        const portalX = 60;
         const portalY = height / 2;
-        const portalRadius = 40;
+        const portalRadius = 50 + Math.sin(Date.now() / 200) * 5;
         
-        const portalGradient = ctx.createRadialGradient(
-          portalX, portalY, 0,
-          portalX, portalY, portalRadius
-        );
+        const portalGradient = ctx.createRadialGradient(portalX, portalY, 0, portalX, portalY, portalRadius);
         portalGradient.addColorStop(0, '#8b5cf6');
         portalGradient.addColorStop(0.5, '#6366f1');
         portalGradient.addColorStop(1, 'transparent');
         
         ctx.fillStyle = portalGradient;
         ctx.beginPath();
-        ctx.arc(portalX, portalY, portalRadius + Math.sin(Date.now() / 200) * 5, 0, Math.PI * 2);
+        ctx.arc(portalX, portalY, portalRadius, 0, Math.PI * 2);
         ctx.fill();
 
         // Portal rings
@@ -88,40 +170,53 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
         for (let i = 0; i < 3; i++) {
           ctx.globalAlpha = 0.5 - i * 0.15;
           ctx.beginPath();
-          ctx.arc(portalX, portalY, portalRadius + i * 15 + Math.sin(Date.now() / 300 + i) * 5, 0, Math.PI * 2);
+          ctx.arc(portalX, portalY, portalRadius + i * 20, 0, Math.PI * 2);
           ctx.stroke();
         }
         ctx.globalAlpha = 1;
       }
 
-      // Draw price chart
-      const chartStartX = 150;
-      const chartEndX = width - 80;
-      const chartHeight = height * 0.6;
-      const chartTop = height * 0.2;
-
-      // Chart area
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.fillRect(chartStartX, chartTop, chartEndX - chartStartX, chartHeight);
-
-      // Price line
-      const maxPrice = Math.max(...priceData.map(p => p.y));
-      const minPrice = Math.min(...priceData.map(p => p.y));
-      const priceRange = maxPrice - minPrice;
-
-      const visiblePoints = Math.min(progress, priceData.length);
+      // Draw price chart with glow effect
+      const visibleProgress = Math.min(progress / 100, 1);
+      const visiblePoints = Math.floor(visibleProgress * priceData.length);
       
       if (visiblePoints > 1) {
+        // Glow effect
+        ctx.shadowColor = assetInfo?.color || '#10b981';
+        ctx.shadowBlur = 20;
+        
+        // Draw filled area
         ctx.beginPath();
-        ctx.strokeStyle = '#10b981';
-        ctx.lineWidth = 3;
-        ctx.shadowColor = '#10b981';
-        ctx.shadowBlur = 10;
-
+        ctx.moveTo(chartStartX, chartTop + chartHeight);
+        
         for (let i = 0; i < visiblePoints; i++) {
-          const x = chartStartX + (priceData[i].x / 100) * (chartEndX - chartStartX);
-          const y = chartTop + chartHeight - ((priceData[i].y - minPrice) / priceRange) * chartHeight;
-          
+          const x = chartStartX + (i / priceData.length) * (chartEndX - chartStartX);
+          const y = chartTop + chartHeight - ((priceData[i].price - minPrice) / priceRange) * chartHeight;
+          if (i === 0) {
+            ctx.lineTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        
+        const lastX = chartStartX + ((visiblePoints - 1) / priceData.length) * (chartEndX - chartStartX);
+        ctx.lineTo(lastX, chartTop + chartHeight);
+        ctx.closePath();
+        
+        const fillGradient = ctx.createLinearGradient(0, chartTop, 0, chartTop + chartHeight);
+        fillGradient.addColorStop(0, (assetInfo?.color || '#10b981') + '40');
+        fillGradient.addColorStop(1, (assetInfo?.color || '#10b981') + '00');
+        ctx.fillStyle = fillGradient;
+        ctx.fill();
+
+        // Draw line
+        ctx.beginPath();
+        ctx.strokeStyle = assetInfo?.color || '#10b981';
+        ctx.lineWidth = 3;
+        
+        for (let i = 0; i < visiblePoints; i++) {
+          const x = chartStartX + (i / priceData.length) * (chartEndX - chartStartX);
+          const y = chartTop + chartHeight - ((priceData[i].price - minPrice) / priceRange) * chartHeight;
           if (i === 0) {
             ctx.moveTo(x, y);
           } else {
@@ -130,107 +225,102 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
         }
         ctx.stroke();
         ctx.shadowBlur = 0;
-
-        // Fill area under line
-        ctx.lineTo(chartStartX + ((visiblePoints - 1) / 100) * (chartEndX - chartStartX), chartTop + chartHeight);
-        ctx.lineTo(chartStartX, chartTop + chartHeight);
-        ctx.closePath();
-        
-        const fillGradient = ctx.createLinearGradient(0, chartTop, 0, chartTop + chartHeight);
-        fillGradient.addColorStop(0, 'rgba(16, 185, 129, 0.3)');
-        fillGradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
-        ctx.fillStyle = fillGradient;
-        ctx.fill();
       }
 
       // Draw UFO with user avatar
       if (phase === 'traveling' || phase === 'arrived') {
         const ufoProgress = Math.min(progress / 100, 1);
         const ufoX = chartStartX + ufoProgress * (chartEndX - chartStartX);
-        const priceIndex = Math.min(Math.floor(ufoProgress * 100), 99);
-        const ufoY = chartTop + chartHeight - ((priceData[priceIndex].y - minPrice) / priceRange) * chartHeight - 50;
+        const priceIndex = Math.min(Math.floor(ufoProgress * priceData.length), priceData.length - 1);
+        const currentP = priceData[priceIndex]?.price || 0;
+        const ufoY = chartTop + chartHeight - ((currentP - minPrice) / priceRange) * chartHeight - 60;
 
-        // UFO body
+        // UFO body with glow
+        ctx.shadowColor = '#6366f1';
+        ctx.shadowBlur = 30;
         ctx.fillStyle = '#6366f1';
         ctx.beginPath();
-        ctx.ellipse(ufoX, ufoY, 35, 12, 0, 0, Math.PI * 2);
+        ctx.ellipse(ufoX, ufoY, 40, 15, 0, 0, Math.PI * 2);
         ctx.fill();
+        ctx.shadowBlur = 0;
 
         // UFO dome
         ctx.fillStyle = '#8b5cf6';
         ctx.beginPath();
-        ctx.ellipse(ufoX, ufoY - 8, 20, 15, 0, Math.PI, 0);
+        ctx.ellipse(ufoX, ufoY - 10, 25, 18, 0, Math.PI, 0);
         ctx.fill();
 
         // UFO lights
         ctx.fillStyle = '#fbbf24';
         for (let i = 0; i < 5; i++) {
-          const lightX = ufoX - 20 + i * 10;
-          const blink = Math.sin(Date.now() / 100 + i) > 0;
+          const lightX = ufoX - 24 + i * 12;
+          const blink = Math.sin(Date.now() / 80 + i) > 0;
           if (blink) {
             ctx.beginPath();
-            ctx.arc(lightX, ufoY + 5, 3, 0, Math.PI * 2);
+            ctx.arc(lightX, ufoY + 8, 4, 0, Math.PI * 2);
             ctx.fill();
           }
         }
 
         // Beam
-        ctx.fillStyle = 'rgba(251, 191, 36, 0.2)';
+        ctx.fillStyle = 'rgba(251, 191, 36, 0.15)';
         ctx.beginPath();
-        ctx.moveTo(ufoX - 25, ufoY + 12);
-        ctx.lineTo(ufoX + 25, ufoY + 12);
-        ctx.lineTo(ufoX + 15, ufoY + 60);
-        ctx.lineTo(ufoX - 15, ufoY + 60);
+        ctx.moveTo(ufoX - 30, ufoY + 15);
+        ctx.lineTo(ufoX + 30, ufoY + 15);
+        ctx.lineTo(ufoX + 20, ufoY + 80);
+        ctx.lineTo(ufoX - 20, ufoY + 80);
         ctx.closePath();
         ctx.fill();
 
         // User avatar in dome
-        ctx.font = '20px Arial';
+        ctx.font = '24px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(userAvatar || '👤', ufoX, ufoY - 5);
 
         // Trail particles
-        for (let i = 0; i < 10; i++) {
-          const trailX = ufoX - 20 - i * 8 - Math.random() * 5;
-          const trailY = ufoY + Math.sin(Date.now() / 100 + i) * 10;
-          ctx.fillStyle = `rgba(139, 92, 246, ${0.8 - i * 0.08})`;
+        for (let i = 0; i < 15; i++) {
+          const trailX = ufoX - 25 - i * 10 - Math.random() * 5;
+          const trailY = ufoY + Math.sin(Date.now() / 100 + i) * 15;
+          ctx.fillStyle = `rgba(139, 92, 246, ${0.8 - i * 0.05})`;
           ctx.beginPath();
-          ctx.arc(trailX, trailY, 3 - i * 0.2, 0, Math.PI * 2);
+          ctx.arc(trailX, trailY, 4 - i * 0.2, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
       // Draw target portal at end
       if (phase === 'traveling' || phase === 'arrived') {
-        const endPortalX = chartEndX + 40;
+        const endPortalX = width - 50;
         const endPortalY = height / 2;
-        const endPortalRadius = phase === 'arrived' ? 60 : 40;
+        const endPortalRadius = phase === 'arrived' ? 70 : 50;
         
-        const endGradient = ctx.createRadialGradient(
-          endPortalX, endPortalY, 0,
-          endPortalX, endPortalY, endPortalRadius
-        );
+        const endGradient = ctx.createRadialGradient(endPortalX, endPortalY, 0, endPortalX, endPortalY, endPortalRadius);
         endGradient.addColorStop(0, '#fbbf24');
         endGradient.addColorStop(0.5, '#f59e0b');
         endGradient.addColorStop(1, 'transparent');
         
         ctx.fillStyle = endGradient;
         ctx.beginPath();
-        ctx.arc(endPortalX, endPortalY, endPortalRadius + Math.sin(Date.now() / 150) * 8, 0, Math.PI * 2);
+        ctx.arc(endPortalX, endPortalY, endPortalRadius + Math.sin(Date.now() / 150) * 10, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Date labels
-      ctx.fillStyle = '#9ca3af';
-      ctx.font = '12px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(opportunity.date, chartStartX, height - 20);
-      ctx.fillText('现在', chartEndX, height - 20);
-
-      // Price labels
-      ctx.textAlign = 'right';
-      ctx.fillText(`$${opportunity.initial_investment}`, chartStartX - 10, chartTop + chartHeight);
-      ctx.fillText(`$${opportunity.final_value.toLocaleString()}`, chartStartX - 10, chartTop + 20);
+      // Draw milestone markers
+      if (milestones.length > 0 && priceData.length > 0) {
+        milestones.forEach((milestone, i) => {
+          const milestoneDate = milestone.date;
+          const dataIndex = priceData.findIndex(p => p.date >= milestoneDate);
+          if (dataIndex > 0 && dataIndex < visiblePoints) {
+            const x = chartStartX + (dataIndex / priceData.length) * (chartEndX - chartStartX);
+            const y = chartTop + chartHeight - ((priceData[dataIndex].price - minPrice) / priceRange) * chartHeight;
+            
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+      }
 
       animationRef.current = requestAnimationFrame(draw);
     };
@@ -242,71 +332,88 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [phase, progress, priceData, opportunity, userAvatar]);
+  }, [phase, progress, priceData, milestones, assetInfo, userAvatar]);
 
   // Animation progression
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || phase !== 'traveling') return;
 
     const timer = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 100) {
+        const newProgress = prev + (0.5 * speed);
+        if (newProgress >= 100) {
           setPhase('result');
           return 100;
         }
-        
-        if (prev === 0 && phase === 'intro') {
-          setPhase('traveling');
-        }
-        
-        if (prev >= 95) {
-          setPhase('arrived');
-        }
-        
-        return prev + 1;
+        return newProgress;
       });
-    }, 80);
+    }, 50);
 
     return () => clearInterval(timer);
-  }, [isPaused, phase]);
+  }, [isPaused, phase, speed]);
 
   const skipToEnd = () => {
     setProgress(100);
     setPhase('result');
   };
 
+  const formatPrice = (price) => {
+    if (price < 0.0001) return price.toExponential(2);
+    if (price < 1) return price.toFixed(6);
+    if (price < 100) return price.toFixed(2);
+    return price.toLocaleString();
+  };
+
+  if (phase === 'loading') {
+    return (
+      <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-50">
+        <div className="text-center">
+          <div className="w-20 h-20 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white text-xl">加载历史数据...</p>
+          <p className="text-purple-400 mt-2">准备穿越时空</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4">
-      <div className="max-w-4xl w-full">
+      <div className="max-w-5xl w-full">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <Rocket className="w-6 h-6 text-purple-400 mr-2" />
+            <Rocket className="w-6 h-6 text-purple-400 mr-2 animate-pulse" />
             <h2 className="text-2xl font-bold text-white">时光旅行</h2>
+            <span className="ml-3 px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full">
+              {assetInfo?.name || opportunity?.title}
+            </span>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        {/* Opportunity Info */}
-        <div className="bg-white/10 rounded-xl p-4 mb-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="text-4xl mr-4">{opportunity.icon}</div>
-            <div>
-              <h3 className="text-xl font-bold text-white">{opportunity.title}</h3>
-              <div className="flex items-center text-gray-400 text-sm">
-                <Calendar className="w-4 h-4 mr-1" />
-                {opportunity.date}
-              </div>
-            </div>
+        {/* Current Stats */}
+        <div className="bg-white/10 rounded-xl p-4 mb-4 grid grid-cols-4 gap-4">
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">当前日期</p>
+            <p className="text-white font-bold text-lg">{currentDate || '---'}</p>
           </div>
-          <div className="text-right">
-            <div className="text-sm text-gray-400">如果那时投资100U</div>
-            <div className="text-3xl font-bold text-green-400">
-              ${opportunity.final_value.toLocaleString()}
-            </div>
-            <div className="text-sm text-green-300">{opportunity.roi_multiplier}</div>
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">当前价格</p>
+            <p className="text-white font-bold text-lg">${formatPrice(currentPrice)}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">100U现值</p>
+            <p className={`font-bold text-lg ${investmentValue >= 100 ? 'text-green-400' : 'text-red-400'}`}>
+              ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 2})}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">当前事件</p>
+            <p className="text-yellow-400 font-bold text-sm truncate">
+              {currentMilestone?.event || '---'}
+            </p>
           </div>
         </div>
 
@@ -314,14 +421,14 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
         <div className="bg-slate-900 rounded-2xl overflow-hidden border border-purple-500/30">
           <canvas 
             ref={canvasRef} 
-            width={800} 
-            height={400}
+            width={900} 
+            height={450}
             className="w-full"
           />
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-between mt-4 bg-white/5 rounded-xl p-4">
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setIsPaused(!isPaused)}
@@ -335,20 +442,40 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
             >
               <SkipForward className="w-5 h-5" />
             </button>
+            
+            {/* Speed Control */}
+            <div className="flex items-center ml-4 space-x-2">
+              <span className="text-gray-400 text-sm">速度:</span>
+              {[1, 2, 4].map(s => (
+                <button
+                  key={s}
+                  onClick={() => setSpeed(s)}
+                  className={`px-3 py-1 rounded text-sm transition-all ${
+                    speed === s ? 'bg-purple-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  }`}
+                >
+                  {s}x
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="flex-1 mx-4">
+          <div className="flex-1 mx-6">
             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all"
                 style={{ width: `${progress}%` }}
               />
             </div>
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <span>{assetInfo?.start_date || opportunity?.date}</span>
+              <span>现在</span>
+            </div>
           </div>
 
-          <div className="text-white font-mono">
-            {progress}%
+          <div className="text-white font-mono text-lg">
+            {progress.toFixed(0)}%
           </div>
         </div>
 
@@ -361,9 +488,9 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
                 时光旅行完成!
               </h3>
               <p className="text-green-300 text-xl mb-4">
-                如果你在 {opportunity.date} 投资 100U
+                从 {assetInfo?.start_date || opportunity?.date} 到 现在
               </p>
-              <div className="flex items-center justify-center space-x-8">
+              <div className="flex items-center justify-center space-x-8 mb-6">
                 <div>
                   <p className="text-gray-400">初始投资</p>
                   <p className="text-2xl font-bold text-white">$100</p>
@@ -372,12 +499,12 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
                 <div>
                   <p className="text-gray-400">现在价值</p>
                   <p className="text-4xl font-bold text-green-400">
-                    ${opportunity.final_value.toLocaleString()}
+                    ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 0})}
                   </p>
                 </div>
               </div>
-              <p className="text-yellow-300 mt-4 text-lg">
-                💡 {opportunity.lesson}
+              <p className="text-yellow-300 text-lg">
+                💡 这就是为什么你需要AI帮你发现下一个暴富机会！
               </p>
             </div>
           </div>
