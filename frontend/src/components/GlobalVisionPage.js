@@ -424,8 +424,9 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
           onClose={() => setShowUnlockModal(false)}
           onSuccess={() => {
             setShowUnlockModal(false);
+            setLocalHasAccess(true); // Update local state immediately
             loadData();
-            if (onUnlock) onUnlock();
+            if (onUnlock) onUnlock(); // Notify parent to refresh userData
           }}
         />
       )}
