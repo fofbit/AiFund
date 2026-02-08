@@ -620,6 +620,41 @@ async def get_milestones(asset_id: str):
     milestones = historical_price_service.get_milestones_for_animation(asset_id)
     return {"milestones": milestones}
 
+# ============ VIP API SETTINGS ============
+
+@api_router.get("/vip/api-settings/{wallet_address}")
+async def get_vip_api_settings(wallet_address: str):
+    """Get saved API settings for VIP user"""
+    wallet_address = wallet_address.lower()
+    settings = await db.api_settings.find_one({"wallet_address": wallet_address}, {"_id": 0})
+    return {"settings": settings.get("markets", {}) if settings else {}}
+
+@api_router.post("/vip/api-settings")
+async def save_vip_api_settings(req: dict):
+    """Save API settings for a market"""
+    wallet_address = req.get("wallet_address", "").lower()
+    market_id = req.get("market_id")
+    api_key = req.get("api_key", "")
+    
+    if not wallet_address or not market_id or not api_key:
+        raise HTTPException(status_code=400, detail="Missing required fields")
+    
+    # Store (in production, encrypt api_key/secret)
+    await db.api_settings.update_one(
+        {"wallet_address": wallet_address},
+        {"$set": {
+            f"markets.{market_id}": {
+                "connected": True,
+                "exchange": market_id,
+                "connected_at": datetime.now(timezone.utc).isoformat()
+            }
+        }},
+        upsert=True
+    )
+    
+    logger.info(f"API settings saved for {wallet_address} - market: {market_id}")
+    return {"success": True, "market_id": market_id}
+
 # Include router
 app.include_router(api_router)
 
