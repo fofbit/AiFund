@@ -481,6 +481,27 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
           onClose={() => setShowBacktest(false)}
         />
       )}
+
+      {showApiSettings && (
+        <VIPApiSettings
+          walletAddress={walletAddress}
+          userData={userData}
+          onClose={() => setShowApiSettings(false)}
+        />
+      )}
+
+      {showBotShowcase && botData && (
+        <BotShowcase
+          botData={botData}
+          userData={userData}
+          onClose={() => setShowBotShowcase(false)}
+          onShareAchievement={(achievement) => {
+            setShareAchievement(achievement);
+            setShowShareModal(true);
+            setShowBotShowcase(false);
+          }}
+        />
+      )}
     </div>
   );
 };
