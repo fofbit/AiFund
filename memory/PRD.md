@@ -1,112 +1,106 @@
 # AIFund.com - Product Requirements Document
 
-## Original Problem Statement
-Build a world-class, low-maintenance website on the domain `AIfund.com`. The vision is a "Bot-as-a-Service" crypto AI trading platform with gamification elements:
-1. **Activation (1 USD):** Users connect a crypto wallet and pay 1U to "adopt" a personalized AI trading bot with $10,000 virtual funds.
-2. **"Global Vision" (9.9 USD):** Premium feature showing historical "what-if" investment scenarios across 10年/5年/3年/1年/昨天.
-3. **VIP (99 USD):** Users can connect real exchange/broker APIs for live trading across crypto, stocks, futures, options, forex, prediction markets.
-4. **Revenue Model:** **10% profit share** from VIP users' bot trades.
+## Overview
+AIFund.com - AI赚钱给大家分 - Bot-as-a-Service crypto/stock AI trading platform
 
-## Core Features
+**Pricing:**
+- 1U: Basic (simulated trading)
+- 9.9U: Global Vision unlock
+- 99U: VIP (real trading via API, 10% profit share)
+
+## Core Features (ALL IMPLEMENTED)
 
 ### 1. ✅ Demo Mode
-- One-click demo experience (no wallet required)
-- Auto-creates demo account with 100U + "体验Bot"
+- One-click "免费体验演示" button on landing page
+- Auto-creates account with 100U + "体验Bot"
 - Welcome Guide Modal
-- Demo Banner with "Connect Real Wallet" CTA
+- Persistent Demo Banner
 
-### 2. ✅ Global Vision (ENHANCED)
-**Timeframes:**
-- 昨天 (日内机会)
-- 1年内 (NVDA AI狂潮, BTC ETF获批)
-- 3年前 (SOL抄底, META低谷, 俄乌战争原油)
-- 5年前 (TSLA疫情暴涨, DOGE崛起, GME轧空, UNI空投, QQQ期权)
-- 10年前 (BTC 4583x, ETH 450x, AMZN, AAPL, AMD 85x, 黄金)
+### 2. ✅ Global Vision (9.9U)
+**Landing Page Module:**
+- Eye-catching intro card with 3 examples (BTC 4583x, PEPE 1800x, NVDA 3.2x)
+- "仅需 9.9U 解锁" CTA button
+- Clickable to connect wallet
 
-**Markets:**
-- Cryptocurrency (BTC/ETH/SOL/Meme/DeFi/BRC-20)
-- US Stocks (NVDA, TSLA, AAPL, META, AMD, GME)
-- HK/A-Shares (比亚迪, 茅台)
-- Futures (原油, VIX)
-- Options (GME期权, QQQ看涨)
-- Polymarket (大选, BTC价格预测)
-- Commodities (黄金)
+**Historical Opportunities (26+):**
+- 10年前: BTC, ETH, AAPL, AMD (85x), 茅台, 黄金
+- 5年前: TSLA (20x), DOGE (175x), GME (24x), UNI (42x), QQQ期权 (50x)
+- 3年前: SOL (18x), META (6.5x), PEPE (1800x), ORDI (1500x)
+- 1年前: NVDA (3.2x), BTC ETF
+- 昨天: Daily BTC, Meme coins
 
-**Features:**
-- Demo Time Travel (one free for non-unlocked users)
-- Canvas UFO Animation
+**Markets:** Crypto, US/HK/A-Shares, Futures, Options, Polymarket, Forex
 
-### 3. ✅ VIP Trading Commands System (NEW)
-**Features:**
-- Real-time command timeline with animations
-- Bot指令 (BUY/SELL) with AI reasoning
-- 执行结果 (profit/loss per trade)
+**Time Travel Animation:** UFO traversing price chart (demo mode: 1 free try)
+
+**Bug Fixed:** Unlock modal now properly closes and updates access state
+
+### 3. ✅ Backtest Simulator (NEW)
+- Period selection: 1周/1月/3月/6月/1年/3年
+- Market filter: 全部/加密货币/美股/期货
+- Progress animation
+- Results dashboard:
+  - Initial/Final capital, ROI
+  - Total trades, Win rate
+  - Max drawdown, Sharpe ratio
+- Equity curve chart
+- Trade history list
+- VIP upgrade CTA
+
+### 4. ✅ VIP Trading Commands
+- Real-time command timeline (BUY/SELL)
+- AI reasoning for each trade
+- Execution results (profit/loss)
 - Cumulative profit tracking
 - 10% platform fee display
-- Summary stats (initial/final capital, win rate, ROI)
+- 8 supported markets with exchange list
 
-**Supported Markets for API:**
-- 加密货币 (Binance, OKX, Bybit, Coinbase, Kraken)
-- 美股 (盈透证券, 富途, 老虎, 嘉信理财)
-- 港股 (富途, 老虎, 盈立)
-- A股 (东方财富, 同花顺, 雪球)
-- 期货 (CME, 盈透)
-- 期权 (盈透, TD Ameritrade, Robinhood)
-- 外汇 (OANDA, IG, 盈透)
-- 预测市场 (Polymarket, Kalshi)
+### 5. ✅ Bot Dashboard
+- Demo statistics display
+- 30-day profit Area chart
+- AI Market Analysis (BTC/ETH, Fear/Greed, recommendations)
+- Trade history with AI reasoning
+- Bot skills panel
 
-### 4. ✅ Enhanced Bot Chat Interface
-- Real-time typing indicator
-- Market Analysis Cards
-- Trade Messages with AI reasoning
-- Refresh button for latest analysis
+### 6. ✅ Bot Chat Interface
+- Typing indicator animation
+- Market analysis cards
+- Trade messages with icons
+- Refresh button
 
-### 5. ✅ VIP Upgrade System
-- 99U upgrade fee
-- 10% profit sharing
-- "查看Bot交易指令演示" button
-- 4-step workflow
-
-### 6. ✅ Social Share Module
-- Achievement cards (bot adoption, VIP, profits, level-up)
+### 7. ✅ Social Share
+- Achievement cards for bot adoption, VIP, profits
 - Twitter/Telegram sharing
 
-### 7. ✅ Demo Data System
-- `demo_data.py` - trade history, stats, market analysis
-- `vip_commands.py` - VIP trading commands generator
-
-## API Endpoints
-**VIP APIs (NEW):**
-- `GET /api/vip/trading-commands` - Trading commands timeline
-- `GET /api/vip/live-command` - Single live command
-- `GET /api/vip/supported-markets` - List of supported markets
-
-**Global Vision APIs (NEW):**
-- `GET /api/global-vision/categories`
-- `GET /api/global-vision/by-timeframe/{timeframe}`
-- `GET /api/global-vision/by-market/{market_type}`
+### 8. ✅ Landing Page
+- Dual CTAs: "连接钱包开始" + "免费体验演示"
+- Platform stats: 12,847 bots, $2.4M profits, 67.8% win rate
+- How it works: 4 steps
+- Global Vision intro module (NEW)
+- Pricing cards
 
 ## File Structure
 ```
 /app
 ├── backend/
 │   ├── server.py
-│   ├── global_vision.py (26+ opportunities, 10yr/5yr/3yr/1yr/yesterday)
-│   ├── vip_commands.py (NEW - VIP trading commands generator)
+│   ├── global_vision.py (26+ opportunities)
+│   ├── vip_commands.py
 │   ├── demo_data.py
 │   └── gamification.py
 ├── frontend/src/components/
-│   ├── VIPTradingCommands.js (NEW - Trading commands timeline)
-│   ├── VIPUpgradePage.js (with commands preview)
-│   ├── GlobalVisionPage.js (enhanced filters)
+│   ├── BacktestSimulator.js (NEW)
+│   ├── VIPTradingCommands.js
+│   ├── GlobalVisionPage.js (bug fixed)
 │   ├── TimeTravelAnimation.js
+│   ├── LandingPage.js (Global Vision intro)
 │   └── ...
 ```
 
 ## Mocked/Pending
-1. Payment Verification - auto-confirmed
-2. Live Trading via API Bridge - not implemented
-3. Bot Evolution - pre-canned logic
+1. Payment verification - auto-confirmed
+2. Live trading API bridge - not implemented
+3. Bot evolution - pre-canned logic
 
 ## Last Updated
 2026-02-08
