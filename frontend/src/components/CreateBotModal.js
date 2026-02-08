@@ -39,15 +39,18 @@ const CreateBotModal = ({ walletAddress, onClose, onSuccess }) => {
 
     setLoading(true);
     try {
-      await axios.post(`${API}/bot/create`, {
+      const response = await axios.post(`${API}/bot/create`, {
         wallet_address: walletAddress,
         bot_name: botName.trim(),
         gender: gender,
         avatar_id: selectedAvatar
       });
 
+      const createdBot = response.data.bot;
       alert('🎉 Bot创建成功！开始赚钱之旅吧！');
-      onSuccess();
+      
+      // Pass the created bot info to parent for share modal
+      onSuccess(createdBot);
     } catch (error) {
       console.error('Error creating bot:', error);
       alert(error.response?.data?.detail || '创建失败，请重试');
