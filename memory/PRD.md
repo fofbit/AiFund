@@ -1,133 +1,116 @@
 # AIFund.com - Product Requirements Document
 
 ## Original Problem Statement
-Build a world-class, low-maintenance website on the domain `AIfund.com`. The initial vision was a global, anonymous, crypto-based AI investment fund for the masses, with the motto "AI makes money for everyone".
-
-This evolved into a "Bot-as-a-Service" model with gamification elements:
-1. **Activation (1 USD equivalent):** Users connect a crypto wallet and pay a 1U fee to "adopt" a personalized AI trading bot. This bot starts with simulated funds ($10,000 virtual).
-2. **"Global Vision" Feature (9.9 USD):** A premium feature that shows users historical "what-if" scenarios, demonstrating how 100U could have grown with perfect hindsight.
-3. **VIP Subscription (99 USD):** Users can upgrade to VIP, allowing them to connect their real-world exchange accounts (e.g., Binance) via API. The bot then executes its trading strategy with the user's real funds.
-4. **Revenue Model:** The primary income is a **10% profit share** from the trades the bot makes for VIP users.
-
-## User Personas
-- **Crypto Beginners:** Want to benefit from crypto trading without expertise
-- **Passive Investors:** Looking for automated trading solutions
-- **Gamification Seekers:** Enjoy leveling up bots and collecting virtual assets
-
-## Tech Stack
-- **Frontend:** React, Tailwind CSS, shadcn/ui, Recharts
-- **Backend:** FastAPI (Python), async Motor driver
-- **Database:** MongoDB
-- **AI Integration:** GPT-5.2 via Emergent LLM Key
-- **Architecture:** Containerized monorepo (frontend + backend)
+Build a world-class, low-maintenance website on the domain `AIfund.com`. The vision is a "Bot-as-a-Service" crypto AI trading platform with gamification elements:
+1. **Activation (1 USD):** Users connect a crypto wallet and pay 1U to "adopt" a personalized AI trading bot with $10,000 virtual funds.
+2. **"Global Vision" (9.9 USD):** Premium feature showing historical "what-if" investment scenarios.
+3. **VIP (99 USD):** Users can connect real exchange accounts via API for live trading.
+4. **Revenue Model:** **10% profit share** from VIP users' bot trades.
 
 ## Core Features
 
-### Implemented ✅
+### 1. ✅ Demo Mode (NEW)
+- **One-click demo experience** - No wallet required
+- Auto-creates demo account with:
+  - 100U balance
+  - Pre-configured "体验Bot"
+  - $10,000 virtual trading funds
+- **Welcome Guide Modal** - 3-step introduction
+- **Demo Banner** - Persistent top bar with "Connect Real Wallet" CTA
+- Shows "演示账户" in header
 
-#### 1. User Authentication (Wallet-based)
-- MetaMask wallet connection
-- Automatic tier assignment (inactive/basic/vip based on balance)
-
-#### 2. AI Trading Bot System
+### 2. ✅ AI Trading Bot System
 - Bot creation with gender selection (male/female)
-- Multiple avatar options (6 per gender, different rarities)
+- 12 avatar options (6 per gender, different rarities)
 - Virtual balance ($10,000) for simulated trading
 - GPT-5.2 powered trading decisions
-- Bot skill progression and notifications
+- Bot skill progression and level-up notifications
 
-#### 3. Global Vision Feature
+### 3. ✅ Enhanced Bot Chat Interface (NEW)
+- **Real-time typing indicator** with animated dots
+- **Bot avatar** with online status badge
+- **Market Analysis Cards** - BTC/ETH prices, sentiment, recommendations
+- **Trade Messages** with:
+  - AI reasoning (💡)
+  - Action cards (buy/sell) with price/amount
+  - Result indicators (profit/loss)
+- **Refresh button** to get latest market analysis
+- Investment review panel with suggestions
+
+### 4. ✅ Global Vision Feature
 - 18+ historical investment opportunities
-- Categories: Cryptocurrency (BTC/ETH/Meme/DeFi), Stocks, Futures, Options, Polymarket
-- Subcategory filters (BTC生态, ETH生态, 新公链, etc.)
-- Timeframe filters (daily, monthly, yearly)
-- **🆕 Time Travel Animation** - UFO traversing price chart with user avatar
-- **🆕 Demo Mode** - One free time travel for non-unlocked users
-- Unlock for 9.9U
+- Enhanced filtering:
+  - Categories: 加密货币, 传统资产, Polymarket, 昨天机会
+  - Subcategories: BTC生态, ETH生态, 新公链, Meme币, DeFi
+  - Timeframes: 全部, 近7天, 近1年, 1年以上
+- **Demo Time Travel** - One free time travel for non-unlocked users
+- **Time Travel Animation** - Canvas UFO animation traversing price charts
 
-#### 4. VIP Upgrade System
+### 5. ✅ VIP Upgrade System
 - 99U upgrade fee
-- **10% profit sharing** model clearly displayed
-- 4-step workflow explanation (Upgrade → Connect Exchange → Bot Trades → Share Profit)
-- Benefits list with risk warning
+- **10% profit sharing** prominently displayed
+- 4-step workflow explanation
+- Payment confirmation modal
+- Risk warning footer
 
-#### 5. Social Share Module
-- Achievement card generation for:
-  - Bot adoption
-  - VIP upgrade
-  - Profit milestones
-  - Level up events
+### 6. ✅ Social Share Module
+- Achievement cards for: Bot adoption, VIP upgrade, Profit milestones, Level-up
 - Twitter/Telegram share buttons
 - Copy to clipboard
 
-#### 6. Gamification System
-- 10 VIP tiers (新手投资者 → 宇宙之主)
-- Virtual asset store (real estate, vehicles, luxury goods, fashion, currency, gifts)
-- Rarity system (common/rare/epic/legendary/mythic)
+### 7. ✅ Demo Data System
+- `demo_data.py` generator with:
+  - Realistic trade history (buy/sell reasons)
+  - Bot statistics (win rate 58-72%)
+  - Market analysis (fear/greed index, hot narratives)
+  - 30-day profit charts
 
-#### 7. Bot Chat Interface
-- Trade command display
-- AI analysis reasoning
-- Investment review panel
-
-#### 8. 🆕 Demo Data System
-- Realistic mock trading data generator
-- Demo bot statistics (win rate, profit, ROI)
-- Market analysis with fear/greed index
-- 30-day profit chart visualization
-- Hot narratives and whale activity tracking
-
-#### 9. 🆕 Enhanced Dashboard
-- Live demo statistics on landing page (12,847 active bots, $2.4M profits, 67.8% win rate)
-- AI Market Analysis panel (BTC/ETH prices, sentiment, AI recommendations)
-- 30-day area chart with gradient
-- Rich trade history with AI reasoning
+### 8. ✅ Enhanced Landing Page
+- Dual CTA buttons: "连接钱包开始" + "免费体验演示"
+- Live platform stats: 12,847 bots, $2.4M profits, 67.8% win rate
+- VIP pricing shows 99U with 10% profit share
 
 ### Mocked/Pending 🔶
-1. **Payment Verification** - All deposits auto-confirmed (no blockchain verification)
-2. **Live Trading via API Bridge** - VIP feature not implemented (no real exchange connection)
-3. **True Bot Evolution** - Currently uses pre-canned trading logic
+1. **Payment Verification** - All deposits auto-confirmed
+2. **Live Trading via API Bridge** - VIP feature not implemented
+3. **True Bot Evolution** - Uses pre-canned trading logic
 
 ## API Endpoints
-- `POST /api/wallet/connect` - Connect wallet
-- `POST /api/deposit` - Record deposit
-- `POST /api/bot/create` - Create bot
-- `GET /api/bot/{wallet}` - Get bot info
-- `GET /api/global-vision/opportunities` - Get historical opportunities
-- `POST /api/global-vision/unlock` - Unlock Global Vision (9.9U)
-- `GET /api/gamification/*` - Avatars, VIP levels, store, assets
-- **🆕 Demo APIs:**
-  - `GET /api/demo/bot-stats` - Demo bot statistics
-  - `GET /api/demo/market-analysis` - AI market analysis
-  - `GET /api/demo/profit-chart` - 30-day profit chart
-  - `GET /api/demo/trades/{bot_id}` - Demo trade history
+- Demo APIs:
+  - `GET /api/demo/bot-stats`
+  - `GET /api/demo/market-analysis`
+  - `GET /api/demo/profit-chart`
+  - `GET /api/demo/trades/{bot_id}`
+- Core APIs:
+  - `POST /api/wallet/connect`
+  - `POST /api/deposit`
+  - `POST /api/bot/create`
+  - `GET /api/global-vision/opportunities`
+  - `POST /api/global-vision/unlock`
 
 ## File Structure
 ```
 /app
 ├── backend/
-│   ├── server.py (Main API)
-│   ├── demo_data.py (🆕 Demo data generator)
-│   ├── global_vision.py (18+ opportunities)
-│   ├── gamification.py (VIP levels, virtual store)
-│   └── trading_simulator.py (GPT-5.2 trading engine)
+│   ├── server.py
+│   ├── demo_data.py (NEW - Demo data generator)
+│   ├── global_vision.py
+│   ├── gamification.py
+│   └── trading_simulator.py
 ├── frontend/
-│   ├── src/components/
-│   │   ├── Dashboard.js (with demo data)
-│   │   ├── BotDashboard.js (enhanced with market analysis)
-│   │   ├── LandingPage.js (with live stats)
-│   │   ├── GlobalVisionPage.js (with demo mode)
-│   │   ├── TimeTravelAnimation.js (Canvas UFO animation)
-│   │   ├── VIPUpgradePage.js (10% profit share)
-│   │   ├── ShareAchievementModal.js
-│   │   └── BotChatInterface.js
+│   ├── src/
+│   │   ├── App.js (Demo mode support)
+│   │   ├── components/
+│   │   │   ├── LandingPage.js (Dual CTAs)
+│   │   │   ├── Dashboard.js (Demo banner, welcome guide)
+│   │   │   ├── BotDashboard.js (Market analysis)
+│   │   │   ├── BotChatInterface.js (Enhanced chat)
+│   │   │   ├── GlobalVisionPage.js (Demo time travel)
+│   │   │   ├── TimeTravelAnimation.js
+│   │   │   ├── VIPUpgradePage.js
+│   │   │   └── ShareAchievementModal.js
 └── memory/PRD.md
 ```
-
-## Testing Status
-- Backend: 100% pass
-- Frontend: 95% pass
-- Test report: `/app/test_reports/iteration_1.json`
 
 ## Last Updated
 2026-02-08
