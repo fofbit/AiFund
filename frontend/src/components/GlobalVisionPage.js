@@ -333,6 +333,18 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
                         </span>
                       ))}
                     </div>
+
+                    {/* Time Travel Button */}
+                    {hasAccess && !isLocked && (
+                      <button
+                        onClick={() => handleTimeTravel(opp)}
+                        className="w-full mt-3 p-2 bg-gradient-to-r from-purple-500/30 to-pink-500/30 hover:from-purple-500/50 hover:to-pink-500/50 rounded-lg flex items-center justify-center text-white text-sm font-semibold transition-all border border-purple-500/30"
+                        data-testid={`time-travel-btn-${opp.id}`}
+                      >
+                        <Rocket className="w-4 h-4 mr-2" />
+                        时光旅行
+                      </button>
+                    )}
                   </div>
                 );
               })}
@@ -385,6 +397,18 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
             setShowUnlockModal(false);
             loadData();
             if (onUnlock) onUnlock();
+          }}
+        />
+      )}
+
+      {/* Time Travel Animation */}
+      {showTimeTravel && timeTravelOpportunity && (
+        <TimeTravelAnimation
+          opportunity={timeTravelOpportunity}
+          userAvatar={userData?.user?.avatar || '👤'}
+          onClose={() => {
+            setShowTimeTravel(false);
+            setTimeTravelOpportunity(null);
           }}
         />
       )}
