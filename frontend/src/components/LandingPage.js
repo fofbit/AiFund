@@ -169,7 +169,7 @@ const LandingPage = ({ onConnect, loading }) => {
                   </li>
                   <li className="flex items-start text-white">
                     <span className="text-yellow-300 mr-2">★</span>
-                    平台仅收益分成1%
+                    平台仅收盈利的10%
                   </li>
                 </ul>
               </div>
