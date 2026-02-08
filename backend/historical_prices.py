@@ -95,75 +95,181 @@ class HistoricalPriceService:
         {"date": "2024-11-24", "price": 263.00, "event": "新高"},
     ]
     
+    # DOGE history
+    DOGE_HISTORY = [
+        {"date": "2020-03-01", "price": 0.002, "event": "疫情前低点"},
+        {"date": "2021-01-28", "price": 0.045, "event": "WSB效应"},
+        {"date": "2021-04-16", "price": 0.40, "event": "马斯克推动"},
+        {"date": "2021-05-08", "price": 0.72, "event": "历史最高"},
+        {"date": "2022-06-18", "price": 0.05, "event": "熊市低点"},
+        {"date": "2024-11-12", "price": 0.38, "event": "马斯克DOGE部门"},
+    ]
+    
+    # META history
+    META_HISTORY = [
+        {"date": "2022-02-01", "price": 330.0, "event": "元宇宙宣布前"},
+        {"date": "2022-11-01", "price": 88.0, "event": "历史低点"},
+        {"date": "2023-07-01", "price": 310.0, "event": "AI转型"},
+        {"date": "2024-02-02", "price": 475.0, "event": "财报暴涨"},
+        {"date": "2024-12-01", "price": 570.0, "event": "持续新高"},
+    ]
+    
+    # AMD history
+    AMD_HISTORY = [
+        {"date": "2016-01-04", "price": 2.0, "event": "濒临破产"},
+        {"date": "2017-07-26", "price": 14.0, "event": "Ryzen发布"},
+        {"date": "2019-07-07", "price": 34.0, "event": "7nm芯片"},
+        {"date": "2021-11-30", "price": 155.0, "event": "首次高点"},
+        {"date": "2022-10-13", "price": 55.0, "event": "回调低点"},
+        {"date": "2024-03-08", "price": 210.0, "event": "AI芯片"},
+    ]
+    
+    # AAPL history
+    AAPL_HISTORY = [
+        {"date": "2015-01-02", "price": 27.0, "event": "iPhone 6热潮"},
+        {"date": "2016-05-12", "price": 23.0, "event": "低谷"},
+        {"date": "2018-10-03", "price": 57.0, "event": "首次万亿"},
+        {"date": "2020-03-23", "price": 57.0, "event": "疫情低点"},
+        {"date": "2021-12-30", "price": 177.0, "event": "年末高点"},
+        {"date": "2024-07-15", "price": 234.0, "event": "AI手机"},
+    ]
+    
+    # Gold history
+    GOLD_HISTORY = [
+        {"date": "2015-12-01", "price": 1050.0, "event": "低点"},
+        {"date": "2016-07-06", "price": 1370.0, "event": "反弹"},
+        {"date": "2020-08-06", "price": 2075.0, "event": "疫情高点"},
+        {"date": "2022-03-08", "price": 2050.0, "event": "俄乌冲突"},
+        {"date": "2024-10-30", "price": 2780.0, "event": "新高"},
+    ]
+    
+    # GME history
+    GME_HISTORY = [
+        {"date": "2021-01-04", "price": 18.0, "event": "低位开始"},
+        {"date": "2021-01-27", "price": 347.0, "event": "散户革命"},
+        {"date": "2021-01-28", "price": 193.0, "event": "限制交易"},
+        {"date": "2021-02-19", "price": 40.0, "event": "回落"},
+        {"date": "2021-06-09", "price": 302.0, "event": "二次起飞"},
+        {"date": "2024-05-14", "price": 48.0, "event": "回归者反弹"},
+    ]
+    
+    # ORDI history
+    ORDI_HISTORY = [
+        {"date": "2023-03-06", "price": 0.05, "event": "铸造"},
+        {"date": "2023-05-08", "price": 28.0, "event": "首次暴涨"},
+        {"date": "2023-09-11", "price": 3.5, "event": "回调"},
+        {"date": "2023-12-26", "price": 90.0, "event": "历史最高"},
+        {"date": "2024-04-20", "price": 42.0, "event": "减半效应"},
+    ]
+
     @staticmethod
     def get_asset_history(asset_id: str) -> Dict:
         """Get historical data for a specific asset"""
         histories = {
             "btc_2015": {
-                "name": "比特币 (BTC)",
-                "symbol": "BTC",
+                "name": "比特币 (BTC)", "symbol": "BTC",
                 "data": HistoricalPriceService.BTC_HISTORY,
-                "start_date": "2010-07-17",
-                "start_price": 0.05,
-                "investment_date": "2015-01-01",
-                "investment_price": 200,
-                "current_price": 91000,
-                "color": "#F7931A"
+                "start_date": "2010-07-17", "start_price": 0.05,
+                "investment_date": "2015-01-01", "investment_price": 200,
+                "current_price": 91000, "color": "#F7931A"
             },
             "eth_2016": {
-                "name": "以太坊 (ETH)",
-                "symbol": "ETH", 
+                "name": "以太坊 (ETH)", "symbol": "ETH",
                 "data": HistoricalPriceService.ETH_HISTORY,
-                "start_date": "2015-08-07",
-                "start_price": 1.00,
-                "investment_date": "2016-01-01",
-                "investment_price": 8,
-                "current_price": 3600,
-                "color": "#627EEA"
+                "start_date": "2015-08-07", "start_price": 1.00,
+                "investment_date": "2016-01-01", "investment_price": 8,
+                "current_price": 3600, "color": "#627EEA"
             },
             "nvda_2019": {
-                "name": "英伟达 (NVDA)",
-                "symbol": "NVDA",
+                "name": "英伟达 (NVDA)", "symbol": "NVDA",
                 "data": HistoricalPriceService.NVDA_HISTORY,
-                "start_date": "2019-01-02",
-                "start_price": 33,
-                "investment_date": "2024-01-01",
-                "investment_price": 48,
-                "current_price": 140,
-                "color": "#76B900"
+                "start_date": "2019-01-02", "start_price": 33,
+                "investment_date": "2024-01-01", "investment_price": 48,
+                "current_price": 140, "color": "#76B900"
+            },
+            "nvda_2024_ai": {
+                "name": "英伟达 (NVDA)", "symbol": "NVDA",
+                "data": HistoricalPriceService.NVDA_HISTORY,
+                "start_date": "2019-01-02", "start_price": 33,
+                "investment_date": "2024-01-01", "investment_price": 48,
+                "current_price": 140, "color": "#76B900"
             },
             "tsla_2020": {
-                "name": "特斯拉 (TSLA)",
-                "symbol": "TSLA",
+                "name": "特斯拉 (TSLA)", "symbol": "TSLA",
                 "data": HistoricalPriceService.TSLA_HISTORY,
-                "start_date": "2019-06-03",
-                "start_price": 35,
-                "investment_date": "2020-03-18",
-                "investment_price": 28,
-                "current_price": 260,
-                "color": "#CC0000"
+                "start_date": "2019-06-03", "start_price": 35,
+                "investment_date": "2020-03-18", "investment_price": 28,
+                "current_price": 260, "color": "#CC0000"
             },
             "pepe_2023": {
-                "name": "PEPE币",
-                "symbol": "PEPE",
+                "name": "PEPE币", "symbol": "PEPE",
                 "data": HistoricalPriceService.PEPE_HISTORY,
-                "start_date": "2023-04-14",
-                "start_price": 0.00000001,
-                "investment_date": "2023-04-17",
-                "investment_price": 0.0000001,
-                "current_price": 0.000018,
-                "color": "#479F53"
+                "start_date": "2023-04-14", "start_price": 0.00000001,
+                "investment_date": "2023-04-17", "investment_price": 0.0000001,
+                "current_price": 0.000018, "color": "#479F53"
             },
             "sol_2020": {
-                "name": "Solana (SOL)",
-                "symbol": "SOL",
+                "name": "Solana (SOL)", "symbol": "SOL",
                 "data": HistoricalPriceService.SOL_HISTORY,
-                "start_date": "2020-04-10",
-                "start_price": 0.50,
-                "investment_date": "2022-12-29",
-                "investment_price": 8,
-                "current_price": 180,
-                "color": "#9945FF"
+                "start_date": "2020-04-10", "start_price": 0.50,
+                "investment_date": "2022-12-29", "investment_price": 8,
+                "current_price": 180, "color": "#9945FF"
+            },
+            "sol_2022_bottom": {
+                "name": "Solana (SOL)", "symbol": "SOL",
+                "data": HistoricalPriceService.SOL_HISTORY,
+                "start_date": "2020-04-10", "start_price": 0.50,
+                "investment_date": "2022-12-29", "investment_price": 8,
+                "current_price": 180, "color": "#9945FF"
+            },
+            "doge_2020": {
+                "name": "狗狗币 (DOGE)", "symbol": "DOGE",
+                "data": HistoricalPriceService.DOGE_HISTORY,
+                "start_date": "2020-03-01", "start_price": 0.002,
+                "investment_date": "2020-03-01", "investment_price": 0.002,
+                "current_price": 0.35, "color": "#C2A633"
+            },
+            "meta_2022_bottom": {
+                "name": "Meta (META)", "symbol": "META",
+                "data": HistoricalPriceService.META_HISTORY,
+                "start_date": "2022-02-01", "start_price": 330,
+                "investment_date": "2022-11-01", "investment_price": 88,
+                "current_price": 570, "color": "#0668E1"
+            },
+            "amd_2016": {
+                "name": "AMD", "symbol": "AMD",
+                "data": HistoricalPriceService.AMD_HISTORY,
+                "start_date": "2016-01-04", "start_price": 2,
+                "investment_date": "2016-01-04", "investment_price": 2,
+                "current_price": 170, "color": "#ED1C24"
+            },
+            "aapl_2015": {
+                "name": "苹果 (AAPL)", "symbol": "AAPL",
+                "data": HistoricalPriceService.AAPL_HISTORY,
+                "start_date": "2015-01-02", "start_price": 27,
+                "investment_date": "2015-01-02", "investment_price": 27,
+                "current_price": 234, "color": "#A2AAAD"
+            },
+            "gold_2015": {
+                "name": "黄金 (GOLD)", "symbol": "GOLD",
+                "data": HistoricalPriceService.GOLD_HISTORY,
+                "start_date": "2015-12-01", "start_price": 1050,
+                "investment_date": "2015-12-01", "investment_price": 1050,
+                "current_price": 2780, "color": "#FFD700"
+            },
+            "gme_2021": {
+                "name": "GameStop (GME)", "symbol": "GME",
+                "data": HistoricalPriceService.GME_HISTORY,
+                "start_date": "2021-01-04", "start_price": 18,
+                "investment_date": "2021-01-04", "investment_price": 18,
+                "current_price": 48, "color": "#FF4500"
+            },
+            "ordi_2023": {
+                "name": "ORDI", "symbol": "ORDI",
+                "data": HistoricalPriceService.ORDI_HISTORY,
+                "start_date": "2023-03-06", "start_price": 0.05,
+                "investment_date": "2023-03-06", "investment_price": 0.05,
+                "current_price": 42, "color": "#F7931A"
             },
         }
         return histories.get(asset_id, histories["btc_2015"])
