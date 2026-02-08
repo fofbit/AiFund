@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2 } from 'lucide-react';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
 import BotDashboard from './BotDashboard';
 import NotificationPanel from './NotificationPanel';
 import GlobalVisionPage from './GlobalVisionPage';
+import VIPUpgradePage from './VIPUpgradePage';
+import ShareAchievementModal from './ShareAchievementModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -15,6 +17,9 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
   const [showCreateBotModal, setShowCreateBotModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showGlobalVision, setShowGlobalVision] = useState(false);
+  const [showVIPUpgrade, setShowVIPUpgrade] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareAchievement, setShareAchievement] = useState(null);
   const [botData, setBotData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -49,10 +54,32 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
     setShowDepositModal(false);
   };
 
-  const handleBotCreated = () => {
+  const handleBotCreated = (newBot) => {
     onRefresh();
     loadBotData();
     setShowCreateBotModal(false);
+    
+    // Show share achievement modal for bot adoption
+    if (newBot) {
+      setShareAchievement({
+        type: 'bot_adopted',
+        botName: newBot.name,
+        botEmoji: newBot.avatar_emoji,
+        botLevel: newBot.level
+      });
+      setShowShareModal(true);
+    }
+  };
+
+  const handleVIPUpgraded = () => {
+    onRefresh();
+    setShowVIPUpgrade(false);
+    
+    // Show share achievement modal for VIP upgrade
+    setShareAchievement({
+      type: 'vip_upgrade'
+    });
+    setShowShareModal(true);
   };
 
   const formatAddress = (address) => {
