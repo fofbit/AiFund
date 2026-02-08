@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2, Sparkles, X, ArrowRight } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2, Sparkles, X, ArrowRight, Rewind } from 'lucide-react';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
 import BotDashboard from './BotDashboard';
@@ -8,6 +8,7 @@ import NotificationPanel from './NotificationPanel';
 import GlobalVisionPage from './GlobalVisionPage';
 import VIPUpgradePage from './VIPUpgradePage';
 import ShareAchievementModal from './ShareAchievementModal';
+import BacktestSimulator from './BacktestSimulator';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -25,6 +26,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
   const [unreadCount, setUnreadCount] = useState(0);
   const [showDemoBanner, setShowDemoBanner] = useState(true);
   const [showWelcomeGuide, setShowWelcomeGuide] = useState(false);
+  const [showBacktest, setShowBacktest] = useState(false);
 
   useEffect(() => {
     if (userData?.has_bot) {
