@@ -1,7 +1,7 @@
 import React from 'react';
-import { Wallet, TrendingUp, Bot, Sparkles, Globe, Lock } from 'lucide-react';
+import { Wallet, TrendingUp, Bot, Sparkles, Globe, Lock, Play, Eye } from 'lucide-react';
 
-const LandingPage = ({ onConnect, loading }) => {
+const LandingPage = ({ onConnect, onDemoMode, loading }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Hero Section */}
@@ -31,19 +31,35 @@ const LandingPage = ({ onConnect, loading }) => {
             </p>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           <div className="flex flex-col items-center mb-20">
-            <button
-              onClick={onConnect}
-              disabled={loading}
-              className="group relative px-12 py-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xl font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              data-testid="connect-wallet-btn"
-            >
-              <Wallet className="inline-block w-6 h-6 mr-3" />
-              {loading ? '连接中...' : '连接钱包开始'}
-            </button>
-            <p className="mt-4 text-gray-400 text-sm">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
+              <button
+                onClick={onConnect}
+                disabled={loading}
+                className="group relative px-12 py-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xl font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                data-testid="connect-wallet-btn"
+              >
+                <Wallet className="inline-block w-6 h-6 mr-3" />
+                {loading ? '连接中...' : '连接钱包开始'}
+              </button>
+              
+              <button
+                onClick={onDemoMode}
+                disabled={loading}
+                className="group relative px-10 py-6 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xl font-bold rounded-full hover:shadow-2xl hover:shadow-cyan-500/30 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border-2 border-cyan-400/50"
+                data-testid="demo-mode-btn"
+              >
+                <Eye className="inline-block w-6 h-6 mr-3" />
+                {loading ? '加载中...' : '免费体验演示'}
+              </button>
+            </div>
+            
+            <p className="text-gray-400 text-sm">
               最低充值 $1 美元等值加密货币即可激活
+            </p>
+            <p className="text-cyan-400 text-sm mt-1">
+              ✨ 无需钱包，立即体验完整功能
             </p>
           </div>
 
