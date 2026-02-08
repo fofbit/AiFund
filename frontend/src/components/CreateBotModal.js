@@ -228,7 +228,7 @@ const CreateBotModal = ({ walletAddress, onClose, onSuccess }) => {
                   <p className="font-semibold mb-1">你的Bot将会:</p>
                   <ul className="space-y-1 text-xs">
                     <li>• 使用 $10,000 虚拟资金开始交易</li>
-                    <li>• 由 GPT-5.2 AI 驱动决策</li>
+                    <li>• AI智能驱动交易决策</li>
                     <li>• 24/7 自动交易和学习</li>
                     <li>• 随着收益升级VIP等级</li>
                     <li>• 解锁虚拟资产购买</li>
