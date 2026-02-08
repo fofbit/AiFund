@@ -595,6 +595,31 @@ async def get_opportunities_by_market(market_type: str):
     opportunities = global_vision_service.get_opportunities_by_market(market_type)
     return {"opportunities": opportunities, "count": len(opportunities)}
 
+# ============ HISTORICAL PRICE DATA APIs ============
+
+@api_router.get("/historical/asset/{asset_id}")
+async def get_asset_history(asset_id: str):
+    """Get historical price data for an asset"""
+    history = historical_price_service.get_asset_history(asset_id)
+    return {"asset": history}
+
+@api_router.get("/historical/price-curve/{asset_id}")
+async def get_price_curve(asset_id: str, points: int = 200):
+    """Get interpolated price curve for animation"""
+    history = historical_price_service.get_asset_history(asset_id)
+    curve = historical_price_service.generate_price_curve(history.get("data", []), points)
+    return {
+        "asset": history,
+        "curve": curve,
+        "milestones": history.get("data", [])
+    }
+
+@api_router.get("/historical/milestones/{asset_id}")
+async def get_milestones(asset_id: str):
+    """Get key milestones for an asset"""
+    milestones = historical_price_service.get_milestones_for_animation(asset_id)
+    return {"milestones": milestones}
+
 # Include router
 app.include_router(api_router)
 
