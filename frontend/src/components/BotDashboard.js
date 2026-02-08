@@ -97,13 +97,13 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
           <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
             <div className="text-white/70 text-sm mb-1">虚拟余额</div>
             <div className="text-2xl font-bold text-white">
-              ${bot.virtual_balance.toLocaleString()}
+              ${(bot.virtual_balance + (displayStats.total_profit || 0)).toLocaleString()}
             </div>
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
             <div className="text-white/70 text-sm mb-1">总收益</div>
             <div className={`text-2xl font-bold ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
-              {isProfit ? '+' : ''}${bot.total_profit.toFixed(2)}
+              {isProfit ? '+' : ''}${displayStats.total_profit?.toFixed(2) || '0.00'}
             </div>
             <div className={`text-sm ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
               {isProfit ? '+' : ''}{profitPercent}%
@@ -111,11 +111,11 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
             <div className="text-white/70 text-sm mb-1">交易次数</div>
-            <div className="text-2xl font-bold text-white">{bot.total_trades}</div>
+            <div className="text-2xl font-bold text-white">{displayStats.total_trades || 0}</div>
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
             <div className="text-white/70 text-sm mb-1">胜率</div>
-            <div className="text-2xl font-bold text-white">{bot.win_rate.toFixed(1)}%</div>
+            <div className="text-2xl font-bold text-white">{displayStats.win_rate?.toFixed(1) || '0.0'}%</div>
           </div>
         </div>
 
