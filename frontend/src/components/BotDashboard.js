@@ -1,31 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock, MessageCircle, Crown, Share2 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
+import { TrendingUp, TrendingDown, Activity, Zap, Award, Clock, MessageCircle, Crown, Share2, BarChart3, Target, Brain, Flame } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import BotChatInterface from './BotChatInterface';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievement }) => {
   const { bot, recent_trades } = botData;
   const [profitData, setProfitData] = useState([]);
   const [showChat, setShowChat] = useState(false);
+  const [demoStats, setDemoStats] = useState(null);
+  const [marketAnalysis, setMarketAnalysis] = useState(null);
+  const [demoTrades, setDemoTrades] = useState([]);
 
   useEffect(() => {
-    // Generate mock profit data for chart
-    const mockData = [];
-    const startBalance = 10000;
-    const currentProfit = bot.total_profit || 0;
-    const days = 7;
-    
-    for (let i = 0; i <= days; i++) {
-      mockData.push({
-        day: `Day ${i}`,
-        profit: startBalance + (currentProfit / days) * i
-      });
-    }
-    setProfitData(mockData);
+    loadDemoData();
   }, [bot]);
 
-  const profitPercent = ((bot.total_profit / 10000) * 100).toFixed(2);
-  const isProfit = bot.total_profit >= 0;
+  const loadDemoData = async () => {
+    try {
+      // Load demo stats
+      const [statsRes, marketRes, chartRes, tradesRes] = await Promise.all([
+        axios.get(`${API}/demo/bot-stats`),
+        axios.get(`${API}/demo/market-analysis`),
+        axios.get(`${API}/demo/profit-chart?days=30`),
+        axios.get(`${API}/demo/trades/${bot.id}?num_trades=10`)
+      ]);
+      
+      setDemoStats(statsRes.data.stats);
+      setMarketAnalysis(marketRes.data.analysis);
+      setProfitData(chartRes.data.chart_data);
+      setDemoTrades(tradesRes.data.trades);
+    } catch (error) {
+      console.error('Error loading demo data:', error);
+      // Fallback to basic chart data
+      const mockData = [];
+      const startBalance = 10000;
+      for (let i = 0; i <= 30; i++) {
+        mockData.push({
+          date: `${i}`,
+          balance: startBalance + Math.random() * 2000,
+          profit: Math.random() * 2000
+        });
+      }
+      setProfitData(mockData);
+    }
+  };
+
+  const displayStats = demoStats || {
+    total_trades: bot.total_trades || 0,
+    win_rate: bot.win_rate || 0,
+    total_profit: bot.total_profit || 0,
+    roi_percentage: ((bot.total_profit || 0) / 100).toFixed(2)
+  };
+
+  const displayTrades = demoTrades.length > 0 ? demoTrades : recent_trades;
+
+  const profitPercent = displayStats.roi_percentage;
+  const isProfit = displayStats.total_profit >= 0;
 
   // Use avatar_emoji from bot data, fallback to default
   const botEmoji = bot.avatar_emoji || '🤖';
