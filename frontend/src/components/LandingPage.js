@@ -96,39 +96,56 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
             </div>
           </div>
 
+          {/* Emotional Marketing Copy */}
+          <div className="text-center mb-20">
+            <p className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-400 mb-6 leading-relaxed">
+              让Bot能让你拥有全球视野，绝不错过未来暴富机会。
+            </p>
+            <p className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-cyan-400 to-blue-400 leading-relaxed">
+              这一次你是从100USD到100万USD暴富神话的主角。
+            </p>
+          </div>
+
           {/* How It Works */}
           <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-12 border border-white/10 mb-20">
             <h2 className="text-4xl font-bold text-white text-center mb-12">
               如何开始
             </h2>
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-5 gap-6">
               <div className="text-center">
                 <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
                   1
                 </div>
-                <h4 className="text-xl font-semibold text-white mb-2">连接钱包</h4>
-                <p className="text-gray-400">MetaMask或Unisat</p>
+                <h4 className="text-lg font-semibold text-white mb-2">连接钱包</h4>
+                <p className="text-gray-400 text-sm">MetaMask或Unisat</p>
               </div>
               <div className="text-center">
                 <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
                   2
                 </div>
-                <h4 className="text-xl font-semibold text-white mb-2">充值激活</h4>
-                <p className="text-gray-400">≥1U基础版 | ≥99U VIP</p>
+                <h4 className="text-lg font-semibold text-white mb-2">充值激活</h4>
+                <p className="text-gray-400 text-sm">≥1U基础版 | ≥99U VIP</p>
               </div>
               <div className="text-center">
                 <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
                   3
                 </div>
-                <h4 className="text-xl font-semibold text-white mb-2">领养Bot</h4>
-                <p className="text-gray-400">取名并开始模拟交易</p>
+                <h4 className="text-lg font-semibold text-white mb-2">领养Bot</h4>
+                <p className="text-gray-400 text-sm">取名并开始模拟交易</p>
               </div>
               <div className="text-center">
-                <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
+                <div className="bg-gradient-to-br from-cyan-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
                   4
                 </div>
-                <h4 className="text-xl font-semibold text-white mb-2">观看赚钱</h4>
-                <p className="text-gray-400">Bot自动交易，全程透明</p>
+                <h4 className="text-lg font-semibold text-white mb-2">手工执行策略</h4>
+                <p className="text-gray-400 text-sm">用户手工执行Bot策略赚钱</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-yellow-500 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
+                  5
+                </div>
+                <h4 className="text-lg font-semibold text-white mb-2">成为VIP</h4>
+                <p className="text-gray-400 text-sm">接入API，让Bot 24/7自动帮你赚钱</p>
               </div>
             </div>
           </div>
