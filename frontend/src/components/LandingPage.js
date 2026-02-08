@@ -161,6 +161,58 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
             </p>
           </div>
 
+          {/* Global Vision Feature - 9.9U */}
+          <div 
+            onClick={onConnect}
+            className="bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-orange-600/30 rounded-3xl p-8 border-2 border-purple-500/50 mb-20 cursor-pointer hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 transition-all group"
+            data-testid="global-vision-intro"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center mb-4">
+                  <Globe className="w-12 h-12 text-purple-400 mr-4" />
+                  <div>
+                    <h2 className="text-3xl font-bold text-white">🌍 全球视野</h2>
+                    <p className="text-purple-300 text-lg">看看过去10年你错过了哪些暴富机会</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                    <div className="text-2xl mb-1">₿</div>
+                    <p className="text-white font-semibold">2015年买BTC</p>
+                    <p className="text-green-400 text-xl font-bold">100U → $458,333</p>
+                    <p className="text-gray-400 text-sm">4583倍收益</p>
+                  </div>
+                  <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                    <div className="text-2xl mb-1">🐸</div>
+                    <p className="text-white font-semibold">2023年发现PEPE</p>
+                    <p className="text-green-400 text-xl font-bold">100U → $180,000</p>
+                    <p className="text-gray-400 text-sm">1800倍收益</p>
+                  </div>
+                  <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                    <div className="text-2xl mb-1">🖥️</div>
+                    <p className="text-white font-semibold">2024年买NVDA</p>
+                    <p className="text-green-400 text-xl font-bold">100U → $320</p>
+                    <p className="text-gray-400 text-sm">3.2倍收益</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-gray-300">
+                    包含：<span className="text-cyan-400">加密货币</span> · <span className="text-blue-400">美股港股A股</span> · <span className="text-orange-400">期货期权</span> · <span className="text-pink-400">Polymarket</span>
+                  </p>
+                  <div className="flex items-center bg-gradient-to-r from-yellow-500 to-orange-500 px-6 py-3 rounded-xl group-hover:scale-105 transition-all">
+                    <Lock className="w-5 h-5 text-black mr-2" />
+                    <span className="text-black font-bold text-lg">仅需 9.9U 解锁</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            </p>
+          </div>
+
           {/* Pricing */}
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border-2 border-purple-500/50">
