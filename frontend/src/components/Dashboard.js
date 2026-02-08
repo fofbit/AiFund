@@ -314,6 +314,25 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh }) => {
           }}
         />
       )}
+
+      {showVIPUpgrade && (
+        <VIPUpgradePage
+          walletAddress={walletAddress}
+          userData={userData}
+          onClose={() => setShowVIPUpgrade(false)}
+          onSuccess={handleVIPUpgraded}
+        />
+      )}
+
+      {showShareModal && shareAchievement && (
+        <ShareAchievementModal
+          achievement={shareAchievement}
+          onClose={() => {
+            setShowShareModal(false);
+            setShareAchievement(null);
+          }}
+        />
+      )}
     </div>
   );
 };
