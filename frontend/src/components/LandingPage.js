@@ -210,8 +210,6 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
               </div>
             </div>
           </div>
-            </p>
-          </div>
 
           {/* Pricing */}
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
