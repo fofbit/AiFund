@@ -165,6 +165,27 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
           </div>
         </div>
 
+        {/* Trading Commands Preview */}
+        <div className="p-6 border-b border-purple-500/30 bg-gradient-to-r from-cyan-600/10 to-blue-600/10">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2 flex items-center">
+                <BarChart3 className="w-6 h-6 text-cyan-400 mr-2" />
+                查看Bot交易指令演示
+              </h3>
+              <p className="text-cyan-200">看看如果100%遵循Bot指令，您将获得多少收益</p>
+            </div>
+            <button
+              onClick={() => setShowTradingCommands(true)}
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold rounded-xl transition-all flex items-center shadow-lg shadow-cyan-500/30"
+              data-testid="view-trading-commands-btn"
+            >
+              <Play className="w-5 h-5 mr-2" />
+              查看实时演示
+            </button>
+          </div>
+        </div>
+
         {/* Example Calculation */}
         <div className="p-6 border-b border-purple-500/30 bg-slate-800/50">
           <h3 className="text-xl font-bold text-white mb-4">收益示例</h3>
