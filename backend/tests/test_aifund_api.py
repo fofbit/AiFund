@@ -9,7 +9,7 @@ import uuid
 from datetime import datetime
 
 # Use the preview URL from environment
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://adopt-your-bot.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://vision-profits.preview.emergentagent.com')
 
 class TestHealthCheck:
     """Health check - ensure API is running"""
