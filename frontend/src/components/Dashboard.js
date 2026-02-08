@@ -437,6 +437,12 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
           }}
         />
       )}
+
+      {showBacktest && (
+        <BacktestSimulator
+          onClose={() => setShowBacktest(false)}
+        />
+      )}
     </div>
   );
 };
