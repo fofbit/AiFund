@@ -549,6 +549,51 @@ async def get_demo_bot_evolution(bot_id: str, level: int = 5):
     events = demo_data_generator.generate_bot_evolution_events(bot_id, level)
     return {"evolution_events": events}
 
+# ============ VIP TRADING COMMANDS APIs ============
+
+@api_router.get("/vip/trading-commands")
+async def get_vip_trading_commands(days: int = 7, initial_capital: float = 10000):
+    """
+    Get VIP trading commands timeline
+    Shows what would happen if user 100% followed bot commands
+    """
+    result = vip_trading_commands_service.generate_trading_commands(
+        days=days,
+        initial_capital=initial_capital,
+        win_rate=0.72
+    )
+    return result
+
+@api_router.get("/vip/live-command")
+async def get_vip_live_command():
+    """Get a single live trading command (real-time simulation)"""
+    command = vip_trading_commands_service.get_live_command()
+    return {"command": command}
+
+@api_router.get("/vip/supported-markets")
+async def get_supported_markets():
+    """Get list of supported markets for VIP API integration"""
+    markets = global_vision_service.get_supported_markets()
+    return {"markets": markets}
+
+@api_router.get("/global-vision/categories")
+async def get_global_vision_categories():
+    """Get all Global Vision categories with counts"""
+    categories = global_vision_service.get_categories()
+    return {"categories": categories}
+
+@api_router.get("/global-vision/by-timeframe/{timeframe}")
+async def get_opportunities_by_timeframe(timeframe: str):
+    """Get opportunities filtered by timeframe (yesterday, 1year, 3year, 5year, 10year)"""
+    opportunities = global_vision_service.get_opportunities_by_timeframe(timeframe)
+    return {"opportunities": opportunities, "count": len(opportunities)}
+
+@api_router.get("/global-vision/by-market/{market_type}")
+async def get_opportunities_by_market(market_type: str):
+    """Get opportunities filtered by market type (crypto, stock, futures, options, etc.)"""
+    opportunities = global_vision_service.get_opportunities_by_market(market_type)
+    return {"opportunities": opportunities, "count": len(opportunities)}
+
 # Include router
 app.include_router(api_router)
 
