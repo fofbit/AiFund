@@ -516,6 +516,38 @@ async def unlock_global_vision(req: DepositRequest):
         "new_balance": user["balance_usd"] + usd_value
     }
 
+# ============ DEMO DATA APIs ============
+
+@api_router.get("/demo/trades/{bot_id}")
+async def get_demo_trades(bot_id: str, num_trades: int = 20):
+    """Get demo trade history for showcase"""
+    trades = demo_data_generator.generate_trade_history(bot_id, num_trades)
+    return {"trades": trades}
+
+@api_router.get("/demo/bot-stats")
+async def get_demo_bot_stats():
+    """Get impressive demo bot statistics"""
+    stats = demo_data_generator.generate_demo_bot_stats()
+    return {"stats": stats}
+
+@api_router.get("/demo/market-analysis")
+async def get_demo_market_analysis():
+    """Get current market analysis with AI insights"""
+    analysis = demo_data_generator.generate_market_analysis()
+    return {"analysis": analysis}
+
+@api_router.get("/demo/profit-chart")
+async def get_demo_profit_chart(days: int = 30):
+    """Get profit chart data for visualization"""
+    chart_data = demo_data_generator.generate_profit_chart_data(days)
+    return {"chart_data": chart_data}
+
+@api_router.get("/demo/bot-evolution/{bot_id}")
+async def get_demo_bot_evolution(bot_id: str, level: int = 5):
+    """Get bot skill evolution history"""
+    events = demo_data_generator.generate_bot_evolution_events(bot_id, level)
+    return {"evolution_events": events}
+
 # Include router
 app.include_router(api_router)
 
