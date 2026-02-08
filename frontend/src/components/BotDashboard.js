@@ -159,13 +159,19 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
         <h3 className="text-xl font-bold text-white mb-4 flex items-center">
           <TrendingUp className="w-6 h-6 text-green-400 mr-2" />
-          收益曲线
+          30天收益曲线
         </h3>
         <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={profitData}>
+          <AreaChart data={profitData}>
+            <defs>
+              <linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10B981" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="day" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
+            <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
+            <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(v) => `$${(v/1000).toFixed(0)}k`} />
             <Tooltip
               contentStyle={{
                 backgroundColor: '#1F2937',
@@ -173,24 +179,97 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
                 borderRadius: '8px',
                 color: '#fff'
               }}
+              formatter={(value) => [`$${value.toLocaleString()}`, '余额']}
             />
-            <Line
+            <Area
               type="monotone"
-              dataKey="profit"
+              dataKey="balance"
               stroke="#10B981"
-              strokeWidth={3}
-              dot={{ fill: '#10B981', r: 4 }}
+              strokeWidth={2}
+              fill="url(#profitGradient)"
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Market Analysis Panel */}
+      {marketAnalysis && (
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-cyan-500/30">
+          <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+            <Brain className="w-6 h-6 text-cyan-400 mr-2" />
+            AI市场分析
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div className="bg-white/5 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400">BTC</span>
+                <span className={`font-bold ${marketAnalysis.btc_24h_change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  {marketAnalysis.btc_24h_change >= 0 ? '+' : ''}{marketAnalysis.btc_24h_change}%
+                </span>
+              </div>
+              <p className="text-2xl font-bold text-white">${marketAnalysis.btc_price.toLocaleString()}</p>
+            </div>
+            <div className="bg-white/5 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400">ETH</span>
+                <span className={`font-bold ${marketAnalysis.eth_24h_change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  {marketAnalysis.eth_24h_change >= 0 ? '+' : ''}{marketAnalysis.eth_24h_change}%
+                </span>
+              </div>
+              <p className="text-2xl font-bold text-white">${marketAnalysis.eth_price.toLocaleString()}</p>
+            </div>
+          </div>
+          
+          <div className="bg-white/5 rounded-lg p-4 mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-gray-400">恐惧贪婪指数</span>
+              <span className={`font-bold px-3 py-1 rounded-full text-sm ${
+                marketAnalysis.fear_greed_index < 30 ? 'bg-red-500/20 text-red-400' :
+                marketAnalysis.fear_greed_index < 50 ? 'bg-orange-500/20 text-orange-400' :
+                marketAnalysis.fear_greed_index < 70 ? 'bg-yellow-500/20 text-yellow-400' :
+                'bg-green-500/20 text-green-400'
+              }`}>
+                {marketAnalysis.fear_greed_index} - {marketAnalysis.sentiment}
+              </span>
+            </div>
+            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+              <div 
+                className={`h-full transition-all ${
+                  marketAnalysis.fear_greed_index < 30 ? 'bg-red-500' :
+                  marketAnalysis.fear_greed_index < 50 ? 'bg-orange-500' :
+                  marketAnalysis.fear_greed_index < 70 ? 'bg-yellow-500' :
+                  'bg-green-500'
+                }`}
+                style={{ width: `${marketAnalysis.fear_greed_index}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4">
+            <p className="text-cyan-300 flex items-start">
+              <Target className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
+              <span><strong>AI建议:</strong> {marketAnalysis.recommendation}</span>
+            </p>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            <span className="text-gray-400 text-sm">热门叙事:</span>
+            {marketAnalysis.hot_narratives.map((narrative, i) => (
+              <span key={i} className="px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full flex items-center">
+                <Flame className="w-3 h-3 mr-1" />
+                {narrative}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Recent Trades */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
         <h3 className="text-xl font-bold text-white mb-4">最近交易</h3>
-        {recent_trades && recent_trades.length > 0 ? (
+        {displayTrades && displayTrades.length > 0 ? (
           <div className="space-y-3">
-            {recent_trades.map((trade, index) => (
+            {displayTrades.slice(0, 8).map((trade, index) => (
               <div
                 key={index}
                 className="bg-white/5 rounded-lg p-4 border border-white/10 hover:border-purple-400/50 transition-all"
