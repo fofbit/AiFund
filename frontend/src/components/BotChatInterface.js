@@ -1,39 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import { MessageCircle, TrendingUp, TrendingDown, BarChart3, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { MessageCircle, TrendingUp, TrendingDown, BarChart3, X, Send, Sparkles, Bot, Zap, Target, Clock, RefreshCw } from 'lucide-react';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const BotChatInterface = ({ botData, onClose }) => {
   const { bot, recent_trades } = botData;
   const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentTypingText, setCurrentTypingText] = useState('');
+  const [demoTrades, setDemoTrades] = useState([]);
+  const [marketAnalysis, setMarketAnalysis] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    // Generate chat messages from trades
+    loadDemoData();
+  }, [bot.id]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const loadDemoData = async () => {
+    try {
+      const [tradesRes, marketRes] = await Promise.all([
+        axios.get(`${API}/demo/trades/${bot.id}?num_trades=5`),
+        axios.get(`${API}/demo/market-analysis`)
+      ]);
+      setDemoTrades(tradesRes.data.trades);
+      setMarketAnalysis(marketRes.data.analysis);
+      
+      // Generate initial chat messages
+      generateChatMessages(tradesRes.data.trades, marketRes.data.analysis);
+    } catch (error) {
+      console.error('Error loading demo data:', error);
+      generateChatMessages(recent_trades, null);
+    }
+  };
+
+  const generateChatMessages = async (trades, analysis) => {
     const chatMessages = [];
     
-    // Welcome message
+    // Welcome message with typing effect
+    setIsTyping(true);
+    await typeMessage(`你好！我是${bot.name} 🤖`, 50);
+    
     chatMessages.push({
       type: 'bot',
       content: `你好！我是${bot.name} 🤖`,
       subtitle: '你的AI交易助手',
-      timestamp: new Date(bot.created_at)
+      timestamp: new Date(bot.created_at),
+      avatar: bot.avatar_emoji || '🤖'
     });
+
+    await new Promise(r => setTimeout(r, 500));
 
     chatMessages.push({
       type: 'bot',
       content: '我会实时分析市场并执行交易决策',
       subtitle: 'GPT-5.2驱动 · 24/7运行',
-      timestamp: new Date(bot.created_at)
+      timestamp: new Date(bot.created_at),
+      avatar: bot.avatar_emoji || '🤖'
     });
+    setMessages([...chatMessages]);
 
-    // Add trade messages
-    if (recent_trades && recent_trades.length > 0) {
-      recent_trades.reverse().forEach(trade => {
+    // Add market analysis message if available
+    if (analysis) {
+      await new Promise(r => setTimeout(r, 800));
+      chatMessages.push({
+        type: 'analysis',
+        content: `📊 当前市场分析`,
+        data: {
+          btc: analysis.btc_price,
+          eth: analysis.eth_price,
+          sentiment: analysis.sentiment,
+          recommendation: analysis.recommendation
+        },
+        timestamp: new Date()
+      });
+      setMessages([...chatMessages]);
+    }
+
+    // Add trade messages with delays
+    const tradesToShow = trades || recent_trades || [];
+    if (tradesToShow.length > 0) {
+      for (let i = 0; i < Math.min(tradesToShow.length, 3); i++) {
+        const trade = tradesToShow[i];
+        await new Promise(r => setTimeout(r, 1000));
+        
         // Decision message
         chatMessages.push({
           type: 'bot',
           content: `💡 ${trade.reason}`,
           subtitle: 'AI分析结果',
-          timestamp: new Date(trade.timestamp)
+          timestamp: new Date(trade.timestamp),
+          avatar: bot.avatar_emoji || '🤖'
         });
+        setMessages([...chatMessages]);
+
+        await new Promise(r => setTimeout(r, 600));
 
         // Action message
         const action = trade.action === 'buy' ? '买入' : '卖出';
@@ -46,6 +116,9 @@ const BotChatInterface = ({ botData, onClose }) => {
           amount: trade.amount,
           timestamp: new Date(trade.timestamp)
         });
+        setMessages([...chatMessages]);
+
+        await new Promise(r => setTimeout(r, 400));
 
         // Result message
         const profit = trade.profit_loss;
@@ -57,18 +130,54 @@ const BotChatInterface = ({ botData, onClose }) => {
           subtitle: isProfit ? '好的决策!' : '市场波动,继续优化',
           timestamp: new Date(trade.timestamp)
         });
-      });
+        setMessages([...chatMessages]);
+      }
     } else {
       chatMessages.push({
         type: 'bot',
         content: '正在分析市场中...',
         subtitle: '即将执行第一笔交易',
-        timestamp: new Date()
+        timestamp: new Date(),
+        avatar: bot.avatar_emoji || '🤖'
       });
+      setMessages([...chatMessages]);
     }
 
-    setMessages(chatMessages);
-  }, [bot, recent_trades]);
+    setIsTyping(false);
+  };
+
+  const typeMessage = async (text, speed = 30) => {
+    for (let i = 0; i <= text.length; i++) {
+      setCurrentTypingText(text.substring(0, i));
+      await new Promise(r => setTimeout(r, speed));
+    }
+    setCurrentTypingText('');
+  };
+
+  const refreshAnalysis = async () => {
+    setIsTyping(true);
+    try {
+      const marketRes = await axios.get(`${API}/demo/market-analysis`);
+      const analysis = marketRes.data.analysis;
+      
+      const newMessage = {
+        type: 'analysis',
+        content: `📊 最新市场分析`,
+        data: {
+          btc: analysis.btc_price,
+          eth: analysis.eth_price,
+          sentiment: analysis.sentiment,
+          recommendation: analysis.recommendation
+        },
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, newMessage]);
+    } catch (error) {
+      console.error('Error refreshing analysis:', error);
+    }
+    setIsTyping(false);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
