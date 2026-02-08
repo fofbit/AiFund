@@ -25,16 +25,8 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
   const profitPercent = ((bot.total_profit / 10000) * 100).toFixed(2);
   const isProfit = bot.total_profit >= 0;
 
-  const getAvatarEmoji = (avatar) => {
-    const avatars = {
-      'default_bot_1': '🤖',
-      'default_bot_2': '🦾',
-      'default_bot_3': '👾',
-      'default_bot_4': '🚀',
-      'default_bot_5': '💎',
-    };
-    return avatars[avatar] || '🤖';
-  };
+  // Use avatar_emoji from bot data, fallback to default
+  const botEmoji = bot.avatar_emoji || '🤖';
 
   return (
     <div className="space-y-6">
@@ -42,7 +34,7 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
       <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 border border-purple-400 shadow-2xl">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <div className="text-6xl mr-4">{getAvatarEmoji(bot.avatar)}</div>
+            <div className="text-6xl mr-4">{botEmoji}</div>
             <div>
               <h2 className="text-3xl font-bold text-white">{bot.name}</h2>
               <div className="flex items-center mt-1">
