@@ -335,7 +335,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
 
         {/* Quick Actions */}
         {userData?.user?.tier !== 'inactive' && (
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
+          <div className="mt-8 grid md:grid-cols-4 gap-4">
             <button
               onClick={() => setShowDepositModal(true)}
               className="p-6 bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-xl border border-white/20 hover:border-purple-400 transition-all text-left"
@@ -356,6 +356,16 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
                 <p className="text-yellow-200 text-sm">10%利润分成 · 真金白银</p>
               </button>
             )}
+
+            <button
+              onClick={() => setShowBacktest(true)}
+              className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 backdrop-blur-lg rounded-xl border border-cyan-500/50 hover:border-cyan-400 transition-all text-left"
+              data-testid="backtest-btn"
+            >
+              <Rewind className="w-8 h-8 text-cyan-400 mb-2" />
+              <h4 className="text-lg font-semibold text-white mb-1">模拟回测</h4>
+              <p className="text-cyan-200 text-sm">验证Bot历史表现</p>
+            </button>
 
             <button
               onClick={onRefresh}
