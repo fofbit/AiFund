@@ -290,28 +290,38 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
           </div>
         )}
 
-        {/* Global Vision Promo */}
-        {userData?.user?.tier !== 'inactive' && !userData?.user?.has_global_vision && (
-          <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-xl p-6 mb-8 border-2 border-yellow-500">
+        {/* Global Vision Promo - show for both unlocked and non-unlocked */}
+        {userData?.user?.tier !== 'inactive' && (
+          <div className={`rounded-xl p-6 mb-8 border-2 ${
+            userData?.user?.has_global_vision
+              ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-purple-500/50'
+              : 'bg-gradient-to-r from-yellow-600 to-orange-600 border-yellow-500'
+          }`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Globe className="w-12 h-12 text-white mr-4" />
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-1">🌍 全球视野</h3>
-                  <p className="text-yellow-100 mb-2">
-                    看看如果有AI，100U能变成多少？
+                  <h3 className="text-2xl font-bold text-white mb-1">全球视野</h3>
+                  <p className={`mb-2 ${userData?.user?.has_global_vision ? 'text-purple-200' : 'text-yellow-100'}`}>
+                    {userData?.user?.has_global_vision
+                      ? '已解锁 — 查看全部历史暴富案例和时光旅行'
+                      : '看看如果有AI，100U能变成多少？'}
                   </p>
-                  <p className="text-yellow-200 text-sm">
-                    过去10年的投资机会 · 实际数据 · 震撼展示
-                  </p>
+                  {!userData?.user?.has_global_vision && (
+                    <p className="text-yellow-200 text-sm">过去10年的投资机会 · 实际数据 · 震撼展示</p>
+                  )}
                 </div>
               </div>
               <button
                 onClick={() => setShowGlobalVision(true)}
-                className="px-6 py-3 bg-white hover:bg-gray-100 text-orange-600 font-bold rounded-lg transition-all shadow-lg"
+                className={`px-6 py-3 font-bold rounded-lg transition-all shadow-lg ${
+                  userData?.user?.has_global_vision
+                    ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                    : 'bg-white hover:bg-gray-100 text-orange-600'
+                }`}
                 data-testid="global-vision-btn"
               >
-                探索机会 →
+                {userData?.user?.has_global_vision ? '进入探索 →' : '探索机会 →'}
               </button>
             </div>
           </div>
