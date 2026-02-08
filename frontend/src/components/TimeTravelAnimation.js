@@ -22,14 +22,41 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
 
   // Map opportunity to asset ID
   const getAssetId = () => {
+    // Direct ID match first
+    const id = opportunity?.id || '';
+    const directMap = {
+      'btc_2015': 'btc_2015', 'btc_etf_2024': 'btc_2015',
+      'eth_2016': 'eth_2016', 'pepe_2023': 'pepe_2023',
+      'sol_2022_bottom': 'sol_2022_bottom', 'nvda_2024_ai': 'nvda_2024_ai',
+      'tsla_2020': 'tsla_2020', 'doge_2020': 'doge_2020',
+      'meta_2022_bottom': 'meta_2022_bottom', 'amd_2016': 'amd_2016',
+      'aapl_2015': 'aapl_2015', 'gold_2015': 'gold_2015',
+      'gme_2021': 'gme_2021', 'ordi_2023': 'ordi_2023',
+      'yesterday_btc': 'btc_2015', 'yesterday_meme': 'pepe_2023',
+      'amzn_2015': 'aapl_2015', 'kweichow_2015': 'gold_2015',
+      'byd_2020': 'tsla_2020', 'oil_2022': 'gold_2015',
+      'oil_negative_2020': 'gold_2015', 'vix_2020': 'gold_2015',
+      'qqq_options_2020': 'nvda_2024_ai', 'uni_airdrop_2020': 'eth_2016',
+      'polymarket_trump_2024': 'btc_2015', 'polymarket_btc_100k': 'btc_2015',
+    };
+    if (directMap[id]) return directMap[id];
+    
+    // Fallback: title-based matching
     const title = opportunity?.title?.toLowerCase() || '';
     if (title.includes('btc') || title.includes('比特币')) return 'btc_2015';
     if (title.includes('eth') || title.includes('以太坊')) return 'eth_2016';
     if (title.includes('pepe')) return 'pepe_2023';
-    if (title.includes('sol') || title.includes('solana')) return 'sol_2020';
-    if (title.includes('nvda') || title.includes('英伟达')) return 'nvda_2019';
+    if (title.includes('sol') || title.includes('solana')) return 'sol_2022_bottom';
+    if (title.includes('nvda') || title.includes('英伟达')) return 'nvda_2024_ai';
     if (title.includes('tsla') || title.includes('特斯拉')) return 'tsla_2020';
-    return 'btc_2015'; // Default to BTC
+    if (title.includes('doge') || title.includes('狗狗')) return 'doge_2020';
+    if (title.includes('meta')) return 'meta_2022_bottom';
+    if (title.includes('amd')) return 'amd_2016';
+    if (title.includes('aapl') || title.includes('苹果')) return 'aapl_2015';
+    if (title.includes('gold') || title.includes('黄金')) return 'gold_2015';
+    if (title.includes('gme') || title.includes('gamestop')) return 'gme_2021';
+    if (title.includes('ordi')) return 'ordi_2023';
+    return 'btc_2015';
   };
 
   useEffect(() => {
