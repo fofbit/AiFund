@@ -98,7 +98,7 @@ const LandingPage = ({ onConnect, loading }) => {
                   2
                 </div>
                 <h4 className="text-xl font-semibold text-white mb-2">充值激活</h4>
-                <p className="text-gray-400">≥1U基础版 | ≥100U VIP</p>
+                <p className="text-gray-400">≥1U基础版 | ≥99U VIP</p>
               </div>
               <div className="text-center">
                 <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
@@ -115,6 +115,34 @@ const LandingPage = ({ onConnect, loading }) => {
                 <p className="text-gray-400">Bot自动交易，全程透明</p>
               </div>
             </div>
+          </div>
+
+          {/* Live Demo Stats */}
+          <div className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 rounded-3xl p-8 border border-green-500/30 mb-20">
+            <h2 className="text-3xl font-bold text-white text-center mb-8">
+              🔥 平台实时数据
+            </h2>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-400 mb-2">12,847</div>
+                <p className="text-gray-300">活跃Bot数</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">$2.4M</div>
+                <p className="text-gray-300">累计收益</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-purple-400 mb-2">67.8%</div>
+                <p className="text-gray-300">平均胜率</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-cyan-400 mb-2">24/7</div>
+                <p className="text-gray-300">全天候运行</p>
+              </div>
+            </div>
+            <p className="text-center text-gray-400 text-sm mt-6">
+              * 数据为演示数据，实际收益因市场波动而异
+            </p>
           </div>
 
           {/* Pricing */}
