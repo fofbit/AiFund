@@ -98,37 +98,33 @@ function App() {
   const connectWallet = async () => {
     setLoading(true);
     try {
-      // Check if MetaMask is installed
       if (typeof window.ethereum !== 'undefined') {
-        // Request account access
         const accounts = await window.ethereum.request({ 
           method: 'eth_requestAccounts' 
         });
-        
         const address = accounts[0];
-        
-        // Connect to backend
         const response = await axios.post(`${API}/wallet/connect`, {
           wallet_address: address,
           wallet_type: 'metamask'
         });
-        
         setWalletAddress(address);
         setUserData(response.data);
         setConnected(true);
         setIsDemoMode(false);
-        
-        // Save to localStorage
         localStorage.setItem('aifund_wallet', address);
         localStorage.removeItem('aifund_demo_mode');
-        
       } else {
-        alert('Please install MetaMask to use this dApp!');
-        window.open('https://metamask.io/download/', '_blank');
+        // No wallet detected — LandingPage now handles this with WalletGuideModal
+        // This fallback only fires if called from non-landing contexts
+        alert('请先安装加密钱包（如MetaMask）再进行连接。\n或点击"免费体验演示"立即体验！');
       }
     } catch (error) {
       console.error('Error connecting wallet:', error);
-      alert('Failed to connect wallet. Please try again.');
+      if (error.code === 4001) {
+        alert('连接已取消。');
+      } else {
+        alert('连接钱包失败，请重试。');
+      }
     } finally {
       setLoading(false);
     }
