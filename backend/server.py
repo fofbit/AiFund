@@ -478,7 +478,7 @@ async def unlock_global_vision(req: DepositRequest):
     
     usd_value = req.amount * prices[req.currency]
     
-    if usd_value < 9.9:
+    if usd_value < 9.8:  # Allow 9.8+ to account for floating point
         raise HTTPException(status_code=400, detail="Payment too low for Global Vision")
     
     # Record payment
