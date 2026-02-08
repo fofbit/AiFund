@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Globe, TrendingUp, Calendar, DollarSign, Sparkles, X, Lock, Unlock, ArrowRight } from 'lucide-react';
+import { Globe, TrendingUp, Calendar, DollarSign, Sparkles, X, Lock, Unlock, ArrowRight, Rocket } from 'lucide-react';
+import TimeTravelAnimation from './TimeTravelAnimation';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -11,6 +12,10 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   const [loading, setLoading] = useState(true);
   const [showUnlockModal, setShowUnlockModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedTimeframe, setSelectedTimeframe] = useState('all');
+  const [showTimeTravel, setShowTimeTravel] = useState(false);
+  const [timeTravelOpportunity, setTimeTravelOpportunity] = useState(null);
 
   const hasAccess = userData?.user?.has_global_vision || false;
 
@@ -43,19 +48,52 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
       'Prediction Market': '🎯',
       'Commodity': '🏅',
       'Stock': '📈',
-      'Recent': '⚡'
+      'Recent': '⚡',
+      'Polymarket': '🎯',
+      'Futures': '📊',
+      'Options': '📉'
     };
     return icons[category] || '💰';
   };
 
-  const filteredOpportunities = selectedTab === 'all' 
-    ? opportunities 
-    : opportunities.filter(opp => {
-        if (selectedTab === 'crypto') return ['Cryptocurrency', 'BRC-20', 'Meme Coin'].includes(opp.category);
-        if (selectedTab === 'traditional') return ['Stock', 'Commodity', 'Prediction Market'].includes(opp.category);
-        if (selectedTab === 'recent') return opp.category === 'Recent';
-        return true;
-      });
+  // Enhanced filtering with category and timeframe
+  const filteredOpportunities = opportunities.filter(opp => {
+    // Tab filter
+    if (selectedTab === 'crypto' && !['Cryptocurrency', 'BRC-20', 'Meme Coin'].includes(opp.category)) return false;
+    if (selectedTab === 'traditional' && !['Stock', 'Commodity', 'Futures', 'Options'].includes(opp.category)) return false;
+    if (selectedTab === 'prediction' && opp.category !== 'Polymarket') return false;
+    if (selectedTab === 'recent' && !opp.is_recent) return false;
+    
+    // Category filter
+    if (selectedCategory !== 'all' && opp.subcategory !== selectedCategory) return false;
+    
+    // Timeframe filter
+    if (selectedTimeframe !== 'all') {
+      const oppDate = new Date(opp.date);
+      const now = new Date();
+      const daysDiff = Math.floor((now - oppDate) / (1000 * 60 * 60 * 24));
+      
+      if (selectedTimeframe === 'daily' && daysDiff > 7) return false;
+      if (selectedTimeframe === 'monthly' && (daysDiff > 365 || daysDiff < 30)) return false;
+      if (selectedTimeframe === 'yearly' && daysDiff < 365) return false;
+    }
+    
+    return true;
+  });
+
+  // Get unique subcategories for the selected tab
+  const getSubcategories = () => {
+    const subcats = new Set();
+    opportunities.forEach(opp => {
+      if (opp.subcategory) subcats.add(opp.subcategory);
+    });
+    return Array.from(subcats);
+  };
+
+  const handleTimeTravel = (opp) => {
+    setTimeTravelOpportunity(opp);
+    setShowTimeTravel(true);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
