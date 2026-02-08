@@ -247,10 +247,23 @@ async def create_bot(req: CreateBotRequest):
     if existing_bot:
         raise HTTPException(status_code=400, detail="User already has a bot")
     
+    # Get avatar emoji from gamification service
+    avatars = bot_customization_service.get_bot_avatars()
+    avatar_data = None
+    for av in avatars[req.gender]:
+        if av['id'] == req.avatar_id:
+            avatar_data = av
+            break
+    
+    avatar_emoji = avatar_data['emoji'] if avatar_data else '🤖'
+    
     # Create new bot
     new_bot = Bot(
         user_wallet=wallet_address,
-        name=req.bot_name
+        name=req.bot_name,
+        gender=req.gender,
+        avatar=req.avatar_id,
+        avatar_emoji=avatar_emoji
     )
     
     bot_dict = new_bot.model_dump()
