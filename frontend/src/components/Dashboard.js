@@ -461,7 +461,6 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
           userData={userData}
           onClose={() => setShowGlobalVision(false)}
           onUnlock={() => {
-            setShowGlobalVision(false);
             onRefresh();
           }}
         />
