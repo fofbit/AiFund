@@ -15,6 +15,7 @@ from notifications import notification_service
 from global_vision import global_vision_service
 from gamification import bot_customization_service, vip_level_system, virtual_asset_store
 from demo_data import demo_data_generator
+from vip_commands import vip_trading_commands_service
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
