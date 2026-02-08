@@ -209,6 +209,14 @@ const BotDashboard = ({ botData, userData, onRefresh }) => {
           </div>
         </div>
       )}
+
+      {/* Bot Chat Interface */}
+      {showChat && (
+        <BotChatInterface 
+          botData={botData}
+          onClose={() => setShowChat(false)}
+        />
+      )}
     </div>
   );
 };
