@@ -70,19 +70,103 @@ const OpportunityDetail = ({ opportunity, userData, onClose, onBack }) => {
         ],
         insight: '特斯拉证明了：颠覆性企业在极度悲观时买入，回报惊人。AI能帮你在市场恐慌中发现被低估的革命性公司。'
       },
+      'tencent_ipo_2004': {
+        title: 'Tencent: From QQ Chat to $500B Empire (1,300x)',
+        chapters: [
+          { year: '2004', title: 'IPO HK$3.70', text: 'A small chat app company went public. Most people thought QQ was just a toy for teenagers.' },
+          { year: '2011', title: 'WeChat Born', text: 'Tencent launched WeChat — the super-app used by 1.3 billion people.' },
+          { year: '2017', title: 'Gaming Giant', text: 'Through Honor of Kings and global investments, Tencent became the world\'s largest gaming company.' },
+          { year: '2021', title: '$900B Peak', text: '$100 at IPO became $130,000. One of the greatest wealth stories in Asian stock market history.' },
+        ],
+        insight: 'Social platform monopolies in massive markets create 1,300x returns. Your Bot watches for the next Tencent.'
+      },
+      'nvda_ipo_1999': {
+        title: 'NVIDIA IPO: $0.15 to $140 — The 930x Journey',
+        chapters: [
+          { year: '1999', title: 'IPO', text: 'A small GPU company went public. Nobody imagined graphics cards would power artificial intelligence.' },
+          { year: '2006', title: 'CUDA', text: 'NVIDIA let developers use GPUs for computing. The most important decision in tech history.' },
+          { year: '2016', title: 'AI Era', text: 'Deep learning researchers discovered NVIDIA GPUs were perfect for training neural networks.' },
+          { year: '2024', title: '#1 Company', text: '$3.3 trillion market cap. $100 at IPO = $93,000 today.' },
+        ],
+        insight: 'Foundational technology at its earliest stage offers the most asymmetric returns. 930x from a "gaming card" company.'
+      },
+      'tsla_ipo_2010': {
+        title: 'Tesla IPO: When Everyone Said "Impossible" (350x)',
+        chapters: [
+          { year: '2010', title: 'IPO $1.13', text: 'Elon Musk\'s electric car company IPO\'d. Analysts said EVs would never work.' },
+          { year: '2020', title: 'Pandemic Surge', text: 'Despite COVID, deliveries surged. Stock 10x\'d in months.' },
+          { year: '2021', title: '$1.2T Peak', text: 'Tesla became the 6th most valuable company. $100 at IPO = $35,000.' },
+        ],
+        insight: 'Visionary founders who refuse to give up create trillion-dollar companies from nothing. 350x from IPO.'
+      },
+      'amzn_ipo_1997': {
+        title: 'Amazon: The 2,600x Bookstore (Greatest Stock Ever)',
+        chapters: [
+          { year: '1997', title: 'IPO $0.075', text: 'An online bookstore went public. The internet was new and scary.' },
+          { year: '2001', title: '-95% Crash', text: 'Dot-com bust wiped out 95% of the stock. Bezos was declared finished.' },
+          { year: '2006', title: 'AWS Launch', text: 'Cloud computing — Amazon\'s accidental side project became the most profitable business in tech.' },
+          { year: '2024', title: '$2 Trillion', text: '$100 at IPO = $260,000. Those who held through the 95% crash became millionaires.' },
+        ],
+        insight: 'The greatest stock in history. Patience through a 95% crash led to 2,600x returns. Conviction matters more than timing.'
+      },
+      'gme_wsb_2021': {
+        title: 'GameStop: When Reddit Broke Wall Street (83x in Weeks)',
+        chapters: [
+          { year: 'Jan 4', title: '$4.80', text: 'A dying video game retailer. Hedge funds bet $13B it would go bankrupt.' },
+          { year: 'Jan 13', title: 'Reddit Discovers', text: 'WallStreetBets noticed 140% short interest — impossible to cover. They started buying.' },
+          { year: 'Jan 27', title: '$347', text: 'Melvin Capital lost $13 billion. The world watched ordinary people beat Wall Street.' },
+          { year: 'Jan 28', title: '$483 Peak', text: 'A revolution. Proof that collective action by ordinary people can move markets.' },
+        ],
+        insight: 'In the social media age, the people have power. 83x in weeks. Your Bot monitors social sentiment in real-time.'
+      },
+      'eth_ico_2014': {
+        title: 'Ethereum ICO: $0.31 to $3,600 — Programmable Money (11,600x)',
+        chapters: [
+          { year: '2014', title: 'ICO $0.31', text: 'A 20-year-old sold ETH at 31 cents. Most people called it a scam.' },
+          { year: '2017', title: 'ICO Mania', text: 'Thousands of projects launched on Ethereum. The smart contract platform became crypto\'s foundation.' },
+          { year: '2020', title: 'DeFi Summer', text: '$100B+ locked in decentralized finance. Ethereum became the settlement layer of crypto.' },
+          { year: '2024', title: '$3,600', text: 'ICO investors saw 11,600x. Owning the platform > owning any single app built on it.' },
+        ],
+        insight: 'Platform tech that enables others to build creates exponential value. 11,600x from a teenager\'s vision.'
+      },
+      'google_ipo_2004': {
+        title: 'Google IPO: Organizing the World\'s Information (42x)',
+        chapters: [
+          { year: '2004', title: 'IPO $4.25', text: 'A search engine company went public. "Just another dot-com" some said.' },
+          { year: '2008', title: 'YouTube + Android', text: 'Google acquired YouTube and launched Android — owning mobile and video.' },
+          { year: '2024', title: 'AI Powerhouse', text: 'Google/Alphabet at $180+. Search, Cloud, AI, YouTube, Android — an empire.' },
+        ],
+        insight: 'Companies that own the gateway to information own the future. 42x from IPO.'
+      },
+      'netflix_2010': {
+        title: 'Netflix: DVD Mail to $820 Streaming Giant (108x)',
+        chapters: [
+          { year: '2010', title: '$7.64', text: 'Netflix mailed DVDs. Blockbuster laughed at them.' },
+          { year: '2013', title: 'House of Cards', text: 'Netflix bet everything on original content. It worked.' },
+          { year: '2022', title: '-75% Crash', text: 'Lost subscribers for the first time. Stock crashed from $700 to $166.' },
+          { year: '2024', title: '$820', text: 'Recovered stronger than ever. Ad tier + crackdown on password sharing worked.' },
+        ],
+        insight: 'Companies that cannibalize their own business model to embrace the future achieve extraordinary growth. 108x.'
+      },
+      'bitcoin_2011': {
+        title: 'BTC at $1: The 100,000x Opportunity',
+        chapters: [
+          { year: '2011', title: 'First $1', text: 'Bitcoin reached $1 for the first time. You could buy 100 BTC for $100.' },
+          { year: '2017', title: '$20,000', text: 'Six years later, those 100 BTC were worth $2 million.' },
+          { year: '2025', title: '$100,000', text: 'Those same 100 BTC are now worth $10,000,000. The greatest asymmetric bet in history.' },
+        ],
+        insight: 'Revolutionary technology at $1 is the ultimate asymmetric bet. Maximum upside, limited downside. 100,000x.'
+      },
     };
 
-    // Default story for opportunities not in the map
-    const defaultStory = {
-      title: `${opp.title} — 财富神话`,
+    return stories[opp.id] || stories.tsla_2020 ? stories[opp.id] : {
+      title: `${opp.title} — Wealth Myth`,
       chapters: [
-        { year: opp.date?.substring(0, 4) || '起始', title: '机会出现', text: opp.what_happened || opp.description },
-        { year: '结果', title: '最终回报', text: `如果当时投资100U，最终将变成$${opp.final_value?.toLocaleString()}，回报率${opp.roi_multiplier}。` },
+        { year: opp.date?.substring(0, 4) || 'Start', title: 'The Opportunity', text: opp.what_happened || opp.description },
+        { year: 'Result', title: 'Final Return', text: `100U invested then = $${opp.final_value?.toLocaleString()} today (${opp.roi_multiplier}).` },
       ],
-      insight: opp.lesson || '每一个财富神话背后，都有一个被大多数人忽视的机会。AI能帮你捕捉这些被忽视的机会。'
+      insight: opp.lesson || 'Behind every wealth myth is an opportunity most people missed. Your Bot helps you find the next one.'
     };
-
-    return stories[opp.id] || defaultStory;
   };
 
   const story = getStory(opportunity);
