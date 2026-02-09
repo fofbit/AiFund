@@ -182,7 +182,8 @@ async def connect_wallet(req: ConnectWalletRequest):
             "wallet_address": user["wallet_address"],
             "balance_usd": user.get("balance_usd", 0),
             "tier": user.get("tier", "inactive"),
-            "referral_code": user.get("referral_code")
+            "referral_code": user.get("referral_code"),
+            "has_global_vision": user.get("has_global_vision", False)
         },
         "has_bot": bot is not None
     }
