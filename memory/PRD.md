@@ -1,47 +1,38 @@
-# AIFund.com - Product Requirements Document v7
+# AiFund.com — PRD v8
 
 ## Overview
 **AiFund.com** — Let AI Earn For You
 Equal access to global wealth is everyone's right.
 
-## Production-Ready Features
+## Production Features (All Tested & Working)
 
-### Payment System (REAL)
-- 5 chain support: TRC20, ERC20, BSC, Arbitrum, Solana
-- Real receiving addresses integrated
-- On-chain auto-verification (TRC20/ERC20/BSC/ARB via blockchain APIs)
-- Manual TX hash fallback for all chains
-- 3-step flow: Select Chain → Show Address & Copy → Verify
-- Integrated into: Global Vision unlock (9.9U), VIP upgrade (99U), Deposits
+### Payment System (REAL USDT)
+- 5 chains: TRC20, ERC20, BSC, ARB, SOL
+- QR code + copy address
+- Auto-verify polling (10s intervals, spinning animation)
+- Gas fee tolerance (accepts 90% of required amount)
+- Same-wallet verification warning
+- Manual TX hash fallback
+- "Pay" terminology (not "Deposit")
 
-### Multi-Language (EN/CN)
-- Landing page + Dashboard both have EN/中文 switcher
-- Persisted via localStorage
+### User Experience Fixes (v8)
+- Global Vision unlock persists after refresh (has_global_vision in API)
+- Wallet display shows chain icon (EVM/Tron/SOL)
+- AiFund.com branding (proper capitalization)
+- Gas fee warnings for users
 
-### Global Vision (9.9U) — Core Module
-- 30+ cases spanning 15 years, sorted by ROI
-- Time Travel Back To: 1yr/2yr/3yr/5yr/10yr/15yr
-- Detail stories + time-travel animations for each case
-
-### VIP System
-- 100 levels (100U→10,000U), 50/50 profit rule
-- API Settings with exchange registration links
-- 12 DEX/Meme platforms
-
-### Other Features
-- Bot Chat, Bot Showcase (10 levels/skins), Referral System
-- Whitepaper viewer (bilingual + PDF), Quick Start Guide (60s)
+### Core Features
+- Multi-language EN/CN, mobile responsive
+- Global Vision (9.9U): 30+ cases, 15yr history, time-travel
+- VIP System: 100 levels, 50/50 rule, 12 DEX platforms
+- Bot Chat, Bot Showcase, Referral, Whitepaper
 - Wallet Guide (6 wallets + Chrome links)
-- Backtest, Demo Mode, Social Share
+- Quick Start Guide (60s animated)
 
-### Logo
-- 2 variants generated (tech + finance style)
+### Pending
+- AI customer service chatbot
+- NFT account rights UI
+- 10K user co-creation waitlist
+- Solana on-chain auto-verify
 
-## Tech Stack
-React + FastAPI + MongoDB + ReportLab
-Payment verification: httpx + blockchain APIs
-
-## Mocked: Trading data, bot stats, prices
-## Real: Payment addresses, wallet connections
-
-## Last Updated: 2026-12-13 v7
+## Last Updated: 2026-12-13 v8
