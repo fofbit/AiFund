@@ -1,0 +1,156 @@
+{
+  "summary": "Iteration 9 testing completed successfully. Major expansion of Global Vision cases to 45 total verified. All legendary IPO-to-now stories (Tencent 1300x, NVIDIA IPO 930x, Tesla IPO 350x, Amazon IPO 2600x, Google IPO 42x, Netflix 108x, Microsoft 18x, GameStop WSB 83x, Ethereum ICO 11,600x, BNB 5900x, BTC at $1 100,000x, Moutai IPO 520x) are present with proper data. Backend: 26/29 tests passed (3 unrelated demo endpoint tests failed due to API field naming changes). Frontend: Global Vision page displays all 45 cases sorted by ROI with BTC Pizza 200,000x at top. 15 Years Ago filter shows all new IPO cases correctly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/demo/start",
+        "issue": "Endpoint not found (404) - demo is accessed via wallet connect with demo flag, not dedicated endpoint",
+        "priority": "LOW"
+      },
+      {
+        "endpoint": "/api/health",
+        "issue": "Endpoint not found (404) - root API returns status instead",
+        "priority": "LOW"
+      },
+      {
+        "endpoint": "/api/wallet/connect",
+        "issue": "Uses wallet_address/wallet_type fields, not address/chain_type - test needs update",
+        "priority": "LOW"
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration9_global_vision.py",
+    "/app/test_reports/pytest/pytest_results_iter9.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Global Vision correctly returns 45 cases with all required fields",
+    "Cases are properly sorted by ROI when displayed (BTC Pizza 200,000x at top)",
+    "15 Years Ago timeframe filter correctly shows 13 legendary IPO/historical cases",
+    "All 10 new historical price curves return valid data with 50+ data points each",
+    "TimeTravelAnimation.js has proper mappings for all new case IDs",
+    "OpportunityDetail.js has detailed story chapters for new legendary cases"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration9_global_vision.py"
+  ],
+  "success_rate": {
+    "backend": "89.7% (26/29 tests passed - 3 unrelated demo endpoint tests)",
+    "frontend": "100%"
+  },
+  "test_credentials": "Demo mode accessed via 'Free Demo' button - no credentials needed",
+  "seed_data_creation": "No additional seed data required - all 45 cases defined in global_vision.py",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 9 expanded Global Vision from 30 to 45 cases. New legendary IPO stories include: Tencent (1300x), NVIDIA IPO (930x), Tesla IPO (350x), Amazon IPO (2600x), Google IPO (42x), GameStop WSB (83x), Ethereum ICO (11,600x), BNB (5900x), BTC at $1 (100,000x), Netflix (108x), Microsoft (18x), Moutai IPO (520x). Each has historical price curve data in historical_prices.py. Time Travel animation mappings are in TimeTravelAnimation.js. Trading data remains MOCKED.",
+  "features_tested": {
+    "global_vision_45_cases": {
+      "status": "PASS",
+      "details": "Backend returns 45 cases, frontend displays all 45"
+    },
+    "btc_pizza_200000x_at_top": {
+      "status": "PASS",
+      "details": "BTC Pizza (200,000x, $20,000,000 final value) correctly at top when sorted by ROI"
+    },
+    "15year_timeframe_tags": {
+      "status": "PASS",
+      "details": "13 cases have 15year timeframe including all legendary IPO stories"
+    },
+    "tencent_ipo_2004_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve with 200 points, symbol 0700"
+    },
+    "nvda_ipo_1999_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, start_price $0.15 (split-adjusted)"
+    },
+    "tsla_ipo_2010_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, start_price $1.13 (split-adjusted)"
+    },
+    "amzn_ipo_1997_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, start_price $0.075 (split-adjusted)"
+    },
+    "google_ipo_2004_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, start_price $4.25"
+    },
+    "gme_wsb_2021_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve for GameStop WSB squeeze"
+    },
+    "netflix_2010_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, start_price $7.64"
+    },
+    "bitcoin_2011_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, investment_price $1"
+    },
+    "eth_ico_2014_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve, investment_price $0.31"
+    },
+    "moutai_ipo_2001_price_curve": {
+      "status": "PASS",
+      "details": "Returns valid curve for Kweichow Moutai"
+    },
+    "global_vision_page_ui": {
+      "status": "PASS",
+      "details": "All 45 cases displayed with filters (timeframe + category), story detail and time travel buttons"
+    },
+    "time_travel_animation": {
+      "status": "PASS",
+      "details": "Time Travel buttons clickable, animation framework in place"
+    },
+    "demo_mode_e2e": {
+      "status": "PASS",
+      "details": "Demo mode works end-to-end with welcome modal and VIP access"
+    },
+    "all_previous_features": {
+      "status": "PASS",
+      "details": "Dashboard, bot stats, market analysis, profit chart all working"
+    }
+  },
+  "iteration_9_new_cases_verified": {
+    "tencent_ipo_2004": "1,300x - Chat App to $500B Empire",
+    "nvda_ipo_1999": "930x - GPU to AI World Domination",
+    "tsla_ipo_2010": "350x - The EV Revolution Bet",
+    "amzn_ipo_1997": "2,600x - From Bookstore to Everything Store",
+    "google_ipo_2004": "42x - Organizing the World's Information",
+    "gme_wsb_2021": "83x - Reddit vs Wall Street",
+    "netflix_2010": "108x - DVD to Streaming King",
+    "msft_2010": "18x - Cloud & AI Renaissance",
+    "eth_ico_2014": "11,600x - The Programmable Money",
+    "bnb_2017": "5,900x - Exchange Token to Ecosystem",
+    "bitcoin_2011": "100,000x - First Time at $1",
+    "moutai_ipo_2001": "520x - China's Liquid Gold",
+    "shopify_ipo_2015": "6.5x - Empowering Every Entrepreneur"
+  },
+  "mocked_integrations": [
+    "Trading data is MOCKED",
+    "Bot stats and trades are simulated",
+    "Payment addresses are REAL (not mocked)",
+    "Payment auto-verify uses REAL blockchain APIs"
+  ],
+  "top_10_by_roi_display_order": [
+    "1. btc_2010_origin - 200,000x ($20,000,000)",
+    "2. bitcoin_2011 - 100,000x ($10,000,000)",
+    "3. eth_ico_2014 - 11,600x ($1,160,000)",
+    "4. bnb_2017 - 5,900x ($590,000)",
+    "5. btc_2015 - 4,583x ($458,333)",
+    "6. amzn_ipo_1997 - 2,600x ($260,000)",
+    "7. pepe_2023 - 1,800x ($180,000)",
+    "8. ordi_2023 - 1,500x ($150,000)",
+    "9. tencent_ipo_2004 - 1,300x ($130,000)",
+    "10. nvda_ipo_1999 - 930x ($93,000)"
+  ]
+}
