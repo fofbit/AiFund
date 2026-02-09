@@ -418,6 +418,16 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
             )}
 
             <button
+              onClick={() => setShowVipLevels(true)}
+              className="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/10 hover:from-yellow-500/20 hover:to-amber-500/20 backdrop-blur-lg rounded-xl border border-yellow-500/30 hover:border-yellow-400 transition-all text-left"
+              data-testid="vip-levels-btn"
+            >
+              <Crown className="w-8 h-8 text-yellow-400 mb-2" />
+              <h4 className="text-lg font-semibold text-white mb-1">VIP Levels</h4>
+              <p className="text-yellow-200 text-sm">100级 · DEX · 规则</p>
+            </button>
+
+            <button
               onClick={onRefresh}
               className="p-6 bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-xl border border-white/20 hover:border-purple-400 transition-all text-left"
             >
