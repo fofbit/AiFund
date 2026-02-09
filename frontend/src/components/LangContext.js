@@ -1,34 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
+// Simple language state management without React Context
+// This avoids babel plugin issues with createContext in component files
 
-const LangContext = createContext();
-
-const translations = {
+const dashboardTranslations = {
   en: {
-    // Demo banner
     demoMode: 'Demo Mode', demoDesc: 'Full-featured experience with simulated data',
     connectReal: 'Connect Real Wallet', exitDemo: 'Exit Demo',
-    // Welcome
     welcomeTitle: 'Welcome to AIFund!', welcomeDesc: 'We created a demo account for you',
     yourBot: 'Your Personal Bot', botReady: '"Demo Bot" is ready, trading 24/7 for you',
     virtualFunds: 'Virtual Funds', virtualDesc: '$10,000 virtual capital — watch AI earn for you',
     globalVision: 'Global Vision', gvDesc: 'Explore historical wealth opportunities & time-travel',
     startExploring: "Let's Go!", connectAnytime: 'Connect a real wallet anytime to start for real',
-    // Header
     demoAccount: 'Demo Account', disconnect: 'Disconnect',
-    // Tiers
     inactive: 'Inactive', basic: 'Basic', vip: 'VIP',
-    // Activation
     notActivated: 'Account Not Activated',
     depositPrompt: 'Deposit at least $1 worth of crypto to activate your account and adopt your AI Bot!',
     depositNow: 'Deposit Now',
     activated: 'Account Activated!', activatedDesc: 'Now you can adopt your personal AI trading Bot!',
     adoptBot: 'Adopt My Bot', loadingBot: 'Loading Bot data...',
-    // Global Vision promo
     gvTitle: 'Global Vision', gvUnlocked: 'Unlocked — Explore all wealth myths & time-travel',
     gvLocked: 'See what 100U could have become with AI?',
     gvLockedDesc: '10 years of opportunities · Real data · Stunning visuals',
     explore: 'Explore', enterExplore: 'Enter',
-    // Quick actions
     deposit: 'Deposit', depositDesc: 'Add balance or upgrade',
     upgradeVip: 'Upgrade VIP', vipDesc: '10% profit share · Real trading',
     apiSettings: 'API Settings', apiDesc: 'Connect exchange for auto-trade',
@@ -38,10 +30,8 @@ const translations = {
     vipLevels: 'VIP Levels', vipLevelsDesc: '100 Levels · DEX · Rules',
     referFriends: 'Refer Friends', referDesc: '+1 Level each',
     refresh: 'Refresh', refreshDesc: 'Update data',
-    // VIP banner
     youAreVip: 'You are a VIP Member',
     shareVip: 'Share your achievement!', shareBtn: 'Share',
-    // Notifications
     notifications: 'Notifications',
   },
   zh: {
@@ -78,21 +68,4 @@ const translations = {
   }
 };
 
-export const LangProvider = ({ children }) => {
-  const [lang, setLang] = useState(() => localStorage.getItem('aifund_lang') || 'en');
-  
-  const switchLang = (l) => {
-    setLang(l);
-    localStorage.setItem('aifund_lang', l);
-  };
-
-  const t = translations[lang] || translations.en;
-
-  return (
-    <LangContext.Provider value={{ lang, setLang: switchLang, t }}>
-      {children}
-    </LangContext.Provider>
-  );
-};
-
-export const useLang = () => useContext(LangContext);
+export const getTranslations = (lang) => dashboardTranslations[lang] || dashboardTranslations.en;
