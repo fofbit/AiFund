@@ -170,9 +170,16 @@ class HistoricalPriceService:
             "btc_2015": {
                 "name": "比特币 (BTC)", "symbol": "BTC",
                 "data": HistoricalPriceService.BTC_HISTORY,
-                "start_date": "2010-07-17", "start_price": 0.05,
+                "start_date": "2010-05-22", "start_price": 0.003,
                 "investment_date": "2015-01-01", "investment_price": 200,
                 "current_price": 91000, "color": "#F7931A"
+            },
+            "btc_2010_origin": {
+                "name": "Bitcoin (BTC) — Genesis", "symbol": "BTC",
+                "data": HistoricalPriceService.BTC_HISTORY,
+                "start_date": "2010-05-22", "start_price": 0.003,
+                "investment_date": "2010-05-22", "investment_price": 0.003,
+                "current_price": 100000, "color": "#F7931A"
             },
             "eth_2016": {
                 "name": "以太坊 (ETH)", "symbol": "ETH",
