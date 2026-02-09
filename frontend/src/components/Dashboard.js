@@ -523,6 +523,10 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
           }}
         />
       )}
+
+      {showVipLevels && (
+        <VIPLevelSystem onClose={() => setShowVipLevels(false)} currentLevel={1} />
+      )}
     </div>
   );
 };
