@@ -329,10 +329,10 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
         <div className="p-6 border-t border-purple-500/30 bg-black/30">
           <div className="text-center">
             <p className="text-2xl text-white font-bold mb-3">
-              {hasAccess ? "看到了吗？AI能改变一切！" : "想让AI帮你抓住下一个机会？"}
+              {hasAccess ? "Helping you discover hidden wealth opportunities" : "Let AI help you seize the next opportunity"}
             </p>
             <p className="text-gray-300 mb-4">
-              {hasAccess ? "现在升级VIP，让你的Bot用真金白银帮你赚钱！" : "解锁全球视野，看看你错过的所有机会"}
+              {hasAccess ? "帮你发现本来看不见的财富机遇 — Upgrade to VIP and let your Bot trade real money!" : "Unlock Global Vision to see all the wealth myths you missed"}
             </p>
             <button
               onClick={hasAccess ? onUnlock : () => setShowUnlockModal(true)}
