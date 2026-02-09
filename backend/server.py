@@ -20,6 +20,7 @@ from vip_commands import vip_trading_commands_service
 from historical_prices import historical_price_service
 from whitepaper import get_whitepaper_pdf
 from payment_verifier import payment_verifier
+from ai_customer_service import ai_chat_service
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
