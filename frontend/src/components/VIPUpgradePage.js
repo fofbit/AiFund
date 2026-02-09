@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Crown, TrendingUp, Shield, Zap, DollarSign, X, Check, AlertCircle, Rocket, Percent, Wallet, ArrowRight, Play, BarChart3 } from 'lucide-react';
 import VIPTradingCommands from './VIPTradingCommands';
+import PaymentFlow from './PaymentFlow';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
