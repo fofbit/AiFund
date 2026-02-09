@@ -145,7 +145,8 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
   const [showWalletGuide, setShowWalletGuide] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [showWhitepaper, setShowWhitepaper] = useState(false);
-  const { lang, setLang } = useLang();
+  const [lang, setLang] = useState(() => localStorage.getItem('aifund_lang') || 'en');
+  const handleSetLang = (l) => { setLang(l); localStorage.setItem('aifund_lang', l); };
 
   const handleConnect = () => {
     if (typeof window.ethereum !== 'undefined') {
