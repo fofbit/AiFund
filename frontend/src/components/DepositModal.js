@@ -29,7 +29,7 @@ const DepositModal = ({ walletAddress, onClose, onSuccess }) => {
           </button>
         </div>
 
-        <p className="text-gray-300 text-sm mb-4">Select or enter the amount you want to deposit.</p>
+        <p className="text-gray-300 text-sm mb-4">Select or enter the amount you want to pay.</p>
 
         <div className="grid grid-cols-4 gap-2 mb-4">
           {presetAmounts.map((a) => (
