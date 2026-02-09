@@ -20,7 +20,9 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMode, onExitDemo, onConnectReal }) => {
-  const { lang, setLang, t } = useLang();
+  const [lang, setLangState] = useState(() => localStorage.getItem('aifund_lang') || 'en');
+  const setLang = (l) => { setLangState(l); localStorage.setItem('aifund_lang', l); };
+  const t = getTranslations(lang);
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showCreateBotModal, setShowCreateBotModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
