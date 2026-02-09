@@ -274,54 +274,18 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
         </div>
       </div>
 
-      {/* Payment Confirmation Modal */}
-      {showPaymentModal && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
-          <div className="bg-slate-800 rounded-2xl max-w-md w-full p-6 border border-yellow-500/30">
-            <h3 className="text-2xl font-bold text-white mb-4 flex items-center">
-              <Wallet className="w-6 h-6 text-yellow-400 mr-2" />
-              确认支付
-            </h3>
-            
-            <div className="bg-white/5 rounded-lg p-4 mb-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-gray-400">支付金额</span>
-                <span className="text-white font-bold">99 USDT</span>
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-gray-400">支付方式</span>
-                <span className="text-white">{selectedPayment}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">获得权益</span>
-                <span className="text-yellow-400">VIP会员</span>
-              </div>
-            </div>
-
-            <div className="p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg mb-6">
-              <p className="text-yellow-300 text-sm">
-                💡 支付成功后，您可以连接交易所API，让Bot用您的真实资金进行交易。
-                平台只收取盈利的10%作为服务费。
-              </p>
-            </div>
-
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setShowPaymentModal(false)}
-                className="flex-1 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all"
-              >
-                取消
-              </button>
-              <button
-                onClick={handleUpgrade}
-                disabled={loading}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 disabled:opacity-50 text-black font-semibold rounded-lg transition-all"
-              >
-                {loading ? '处理中...' : '确认支付'}
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Real Payment Flow */}
+      {showPaymentFlow && (
+        <PaymentFlow
+          walletAddress={walletAddress}
+          paymentType="vip"
+          amount={99}
+          onClose={() => setShowPaymentFlow(false)}
+          onSuccess={() => {
+            setShowPaymentFlow(false);
+            onSuccess();
+          }}
+        />
       )}
     </div>
   );
