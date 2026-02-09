@@ -230,7 +230,7 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
 
         {/* Top Bar: Language + Whitepaper */}
         <div className="absolute top-4 right-4 z-10 flex items-center space-x-2">
-          <a href="/api/whitepaper" target="_blank" rel="noopener noreferrer" className="flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-lg rounded-full text-gray-300 hover:text-white text-xs font-semibold border border-white/20 transition-all" data-testid="whitepaper-link">
+          <a href="#" onClick={(e) => { e.preventDefault(); setShowWhitepaper(true); }} className="flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-lg rounded-full text-gray-300 hover:text-white text-xs font-semibold border border-white/20 transition-all" data-testid="whitepaper-link">
             <FileText className="w-3 h-3 mr-1" />{t.whitepaper}
           </a>
           <div className="flex items-center space-x-1 bg-white/10 backdrop-blur-lg rounded-full px-1 py-1 border border-white/20">
