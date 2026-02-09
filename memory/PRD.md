@@ -1,52 +1,60 @@
-# AIFund.com - Product Requirements Document v5
+# AIFund.com - Product Requirements Document v6 (Final Pre-Deployment)
 
 ## Overview
 **AIFund.com** — Let AI Earn For You
 **Subtitle:** Equal access to global wealth is everyone's right
 **Values:** AI equalizes knowledge. Bot equalizes labor. AI + Bot equalizes wealth for all.
-**Pricing:** Basic (≥1U) | Global Vision (9.9U) | VIP (99U)
 
-## All Implemented Features
+## All Implemented Features (Production Ready)
 
-### Landing Page (EN default, multi-language)
-- Title: "Let AI Earn For You", Subtitle: "Equal access to global wealth is everyone's right"
-- EN/中文 switcher, Whitepaper viewer link, Quick Start Guide (60s)
-- 5-step flow: Connect → Deposit → Adopt Bot → Follow Bot → Bot Earns For You
-- Wallet Guide (6 wallets: MetaMask, OKX, WizzWallet, Trust, Coinbase, Unisat + Chrome links)
-- Mobile responsive (390px)
+### 1. Multi-Language (EN/CN throughout)
+- Landing page + Dashboard both have EN/中文 switcher
+- Language persisted via localStorage
+- Default: English
 
-### Global Vision (9.9U) — KEY MODULE
-- "Time Travel Back To:" 1yr/2yr/3yr/5yr/10yr/15yr periods
-- 26+ cases sorted by ROI (highest first)
-- Each case: story detail, time-travel animation, 100U investment journey
-- CTA: "Helping you discover hidden wealth opportunities"
-- 13 assets with historical price data
+### 2. Landing Page
+- Title: "Let AI Earn For You"
+- 5-step flow, wallet guide (6 wallets + Chrome links), video guide (60s)
+- Whitepaper viewer link, Global Vision promo, pricing cards
+- Mobile responsive
 
-### VIP Level System (100 levels)
-- 100U start → 10,000U max capital
-- 6 tiers: Bronze/Silver/Gold/Platinum/Diamond/Legend
-- 50/50 profit rule, 10% platform fee
-- Unique skins per milestone
-- 12 DEX/Meme platforms
+### 3. Global Vision (9.9U) — KEY MODULE
+- "Time Travel Back To:" 1yr/2yr/3yr/5yr/10yr/15yr
+- 30+ cases sorted by ROI, including:
+  - 15yr: BTC Pizza Day ($0.003→$100K = 200,000x), Apple 2010 (28x), Amazon (15x), TSMC (20x)
+  - 10yr: BTC 2015 (4583x), ETH (450x), AMD (85x)
+  - 5yr: TSLA (20x), DOGE (175x), GME (24x)
+  - 3yr: SOL (18x), PEPE (1800x), ORDI (1500x)
+  - 2yr: NVDA AI (9.5x), SOL Meme Season (50x)
+  - 1yr: NVDA 3.2x, BTC ETF
+- Each case: story detail page + time-travel animation
 
-### Whitepaper v1.0.0
-- In-app viewer with EN/CN switch
-- PDF download (/api/whitepaper)
-- Vision, rules, VIP system, markets, security
+### 4. VIP Level System (100 levels)
+- 100U→10,000U, 50/50 rule, 6 tiers, skins, 12 DEX platforms
 
-### Referral System
-- +1 VIP level for both referrer and referred
-- Unique referral link, copy, Twitter/Telegram share
+### 5. Whitepaper v1.0.0 (bilingual)
+- In-app viewer with EN/CN toggle + PDF download
 
-### Other Features
-- Bot Chat (daily signals with links), Bot Showcase (10 levels, skins, achievements)
-- VIP API Settings (8 markets + exchange registration links)
-- Backtest Simulator, Demo Mode, Social Share, Notifications
+### 6. Referral System
+- +1 level for both, Twitter/Telegram share
 
-### Planned (Not Yet Active)
+### 7. Dashboard (i18n)
+- All labels bilingual, 8 quick action buttons
+- Header: lang switcher, whitepaper, notifications
+
+### 8. Other Features
+- Bot Chat, Bot Showcase (10 levels/skins), VIP API Settings (8 markets + exchange links)
+- Backtest, Demo Mode, Social Share, Notifications
+
+### Planned (Post-Launch)
 - NFT Account Rights (transferable Bot ownership)
-- 10,000 user co-creation waitlist with mystery NFT
+- 10K user co-creation waitlist
 - Real payment processing
 - Live trading API bridge
 
-## Last Updated: 2026-12-13 v5
+## Tech Stack
+- Frontend: React, Tailwind CSS, Recharts
+- Backend: FastAPI, MongoDB, ReportLab (PDF)
+- All data: MOCKED (demo)
+
+## Last Updated: 2026-12-13 v6 (Final)
