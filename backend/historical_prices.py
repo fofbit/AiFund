@@ -345,6 +345,76 @@ class HistoricalPriceService:
                 "investment_date": "2023-03-06", "investment_price": 0.05,
                 "current_price": 42, "color": "#F7931A"
             },
+            "tencent_ipo_2004": {
+                "name": "Tencent (0700.HK)", "symbol": "0700",
+                "data": HistoricalPriceService.TENCENT_HISTORY,
+                "start_date": "2004-06-16", "start_price": 0.37,
+                "investment_date": "2004-06-16", "investment_price": 0.37,
+                "current_price": 480, "color": "#25D366"
+            },
+            "nvda_ipo_1999": {
+                "name": "NVIDIA (NVDA) — IPO", "symbol": "NVDA",
+                "data": HistoricalPriceService.NVDA_IPO_HISTORY,
+                "start_date": "1999-01-22", "start_price": 0.15,
+                "investment_date": "1999-01-22", "investment_price": 0.15,
+                "current_price": 140, "color": "#76B900"
+            },
+            "tsla_ipo_2010": {
+                "name": "Tesla (TSLA) — IPO", "symbol": "TSLA",
+                "data": HistoricalPriceService.TSLA_IPO_HISTORY,
+                "start_date": "2010-06-29", "start_price": 1.13,
+                "investment_date": "2010-06-29", "investment_price": 1.13,
+                "current_price": 350, "color": "#CC0000"
+            },
+            "amzn_ipo_1997": {
+                "name": "Amazon (AMZN) — IPO", "symbol": "AMZN",
+                "data": HistoricalPriceService.AMZN_IPO_HISTORY,
+                "start_date": "1997-05-15", "start_price": 0.075,
+                "investment_date": "1997-05-15", "investment_price": 0.075,
+                "current_price": 220, "color": "#FF9900"
+            },
+            "google_ipo_2004": {
+                "name": "Google (GOOG) — IPO", "symbol": "GOOG",
+                "data": HistoricalPriceService.GOOG_HISTORY,
+                "start_date": "2004-08-19", "start_price": 4.25,
+                "investment_date": "2004-08-19", "investment_price": 4.25,
+                "current_price": 190, "color": "#4285F4"
+            },
+            "gme_wsb_2021": {
+                "name": "GameStop (GME)", "symbol": "GME",
+                "data": HistoricalPriceService.GME_HISTORY,
+                "start_date": "2021-01-04", "start_price": 18,
+                "investment_date": "2021-01-04", "investment_price": 4.8,
+                "current_price": 48, "color": "#FF4500"
+            },
+            "netflix_2010": {
+                "name": "Netflix (NFLX)", "symbol": "NFLX",
+                "data": HistoricalPriceService.NFLX_HISTORY,
+                "start_date": "2010-01-04", "start_price": 7.64,
+                "investment_date": "2010-01-04", "investment_price": 7.64,
+                "current_price": 820, "color": "#E50914"
+            },
+            "eth_ico_2014": {
+                "name": "Ethereum ICO", "symbol": "ETH",
+                "data": HistoricalPriceService.ETH_HISTORY,
+                "start_date": "2015-08-07", "start_price": 0.31,
+                "investment_date": "2014-07-22", "investment_price": 0.31,
+                "current_price": 3600, "color": "#627EEA"
+            },
+            "bitcoin_2011": {
+                "name": "BTC at $1", "symbol": "BTC",
+                "data": HistoricalPriceService.BTC_HISTORY,
+                "start_date": "2010-05-22", "start_price": 0.003,
+                "investment_date": "2011-02-09", "investment_price": 1.0,
+                "current_price": 100000, "color": "#F7931A"
+            },
+            "moutai_ipo_2001": {
+                "name": "Kweichow Moutai", "symbol": "600519",
+                "data": HistoricalPriceService.GOLD_HISTORY,
+                "start_date": "2001-08-27", "start_price": 34.51,
+                "investment_date": "2001-08-27", "investment_price": 34.51,
+                "current_price": 1800, "color": "#B91C1C"
+            },
         }
         return histories.get(asset_id, histories["btc_2015"])
     
