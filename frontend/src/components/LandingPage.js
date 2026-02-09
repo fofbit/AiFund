@@ -186,7 +186,7 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
     footerCrypto: '支持: BTC, ETH, USDT, USDC, BNB, SOL 等主流加密货币',
   } : {
     slogan: 'Let AI Earn For You',
-    subtitle: 'Equal access to AI-powered wealth for everyone',
+    subtitle: 'Equal access to global wealth is everyone\'s right',
     connectBtn: 'Connect Wallet',
     demoBtn: 'Free Demo',
     minDeposit: 'Activate with as little as $1 in crypto',
