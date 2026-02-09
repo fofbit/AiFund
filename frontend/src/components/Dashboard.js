@@ -428,7 +428,17 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
             >
               <Crown className="w-8 h-8 text-yellow-400 mb-2" />
               <h4 className="text-lg font-semibold text-white mb-1">VIP Levels</h4>
-              <p className="text-yellow-200 text-sm">100级 · DEX · 规则</p>
+              <p className="text-yellow-200 text-sm">100 Levels · DEX · Rules</p>
+            </button>
+
+            <button
+              onClick={() => setShowReferral(true)}
+              className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 backdrop-blur-lg rounded-xl border border-green-500/30 hover:border-green-400 transition-all text-left"
+              data-testid="referral-btn"
+            >
+              <Share2 className="w-8 h-8 text-green-400 mb-2" />
+              <h4 className="text-lg font-semibold text-white mb-1">Refer Friends</h4>
+              <p className="text-green-200 text-sm">+1 Level each</p>
             </button>
 
             <button
