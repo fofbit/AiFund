@@ -9,9 +9,9 @@ const API = `${BACKEND_URL}/api`;
 
 const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
-  const [selectedPayment, setSelectedPayment] = useState('USDT');
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showTradingCommands, setShowTradingCommands] = useState(false);
+  const [showPaymentFlow, setShowPaymentFlow] = useState(false);
 
   const isVIP = userData?.user?.tier === 'vip';
   const currentBalance = userData?.user?.balance_usd || 0;
