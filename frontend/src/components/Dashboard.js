@@ -15,6 +15,9 @@ import BotShowcase from './BotShowcase';
 import VIPLevelSystem from './VIPLevelSystem';
 import WhitepaperViewer from './WhitepaperViewer';
 import ReferralSystem from './ReferralSystem';
+import AiCustomerService from './AiCustomerService';
+import NFTAccountRights from './NFTAccountRights';
+import CoCreatorWaitlist from './CoCreatorWaitlist';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
