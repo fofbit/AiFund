@@ -25,7 +25,7 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
     // Direct ID match first
     const id = opportunity?.id || '';
     const directMap = {
-      'btc_2015': 'btc_2015', 'btc_etf_2024': 'btc_2015',
+      'btc_2015': 'btc_2015', 'btc_etf_2024': 'btc_2015', 'btc_2010_origin': 'btc_2010_origin',
       'eth_2016': 'eth_2016', 'pepe_2023': 'pepe_2023',
       'sol_2022_bottom': 'sol_2022_bottom', 'nvda_2024_ai': 'nvda_2024_ai',
       'tsla_2020': 'tsla_2020', 'doge_2020': 'doge_2020',
