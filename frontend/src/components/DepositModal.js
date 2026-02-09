@@ -55,7 +55,7 @@ const DepositModal = ({ walletAddress, onClose, onSuccess }) => {
           className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:opacity-40 text-white font-bold rounded-xl transition-all text-sm"
           data-testid="proceed-deposit-btn"
         >
-          {!amount || parseFloat(amount) < 1 ? 'Enter amount (min $1)' : `Deposit $${parseFloat(amount).toFixed(2)} USDT`}
+          {!amount || parseFloat(amount) < 1 ? 'Enter amount (min $1)' : `Pay $${parseFloat(amount).toFixed(2)} USDT`}
         </button>
       </div>
     </div>
