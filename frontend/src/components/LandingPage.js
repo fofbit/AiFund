@@ -144,7 +144,8 @@ const OnboardingVideo = ({ onClose, lang }) => {
 const LandingPage = ({ onConnect, onDemoMode, loading }) => {
   const [showWalletGuide, setShowWalletGuide] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [lang, setLang] = useState('en'); // Default to English per user request
+  const [showWhitepaper, setShowWhitepaper] = useState(false);
+  const [lang, setLang] = useState('en');
 
   const handleConnect = () => {
     if (typeof window.ethereum !== 'undefined') {
