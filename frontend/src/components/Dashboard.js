@@ -43,6 +43,8 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
   const [showVipLevels, setShowVipLevels] = useState(false);
   const [showWhitepaper, setShowWhitepaper] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
+  const [showNFTRights, setShowNFTRights] = useState(false);
+  const [showCoCreator, setShowCoCreator] = useState(false);
 
   useEffect(() => {
     if (userData?.has_bot) loadBotData();
