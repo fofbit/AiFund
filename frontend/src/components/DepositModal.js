@@ -23,7 +23,7 @@ const DepositModal = ({ walletAddress, onClose, onSuccess }) => {
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-md w-full p-6 border border-purple-500/30 shadow-2xl">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-xl font-bold text-white">Deposit USDT</h3>
+          <h3 className="text-xl font-bold text-white">Pay with USDT</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
             <span className="text-xl">✕</span>
           </button>
