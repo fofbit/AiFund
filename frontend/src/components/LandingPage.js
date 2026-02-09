@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Wallet, TrendingUp, Bot, Globe, Lock, Eye, ExternalLink, X, Search, Users, Shield, Download, Play, FileText, ChevronRight } from 'lucide-react';
 import WhitepaperViewer from './WhitepaperViewer';
-import { useLang } from '@/hooks/useLang';
+import { useLang } from './LangContext';
 
 const WALLETS = [
   { name: 'MetaMask', desc: 'Most popular Ethereum wallet', descZh: '最流行的以太坊钱包', icon: '🦊', url: 'https://metamask.io/download/', chrome: 'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', type: 'Browser + Mobile' },
