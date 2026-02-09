@@ -244,34 +244,14 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
                 </p>
               </div>
 
-              {/* Payment Options */}
-              <div className="flex justify-center space-x-4 mb-6">
-                {['BTC', 'ETH', 'USDT'].map((currency) => (
-                  <button
-                    key={currency}
-                    onClick={() => setSelectedPayment(currency)}
-                    className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                      selectedPayment === currency
-                        ? 'bg-yellow-500 text-black'
-                        : 'bg-white/10 text-white hover:bg-white/20'
-                    }`}
-                  >
-                    {currency === 'BTC' && '₿'} 
-                    {currency === 'ETH' && 'Ξ'} 
-                    {currency === 'USDT' && '💵'} 
-                    {' '}{currency}
-                  </button>
-                ))}
-              </div>
-
               <button
-                onClick={() => setShowPaymentModal(true)}
+                onClick={() => setShowPaymentFlow(true)}
                 disabled={loading}
                 className="px-12 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 disabled:opacity-50 text-black text-xl font-bold rounded-xl transition-all shadow-lg shadow-yellow-500/30 inline-flex items-center"
                 data-testid="upgrade-vip-btn"
               >
                 <Crown className="w-6 h-6 mr-2" />
-                立即升级VIP
+                Upgrade to VIP — Pay 99 USDT
                 <ArrowRight className="w-6 h-6 ml-2" />
               </button>
 
