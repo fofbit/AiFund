@@ -662,6 +662,71 @@ async def manual_confirm_payment(req: dict):
     
     return {"success": True, "message": "Payment recorded. Pending confirmation."}
 
+# ============ AI CUSTOMER SERVICE ============
+
+@api_router.post("/ai-support/chat")
+async def ai_support_chat(req: dict):
+    """AI customer service chatbot"""
+    session_id = req.get("session_id", "default")
+    message = req.get("message", "")
+    
+    if not message:
+        raise HTTPException(status_code=400, detail="Empty message")
+    
+    # Store message in DB
+    await db.support_chats.insert_one({
+        "session_id": session_id,
+        "role": "user",
+        "message": message,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    })
+    
+    response = await ai_chat_service.get_response(session_id, message)
+    
+    # Store response
+    await db.support_chats.insert_one({
+        "session_id": session_id,
+        "role": "bot",
+        "message": response,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    })
+    
+    return {"response": response}
+
+# ============ CO-CREATOR WAITLIST ============
+
+@api_router.get("/waitlist/status/{wallet_address}")
+async def get_waitlist_status(wallet_address: str):
+    """Check if user is on waitlist and get total count"""
+    wallet_address = wallet_address.lower()
+    total = await db.waitlist.count_documents({})
+    user_entry = await db.waitlist.find_one({"wallet_address": wallet_address})
+    return {"joined": user_entry is not None, "total_count": total}
+
+@api_router.post("/waitlist/join")
+async def join_waitlist(req: dict):
+    """Join the 10K co-creator waitlist"""
+    wallet_address = req.get("wallet_address", "").lower()
+    if not wallet_address:
+        raise HTTPException(status_code=400, detail="Wallet address required")
+    
+    existing = await db.waitlist.find_one({"wallet_address": wallet_address})
+    if existing:
+        return {"success": True, "already_joined": True}
+    
+    total = await db.waitlist.count_documents({})
+    if total >= 10000:
+        raise HTTPException(status_code=400, detail="Waitlist is full (10,000 members reached)")
+    
+    await db.waitlist.insert_one({
+        "wallet_address": wallet_address,
+        "position": total + 1,
+        "joined_at": datetime.now(timezone.utc).isoformat()
+    })
+    
+    logger.info(f"User {wallet_address} joined waitlist at position {total + 1}")
+    return {"success": True, "position": total + 1}
+
 # ============ VIP TRADING COMMANDS APIs ============
 
 @api_router.get("/vip/trading-commands")
