@@ -553,6 +553,113 @@ async def get_demo_bot_evolution(bot_id: str, level: int = 5):
     events = demo_data_generator.generate_bot_evolution_events(bot_id, level)
     return {"evolution_events": events}
 
+# ============ PAYMENT VERIFICATION APIs ============
+
+@api_router.get("/payment/addresses")
+async def get_payment_addresses():
+    """Get all receiving USDT addresses for payment"""
+    addresses = payment_verifier.get_receiving_addresses()
+    return {"addresses": addresses}
+
+@api_router.post("/payment/verify")
+async def verify_payment(req: dict):
+    """Verify on-chain payment and auto-confirm"""
+    wallet_address = req.get("wallet_address", "").lower()
+    amount = req.get("amount", 0)
+    chain = req.get("chain")  # trc20, erc20, bsc, arb, sol
+    payment_type = req.get("payment_type", "deposit")  # deposit, global_vision, vip
+    
+    if not wallet_address or amount <= 0:
+        raise HTTPException(status_code=400, detail="Invalid request")
+    
+    # Try to verify on-chain
+    result = await payment_verifier.verify_payment(wallet_address, amount, chain)
+    
+    if result and result.get("verified"):
+        # Record the payment
+        deposit = Deposit(
+            wallet_address=wallet_address,
+            currency="USDT",
+            amount=result["amount"],
+            usd_value=result["amount"],
+            tx_hash=result.get("tx_hash", f"verified_{result['chain']}_{datetime.now(timezone.utc).timestamp():.0f}"),
+            status="confirmed"
+        )
+        deposit_dict = deposit.model_dump()
+        deposit_dict['timestamp'] = deposit_dict['timestamp'].isoformat()
+        
+        # Check for duplicate tx_hash
+        existing = await db.deposits.find_one({"tx_hash": deposit_dict["tx_hash"]})
+        if existing:
+            return {"verified": True, "already_processed": True, "message": "This payment was already processed"}
+        
+        await db.deposits.insert_one(deposit_dict)
+        
+        # Process based on payment type
+        if payment_type == "global_vision":
+            await db.users.update_one(
+                {"wallet_address": wallet_address},
+                {"$set": {"has_global_vision": True}, "$inc": {"balance_usd": result["amount"]}}
+            )
+        elif payment_type == "vip":
+            await db.users.update_one(
+                {"wallet_address": wallet_address},
+                {"$inc": {"balance_usd": result["amount"]}}
+            )
+            await update_user_tier(wallet_address)
+        else:
+            await db.users.update_one(
+                {"wallet_address": wallet_address},
+                {"$inc": {"balance_usd": result["amount"]}}
+            )
+            await update_user_tier(wallet_address)
+        
+        logger.info(f"Payment verified on-chain: {wallet_address} - {result['amount']} USDT via {result['chain']}")
+        return {
+            "verified": True,
+            "chain": result["chain"],
+            "tx_hash": result.get("tx_hash"),
+            "amount": result["amount"],
+            "message": "Payment verified and confirmed!"
+        }
+    
+    # Not found on-chain yet
+    return {"verified": False, "message": "Payment not detected yet. Please wait a few minutes and try again."}
+
+@api_router.post("/payment/manual-confirm")
+async def manual_confirm_payment(req: dict):
+    """Manual payment confirmation with tx hash (fallback)"""
+    wallet_address = req.get("wallet_address", "").lower()
+    tx_hash = req.get("tx_hash", "")
+    amount = req.get("amount", 0)
+    chain = req.get("chain", "unknown")
+    payment_type = req.get("payment_type", "deposit")
+    
+    if not wallet_address or not tx_hash or amount <= 0:
+        raise HTTPException(status_code=400, detail="Missing required fields")
+    
+    # Check duplicate
+    existing = await db.deposits.find_one({"tx_hash": tx_hash})
+    if existing:
+        return {"success": True, "already_processed": True}
+    
+    deposit = Deposit(
+        wallet_address=wallet_address, currency="USDT",
+        amount=amount, usd_value=amount, tx_hash=tx_hash, status="pending_review"
+    )
+    deposit_dict = deposit.model_dump()
+    deposit_dict['timestamp'] = deposit_dict['timestamp'].isoformat()
+    await db.deposits.insert_one(deposit_dict)
+    
+    # Auto-confirm for now (in production, add manual review queue)
+    if payment_type == "global_vision":
+        await db.users.update_one({"wallet_address": wallet_address}, {"$set": {"has_global_vision": True}, "$inc": {"balance_usd": amount}})
+    else:
+        await db.users.update_one({"wallet_address": wallet_address}, {"$inc": {"balance_usd": amount}})
+        await update_user_tier(wallet_address)
+    
+    return {"success": True, "message": "Payment recorded. Pending confirmation."}
+
 # ============ VIP TRADING COMMANDS APIs ============
 
 @api_router.get("/vip/trading-commands")
