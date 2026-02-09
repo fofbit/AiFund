@@ -1,69 +1,52 @@
-# AIFund.com - Product Requirements Document
+# AIFund.com - Product Requirements Document v5
 
 ## Overview
-AIFund.com — Let AI Earn For You
-**Mission:** Equal access to AI-powered wealth for everyone. Make the AI wealth revolution accessible to billions.
+**AIFund.com** — Let AI Earn For You
+**Subtitle:** Equal access to global wealth is everyone's right
 **Values:** AI equalizes knowledge. Bot equalizes labor. AI + Bot equalizes wealth for all.
+**Pricing:** Basic (≥1U) | Global Vision (9.9U) | VIP (99U)
 
-**Pricing:** Basic (≥1U) | Global Vision (9.9U one-time) | VIP (99U)
+## All Implemented Features
 
-## Core Features (ALL IMPLEMENTED)
+### Landing Page (EN default, multi-language)
+- Title: "Let AI Earn For You", Subtitle: "Equal access to global wealth is everyone's right"
+- EN/中文 switcher, Whitepaper viewer link, Quick Start Guide (60s)
+- 5-step flow: Connect → Deposit → Adopt Bot → Follow Bot → Bot Earns For You
+- Wallet Guide (6 wallets: MetaMask, OKX, WizzWallet, Trust, Coinbase, Unisat + Chrome links)
+- Mobile responsive (390px)
 
-### 1. Multi-Language Landing Page (EN default)
-- EN/中文 switcher, all text translated
-- Title: "Let AI Earn For You" / "让AI帮你赚钱"
-- Subtitle: "Equal access to AI-powered wealth for everyone"
-- Plain language, no jargon
-- Whitepaper link (PDF download)
-- Quick Start Guide (60s animated)
-- Mobile responsive (390px tested)
+### Global Vision (9.9U) — KEY MODULE
+- "Time Travel Back To:" 1yr/2yr/3yr/5yr/10yr/15yr periods
+- 26+ cases sorted by ROI (highest first)
+- Each case: story detail, time-travel animation, 100U investment journey
+- CTA: "Helping you discover hidden wealth opportunities"
+- 13 assets with historical price data
 
-### 2. Wallet Guide (6 wallets)
-MetaMask, OKX, WizzWallet, Trust, Coinbase, Unisat
-- Chrome browser download link
-- Chrome Extension Store link for each wallet
-- Official site link for each wallet
-
-### 3. Onboarding Video (60s)
-6-step animated timeline: Welcome → Wallet → Deposit → Adopt Bot → Follow Signals → Go VIP
-
-### 4. VIP Level System (100 levels)
-- 100U start → 10,000U max managed capital
-- Level up by returning 10% profit share
+### VIP Level System (100 levels)
+- 100U start → 10,000U max capital
 - 6 tiers: Bronze/Silver/Gold/Platinum/Diamond/Legend
-- Skin rewards at milestones (Lv10, 25, 50, 75, 100)
-- Compute power grows 1%→100%
-- 50/50 profit rule: 50% snowball, 50% withdraw for life improvement
-- 3 tabs: Level Overview, Rules & Rewards, DEX & Meme Markets
+- 50/50 profit rule, 10% platform fee
+- Unique skins per milestone
+- 12 DEX/Meme platforms
 
-### 5. DEX & Meme Platforms (12)
-Unisat, WiZZ/Atomicals, Pump.fun, GMGN, Birdeye, Uniswap, Jupiter, Raydium, PancakeSwap, Moonshot, SunPump, DEXTOOLS
-- API platforms: auto-trade
-- Non-API platforms: alert-based (user executes)
+### Whitepaper v1.0.0
+- In-app viewer with EN/CN switch
+- PDF download (/api/whitepaper)
+- Vision, rules, VIP system, markets, security
 
-### 6. Whitepaper v1.0.0 (PDF)
-- Vision, values, rules, VIP system, profit distribution, markets, security, pricing
-- Downloadable from /api/whitepaper
+### Referral System
+- +1 VIP level for both referrer and referred
+- Unique referral link, copy, Twitter/Telegram share
 
-### 7. Global Vision (9.9U unlock)
-26+ historical opportunities, detail stories, time-travel animations, 13 assets
+### Other Features
+- Bot Chat (daily signals with links), Bot Showcase (10 levels, skins, achievements)
+- VIP API Settings (8 markets + exchange registration links)
+- Backtest Simulator, Demo Mode, Social Share, Notifications
 
-### 8. Bot Chat (simplified daily commands)
-Daily buy/sell signals with external links, no technical jargon
+### Planned (Not Yet Active)
+- NFT Account Rights (transferable Bot ownership)
+- 10,000 user co-creation waitlist with mystery NFT
+- Real payment processing
+- Live trading API bridge
 
-### 9. VIP API Settings (8 markets)
-Exchange registration + app download links for each market
-
-### 10. Bot Showcase (Monopoly-style)
-10 growth levels, 9 achievements, leaderboard, share
-
-### 11. Demo Mode, Backtest, Social Share, Bot Dashboard
-All fully functional with mocked data
-
-## Mocked/Pending
-- Payment verification: auto-confirmed
-- Live trading API bridge: not implemented  
-- Real price feeds: demo data
-- Bot evolution: pre-canned logic
-
-## Last Updated: 2026-12-13 v4
+## Last Updated: 2026-12-13 v5
