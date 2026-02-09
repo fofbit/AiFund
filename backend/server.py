@@ -657,6 +657,20 @@ async def save_vip_api_settings(req: dict):
     logger.info(f"API settings saved for {wallet_address} - market: {market_id}")
     return {"success": True, "market_id": market_id}
 
+# ============ WHITEPAPER ============
+
+@api_router.get("/whitepaper")
+async def download_whitepaper():
+    """Download AIFund.com whitepaper as PDF"""
+    pdf_buffer = get_whitepaper_pdf()
+    pdf_bytes = pdf_buffer.getvalue()
+    from io import BytesIO
+    return StreamingResponse(
+        BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=AIFund_Whitepaper_v1.0.0.pdf"}
+    )
+
 # Include router
 app.include_router(api_router)
 
