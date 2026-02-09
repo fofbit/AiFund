@@ -14,7 +14,6 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   const [showUnlockModal, setShowUnlockModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedTimeframe, setSelectedTimeframe] = useState('all');
   const [showTimeTravel, setShowTimeTravel] = useState(false);
   const [timeTravelOpportunity, setTimeTravelOpportunity] = useState(null);
   const [localHasAccess, setLocalHasAccess] = useState(userData?.user?.has_global_vision || false);
