@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2, Sparkles, X, ArrowRight, Rewind, FileText } from 'lucide-react';
+import { LogOut, Wallet, TrendingUp, Bot, RefreshCw, Plus, Bell, Globe, Crown, Share2, Sparkles, X, ArrowRight, Rewind, FileText, Shield, Trophy } from 'lucide-react';
 import { getTranslations } from './LangContext';
 import DepositModal from './DepositModal';
 import CreateBotModal from './CreateBotModal';
