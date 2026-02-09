@@ -235,8 +235,8 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
             <FileText className="w-3 h-3 mr-1" />{t.whitepaper}
           </a>
           <div className="flex items-center space-x-1 bg-white/10 backdrop-blur-lg rounded-full px-1 py-1 border border-white/20">
-            <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${lang === 'en' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'}`} data-testid="lang-en">EN</button>
-            <button onClick={() => setLang('zh')} className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${lang === 'zh' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'}`} data-testid="lang-zh">中文</button>
+            <button onClick={() => handleSetLang('en')} className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${lang === 'en' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'}`} data-testid="lang-en">EN</button>
+            <button onClick={() => handleSetLang('zh')} className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${lang === 'zh' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'}`} data-testid="lang-zh">中文</button>
           </div>
         </div>
 
