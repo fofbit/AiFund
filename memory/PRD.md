@@ -1,101 +1,69 @@
 # AIFund.com - Product Requirements Document
 
 ## Overview
-AIFund.com - AI赚钱给大家分 - Bot-as-a-Service crypto/stock AI trading platform
-**Mission:** 让全世界弱势群体能平等享受AI红利的入门级平台，让投资暴富神话在每个人身上都有机会发生。
+AIFund.com — Let AI Earn For You
+**Mission:** Equal access to AI-powered wealth for everyone. Make the AI wealth revolution accessible to billions.
+**Values:** AI equalizes knowledge. Bot equalizes labor. AI + Bot equalizes wealth for all.
 
-**Pricing:**
-- 1U: Basic (simulated trading)
-- 9.9U: Global Vision (full historical opportunities + time-travel + stories)
-- 99U: VIP (real trading via API, 10% profit share)
+**Pricing:** Basic (≥1U) | Global Vision (9.9U one-time) | VIP (99U)
 
 ## Core Features (ALL IMPLEMENTED)
 
-### 1. Multi-Language Landing Page
-- Language switcher (中文/EN) in top-right corner
-- All text translated: slogan, features, steps, pricing, marketing copy
-- Plain language — no technical jargon (GPT-5.2 removed throughout)
-- Feature cards: "让AI帮你赚钱" / "Bot是你的千里眼" / "无门槛 无国界"
-- Marketing copy: "让每个普通人都能平等享受AI时代的财富红利"
-- 5-step flow:
-  1. 连接钱包 (3分钟创建)
-  2. 充值激活 (最低1美元)
-  3. 领养Bot (给它取个名字)
-  4. **跟随Bot** (Bot只提供投资情报，不操作用户资金和交易账户)
-  5. **Bot帮主人赚钱** (通过API接入，让Bot接管账户，24/7自动赚钱)
-- Mobile responsive (tested at 390px width)
+### 1. Multi-Language Landing Page (EN default)
+- EN/中文 switcher, all text translated
+- Title: "Let AI Earn For You" / "让AI帮你赚钱"
+- Subtitle: "Equal access to AI-powered wealth for everyone"
+- Plain language, no jargon
+- Whitepaper link (PDF download)
+- Quick Start Guide (60s animated)
+- Mobile responsive (390px tested)
 
-### 2. Wallet Guide Modal
-- When clicking "连接钱包" without wallet extension, shows guide modal
-- Lists 5 wallets with official links: MetaMask, OKX Wallet, Trust Wallet, Coinbase Wallet, Unisat
-- Each entry shows wallet name, description, type (浏览器插件/手机App), and external link
-- "不想装钱包？" tip pointing to free demo mode
+### 2. Wallet Guide (6 wallets)
+MetaMask, OKX, WizzWallet, Trust, Coinbase, Unisat
+- Chrome browser download link
+- Chrome Extension Store link for each wallet
+- Official site link for each wallet
 
-### 3. Demo Mode
-- "免费体验演示" button — one-click full experience
-- Auto-creates account with 100U + "体验Bot"
-- Welcome Guide Modal, Persistent Demo Banner
+### 3. Onboarding Video (60s)
+6-step animated timeline: Welcome → Wallet → Deposit → Adopt Bot → Follow Signals → Go VIP
 
-### 4. Global Vision (9.9U)
-- After unlock: ALL 26+ opportunity cards fully accessible
-- Each card has "故事详情" → OpportunityDetail with rich timeline story
-- Each card has "时光旅行" → TimeTravelAnimation with historical price data
-- 13 assets with price data: BTC, ETH, PEPE, SOL, NVDA, TSLA, DOGE, META, AMD, AAPL, GOLD, GME, ORDI
+### 4. VIP Level System (100 levels)
+- 100U start → 10,000U max managed capital
+- Level up by returning 10% profit share
+- 6 tiers: Bronze/Silver/Gold/Platinum/Diamond/Legend
+- Skin rewards at milestones (Lv10, 25, 50, 75, 100)
+- Compute power grows 1%→100%
+- 50/50 profit rule: 50% snowball, 50% withdraw for life improvement
+- 3 tabs: Level Overview, Rules & Rewards, DEX & Meme Markets
 
-### 5. Bot Chat Interface (Simplified)
-- Shows daily buy/sell commands only — no technical analysis
-- Each command has "了解 XXX 详情" external link (CoinGecko/Yahoo Finance)
-- Today's summary with total commands and expected profit
-- Disclaimer: "Bot不操作您的资金"
+### 5. DEX & Meme Platforms (12)
+Unisat, WiZZ/Atomicals, Pump.fun, GMGN, Birdeye, Uniswap, Jupiter, Raydium, PancakeSwap, Moonshot, SunPump, DEXTOOLS
+- API platforms: auto-trade
+- Non-API platforms: alert-based (user executes)
 
-### 6. VIP API Settings (with Exchange Links)
-- 8 supported markets: 加密货币, 美股, 港股, A股, 期货, 期权, 外汇, 预测市场
-- Each market shows exchange registration links ("开户注册") and app download links ("下载APP")
-- Crypto: Binance, OKX, Bybit, Coinbase
-- US Stock: IBKR, 富途, 老虎
-- HK/A Stock, Futures, Options, Forex, Prediction Market all covered
-- API key/secret input with security notices
+### 6. Whitepaper v1.0.0 (PDF)
+- Vision, values, rules, VIP system, profit distribution, markets, security, pricing
+- Downloadable from /api/whitepaper
 
-### 7. Bot Showcase (Monopoly-style)
-- 10 levels: 新手学徒 → 传奇大师
-- Achievement badges (9 types)
-- Leaderboard with mock data
-- Share button for social bragging
+### 7. Global Vision (9.9U unlock)
+26+ historical opportunities, detail stories, time-travel animations, 13 assets
 
-### 8. Backtest Simulator
-- Period selection, market filter, progress animation, results dashboard
+### 8. Bot Chat (simplified daily commands)
+Daily buy/sell signals with external links, no technical jargon
 
-### 9. VIP Trading Commands
-- Real-time command timeline, 10% platform fee, 8 markets
+### 9. VIP API Settings (8 markets)
+Exchange registration + app download links for each market
 
-### 10. Social Share
-- Achievement cards for bot adoption, VIP, profits
+### 10. Bot Showcase (Monopoly-style)
+10 growth levels, 9 achievements, leaderboard, share
 
-## File Structure
-```
-/app
-├── backend/
-│   ├── server.py, global_vision.py, historical_prices.py
-│   ├── vip_commands.py, demo_data.py, gamification.py
-│   ├── market_data.py, notifications.py, trading_simulator.py
-├── frontend/src/components/
-│   ├── LandingPage.js (multilingual, wallet guide, responsive)
-│   ├── Dashboard.js (6 quick actions)
-│   ├── BotChatInterface.js (simplified daily commands)
-│   ├── GlobalVisionPage.js, OpportunityDetail.js
-│   ├── TimeTravelAnimation.js (13 assets)
-│   ├── VIPApiSettings.js (exchange links)
-│   ├── BotShowcase.js (Monopoly-style)
-│   ├── BacktestSimulator.js, VIPTradingCommands.js
-│   ├── BotDashboard.js, CreateBotModal.js
-│   └── ShareAchievementModal.js, NotificationPanel.js
-```
+### 11. Demo Mode, Backtest, Social Share, Bot Dashboard
+All fully functional with mocked data
 
 ## Mocked/Pending
-1. Payment verification - auto-confirmed
-2. Live trading API bridge - not implemented
-3. Bot evolution - pre-canned logic
-4. Real price feeds - demo data
+- Payment verification: auto-confirmed
+- Live trading API bridge: not implemented  
+- Real price feeds: demo data
+- Bot evolution: pre-canned logic
 
-## Last Updated
-2026-12-13
+## Last Updated: 2026-12-13 v4
