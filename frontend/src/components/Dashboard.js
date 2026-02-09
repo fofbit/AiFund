@@ -549,6 +549,18 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
       {showVipLevels && (
         <VIPLevelSystem onClose={() => setShowVipLevels(false)} currentLevel={1} />
       )}
+
+      {showWhitepaper && (
+        <WhitepaperViewer onClose={() => setShowWhitepaper(false)} />
+      )}
+
+      {showReferral && (
+        <ReferralSystem
+          walletAddress={walletAddress}
+          userData={userData}
+          onClose={() => setShowReferral(false)}
+        />
+      )}
     </div>
   );
 };
