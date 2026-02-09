@@ -380,6 +380,7 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
 
       {showWalletGuide && <WalletGuideModal onClose={() => setShowWalletGuide(false)} lang={lang} />}
       {showVideo && <OnboardingVideo onClose={() => setShowVideo(false)} lang={lang} />}
+      {showWhitepaper && <WhitepaperViewer onClose={() => setShowWhitepaper(false)} />}
     </div>
   );
 };
