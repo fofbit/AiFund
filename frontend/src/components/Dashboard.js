@@ -152,7 +152,20 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
                 {unreadCount > 0 && <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">{unreadCount > 9 ? '9+' : unreadCount}</span>}
               </button>
               <div className="text-right hidden sm:block">
-                <div className="flex items-center"><Wallet className="w-3 h-3 text-gray-400 mr-1" /><span className="text-white font-mono text-sm">{isDemoMode ? t.demoAccount : formatAddress(walletAddress)}</span></div>
+                <div className="flex items-center">
+                  <Wallet className="w-3 h-3 text-gray-400 mr-1" />
+                  {isDemoMode ? (
+                    <span className="text-white font-mono text-sm">{t.demoAccount}</span>
+                  ) : (
+                    <span className="text-white font-mono text-sm flex items-center">
+                      {walletAddress?.startsWith('0x') ? '🔷' : walletAddress?.startsWith('T') ? '🔴' : '🟣'}
+                      <span className="ml-1">{formatAddress(walletAddress)}</span>
+                      <span className="ml-1 text-gray-500 text-xs">
+                        {walletAddress?.startsWith('0x') ? 'EVM' : walletAddress?.startsWith('T') ? 'Tron' : 'SOL'}
+                      </span>
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center mt-0.5">
                   <span className={`text-xs px-2 py-0.5 rounded-full ${tierBadge.color} text-white`}>{tierBadge.text}</span>
                   <span className="text-gray-400 ml-2 text-xs">${userData?.user?.balance_usd?.toFixed(2) || '0.00'}</span>
