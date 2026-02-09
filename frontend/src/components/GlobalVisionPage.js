@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Globe, TrendingUp, Calendar, DollarSign, Sparkles, X, Lock, Unlock, ArrowRight, Rocket, BookOpen } from 'lucide-react';
 import TimeTravelAnimation from './TimeTravelAnimation';
 import OpportunityDetail from './OpportunityDetail';
+import PaymentFlow from './PaymentFlow';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
