@@ -321,6 +321,11 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
       {showVipLevels && <VIPLevelSystem onClose={() => setShowVipLevels(false)} currentLevel={1} />}
       {showWhitepaper && <WhitepaperViewer onClose={() => setShowWhitepaper(false)} />}
       {showReferral && <ReferralSystem walletAddress={walletAddress} userData={userData} onClose={() => setShowReferral(false)} />}
+      {showNFTRights && <NFTAccountRights walletAddress={walletAddress} userData={userData} onClose={() => setShowNFTRights(false)} />}
+      {showCoCreator && <CoCreatorWaitlist walletAddress={walletAddress} userData={userData} onClose={() => setShowCoCreator(false)} />}
+
+      {/* AI Customer Service - always visible floating button */}
+      <AiCustomerService walletAddress={walletAddress} />
     </div>
   );
 };
