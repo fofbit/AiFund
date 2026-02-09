@@ -7,16 +7,16 @@ const API = `${BACKEND_URL}/api`;
 
 // Monopoly-style level progression data
 const BOT_LEVELS = [
-  { level: 1, title: '新手学徒', icon: '🐣', color: 'from-gray-400 to-gray-500', minProfit: 0, reward: '基础现货交易', desc: '你的Bot刚刚诞生，正在学习市场基础知识' },
-  { level: 2, title: '市场观察者', icon: '👁️', color: 'from-blue-400 to-blue-500', minProfit: 100, reward: '技术分析能力', desc: 'Bot学会了看K线图和基本技术指标' },
-  { level: 3, title: '策略新星', icon: '⭐', color: 'from-cyan-400 to-cyan-500', minProfit: 500, reward: '多币种交易', desc: 'Bot可以同时监控多个交易对' },
-  { level: 4, title: '利润猎手', icon: '🏹', color: 'from-green-400 to-green-500', minProfit: 1000, reward: '网格交易策略', desc: 'Bot掌握了网格交易，在震荡市场中持续获利' },
-  { level: 5, title: '市场行者', icon: '🚶', color: 'from-teal-400 to-emerald-500', minProfit: 2500, reward: '趋势跟踪策略', desc: '能识别主要趋势并顺势交易' },
-  { level: 6, title: '赏金猎人', icon: '🤠', color: 'from-yellow-400 to-amber-500', minProfit: 5000, reward: '杠杆交易', desc: 'Bot可以使用杠杆放大收益' },
-  { level: 7, title: '交易武士', icon: '⚔️', color: 'from-orange-400 to-red-500', minProfit: 10000, reward: '期货交易', desc: '解锁期货市场，多空双向获利' },
-  { level: 8, title: '金融巫师', icon: '🧙', color: 'from-purple-400 to-violet-500', minProfit: 25000, reward: 'AI预测模型', desc: 'Bot使用深度学习预测市场走势' },
-  { level: 9, title: '财富大亨', icon: '🎩', color: 'from-yellow-500 to-orange-500', minProfit: 50000, reward: '全市场扫描', desc: '同时扫描加密、股票、期货等所有市场' },
-  { level: 10, title: '传奇大师', icon: '👑', color: 'from-yellow-300 to-yellow-500', minProfit: 100000, reward: '定制化AI策略', desc: '拥有独一无二的AI交易策略，市场之王' },
+  { level: 1, title: 'Rookie Apprentice', icon: '🐣', color: 'from-gray-400 to-gray-500', minProfit: 0, reward: 'Basic Spot Trading', desc: 'Your Bot just hatched! Learning market basics.', skin: null },
+  { level: 2, title: 'Market Watcher', icon: '👁️', color: 'from-blue-400 to-blue-500', minProfit: 100, reward: 'Technical Analysis', desc: 'Bot learned to read charts and indicators.', skin: 'Crystal Visor' },
+  { level: 3, title: 'Rising Star', icon: '⭐', color: 'from-cyan-400 to-cyan-500', minProfit: 500, reward: 'Multi-Pair Trading', desc: 'Bot monitors multiple trading pairs.', skin: 'Star Trail Cape' },
+  { level: 4, title: 'Profit Hunter', icon: '🏹', color: 'from-green-400 to-green-500', minProfit: 1000, reward: 'Grid Strategy', desc: 'Profits in sideways markets with grid trading.', skin: 'Forest Archer Set' },
+  { level: 5, title: 'Market Voyager', icon: '🧭', color: 'from-teal-400 to-emerald-500', minProfit: 2500, reward: 'Trend Following', desc: 'Rides major trends like a surfing pro.', skin: 'Ocean Navigator Armor' },
+  { level: 6, title: 'Bounty Hunter', icon: '🤠', color: 'from-yellow-400 to-amber-500', minProfit: 5000, reward: 'Leverage Trading', desc: 'Amplifies gains with smart leverage.', skin: 'Golden Lasso & Hat' },
+  { level: 7, title: 'Trading Samurai', icon: '⚔️', color: 'from-orange-400 to-red-500', minProfit: 10000, reward: 'Futures Trading', desc: 'Long & short, profit both ways.', skin: 'Crimson Katana Set' },
+  { level: 8, title: 'Financial Wizard', icon: '🧙', color: 'from-purple-400 to-violet-500', minProfit: 25000, reward: 'AI Prediction', desc: 'Deep learning powered market forecasts.', skin: 'Mystic Robe & Staff' },
+  { level: 9, title: 'Wealth Tycoon', icon: '🎩', color: 'from-yellow-500 to-orange-500', minProfit: 50000, reward: 'Global Scan', desc: 'Scans crypto, stocks, futures simultaneously.', skin: 'Diamond Suit & Monocle' },
+  { level: 10, title: 'Legendary Master', icon: '👑', color: 'from-yellow-300 to-yellow-500', minProfit: 100000, reward: 'Custom AI Strategy', desc: 'One-of-a-kind AI strategy. King of markets.', skin: 'Celestial Crown & Wings' },
 ];
 
 const BotShowcase = ({ botData, userData, onClose, onShareAchievement }) => {
