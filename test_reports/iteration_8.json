@@ -1,0 +1,104 @@
+{
+  "summary": "Iteration 8 bug fixes testing completed successfully. All features verified: 1) Landing page shows 'AiFund.com' branding (capital A, lowercase i, capital F) ✓, 2) Dashboard header shows 'AiFund' branding ✓, 3) PaymentFlow auto-polling shows spinning RefreshCw animation ✓, 4) PaymentFlow Step 2 displays QR code (data-testid='payment-qr') ✓, 5) Gas fee warning present with exact text about ensuring received amount is sufficient ✓, 6) Same wallet warning present in Step 1 ✓, 7) Quick action button says 'Pay' not 'Deposit' (EN: 'Pay', ZH: '支付') ✓, 8) Backend /api/wallet/connect returns has_global_vision field for both new and existing users ✓, 9) Backend /api/payment/verify accepts amount parameter correctly ✓, 10) Demo mode works end-to-end ✓, 11) i18n EN/中文 translations work ✓. All 13 backend tests passed (100%).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration8.py",
+    "/app/test_reports/pytest/pytest_results_iter8.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "PaymentFlow correctly sends amount * 0.9 to API for gas fee tolerance (line 75)",
+    "QR code uses public api.qrserver.com API - works correctly",
+    "Auto-polling interval is 10 seconds with max 30 attempts (5 minutes total)",
+    "animate-spin class correctly applied to RefreshCw icon during auto-polling",
+    "Wallet display shows chain icon (🔷 EVM, 🔴 Tron, 🟣 SOL) and type text",
+    "has_global_vision field correctly returned in /api/wallet/connect response for existing users"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration8.py"
+  ],
+  "success_rate": {
+    "backend": "100% (13/13 tests passed)",
+    "frontend": "100%"
+  },
+  "test_credentials": "Demo mode accessed via 'Free Demo' button - no credentials needed",
+  "seed_data_creation": "Demo user auto-created with VIP status and $10,000 virtual capital",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 8 fixes verified: PaymentFlow has QR code, auto-polling with spinning animation, gas fee warning, same wallet warning, 90% amount tolerance. Branding shows 'AiFund.com' on landing page and 'AiFund' in dashboard header. Quick action says 'Pay' not 'Deposit'. has_global_vision persists in wallet connect response. All chains (TRC20, ERC20, BSC, ARB, SOL) working. Trading data remains MOCKED.",
+  "features_tested": {
+    "landing_page_branding": {
+      "status": "PASS",
+      "details": "AiFund.com branding (capital A, lowercase i, capital F) correctly displayed"
+    },
+    "dashboard_header_branding": {
+      "status": "PASS",
+      "details": "Dashboard shows 'AiFund' with purple 'Fund' text"
+    },
+    "paymentflow_auto_polling_animation": {
+      "status": "PASS",
+      "details": "RefreshCw icon has animate-spin class during auto-polling, polls every 10s"
+    },
+    "paymentflow_qr_code": {
+      "status": "PASS",
+      "details": "QR code displayed in Step 2 with data-testid='payment-qr'"
+    },
+    "paymentflow_gas_warning": {
+      "status": "PASS",
+      "details": "Warning: 'Make sure you send at least X USDT (after gas fees)...ensure the received amount is sufficient'"
+    },
+    "paymentflow_same_wallet_warning": {
+      "status": "PASS",
+      "details": "Warning: 'Please pay from the same wallet you used to log in'"
+    },
+    "paymentflow_90_percent_tolerance": {
+      "status": "PASS",
+      "details": "PaymentFlow sends amount * 0.9 to /api/payment/verify (line 75 in PaymentFlow.js)"
+    },
+    "quick_action_pay_not_deposit": {
+      "status": "PASS",
+      "details": "Button says 'Pay' (EN) and '支付' (ZH) instead of 'Deposit'"
+    },
+    "wallet_connect_has_global_vision": {
+      "status": "PASS",
+      "details": "POST /api/wallet/connect returns has_global_vision for both new and existing users"
+    },
+    "wallet_display_chain_icon": {
+      "status": "PASS",
+      "details": "Wallet display shows 🔷 EVM, 🔴 Tron, 🟣 SOL with chain type text"
+    },
+    "demo_mode_e2e": {
+      "status": "PASS",
+      "details": "Demo mode works end-to-end with welcome modal and all features"
+    },
+    "i18n_en_zh": {
+      "status": "PASS",
+      "details": "EN/中文 language switch works in dashboard, 'Pay' translations correct"
+    }
+  },
+  "mocked_integrations": [
+    "Trading data is MOCKED",
+    "Bot stats and trades are simulated",
+    "Payment addresses are REAL (not mocked)",
+    "Payment auto-verify uses REAL blockchain APIs"
+  ],
+  "iteration_8_changes_verified": {
+    "auto_verify_spinning_animation": "✓ animate-spin class on RefreshCw during polling",
+    "qr_code_in_step_2": "✓ QR code from api.qrserver.com displayed with payment address",
+    "gas_fee_warning": "✓ Yellow warning box about gas fees and ensuring sufficient amount",
+    "deposit_renamed_to_pay": "✓ LangContext.js has deposit: 'Pay' / deposit: '支付'",
+    "brand_name_aifund_com": "✓ Landing page shows 'AiFund.com' with correct capitalization",
+    "wallet_chain_icon": "✓ Dashboard shows 🔷/🔴/🟣 icons and EVM/Tron/SOL text",
+    "has_global_vision_persistence": "✓ /api/wallet/connect returns has_global_vision field",
+    "same_wallet_warning": "✓ Yellow warning in Step 1 about paying from same wallet",
+    "90_percent_amount_tolerance": "✓ PaymentFlow.js line 75: amount * 0.9"
+  }
+}
