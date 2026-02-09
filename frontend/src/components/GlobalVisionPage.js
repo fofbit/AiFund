@@ -54,21 +54,32 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   };
 
   const filteredOpportunities = opportunities.filter(opp => {
-    if (selectedTab === 'crypto' && !['Cryptocurrency', 'BRC-20', 'Meme Coin'].includes(opp.category)) return false;
-    if (selectedTab === 'traditional' && !['Stock', 'Commodity', 'Futures', 'Options'].includes(opp.category)) return false;
-    if (selectedTab === 'prediction' && opp.category !== 'Polymarket') return false;
-    if (selectedTab === 'recent' && !opp.is_recent) return false;
-    if (selectedCategory !== 'all' && opp.subcategory !== selectedCategory) return false;
-    if (selectedTimeframe !== 'all') {
-      const oppDate = new Date(opp.date);
-      const now = new Date();
-      const daysDiff = Math.floor((now - oppDate) / (1000 * 60 * 60 * 24));
-      if (selectedTimeframe === 'daily' && daysDiff > 7) return false;
-      if (selectedTimeframe === 'monthly' && (daysDiff > 365 || daysDiff < 30)) return false;
-      if (selectedTimeframe === 'yearly' && daysDiff < 365) return false;
+    // Time period tab filter
+    if (selectedTab !== 'all') {
+      const tf = opp.timeframe;
+      if (selectedTab === '1year' && tf !== '1year' && tf !== 'yesterday') return false;
+      if (selectedTab === '2year' && tf !== '1year' && tf !== 'yesterday') return false;
+      if (selectedTab === '3year' && tf !== '3year') return false;
+      if (selectedTab === '5year' && tf !== '5year') return false;
+      if (selectedTab === '10year' && tf !== '10year') return false;
+      if (selectedTab === '15year' && tf !== '10year' && tf !== '15year') return false;
+    }
+    // Category filter
+    if (selectedCategory !== 'all') {
+      const cat = selectedCategory.toLowerCase();
+      const oppCat = (opp.category || '').toLowerCase();
+      const oppSub = (opp.subcategory || '').toLowerCase();
+      if (cat === 'crypto' && !['cryptocurrency', 'brc-20', 'meme coin'].includes(oppCat)) return false;
+      if (cat === 'stock' && oppCat !== 'stock') return false;
+      if (cat === 'meme' && !oppSub.includes('meme') && oppCat !== 'meme coin') return false;
+      if (cat === 'defi' && !oppSub.includes('defi')) return false;
+      if (cat === 'commodity' && oppCat !== 'commodity') return false;
+      if (cat === 'prediction' && oppCat !== 'polymarket') return false;
     }
     return true;
-  });
+  })
+  // Sort by ROI multiplier (highest first) for carousel effect
+  .sort((a, b) => (b.final_value || 0) - (a.final_value || 0));
 
   const handleTimeTravel = (opp) => {
     setTimeTravelOpportunity(opp);
