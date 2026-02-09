@@ -21,7 +21,7 @@ const dashboardTranslations = {
     gvLocked: 'See what 100U could have become with AI?',
     gvLockedDesc: '10 years of opportunities · Real data · Stunning visuals',
     explore: 'Explore', enterExplore: 'Enter',
-    deposit: 'Deposit', depositDesc: 'Add balance or upgrade',
+    deposit: 'Pay', depositDesc: 'Pay to activate or upgrade',
     upgradeVip: 'Upgrade VIP', vipDesc: '10% profit share · Real trading',
     apiSettings: 'API Settings', apiDesc: 'Connect exchange for auto-trade',
     backtest: 'Backtest', backtestDesc: 'Verify Bot history',
