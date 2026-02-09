@@ -1,0 +1,98 @@
+import React, { createContext, useContext, useState } from 'react';
+
+const LangContext = createContext();
+
+const translations = {
+  en: {
+    // Demo banner
+    demoMode: 'Demo Mode', demoDesc: 'Full-featured experience with simulated data',
+    connectReal: 'Connect Real Wallet', exitDemo: 'Exit Demo',
+    // Welcome
+    welcomeTitle: 'Welcome to AIFund!', welcomeDesc: 'We created a demo account for you',
+    yourBot: 'Your Personal Bot', botReady: '"Demo Bot" is ready, trading 24/7 for you',
+    virtualFunds: 'Virtual Funds', virtualDesc: '$10,000 virtual capital — watch AI earn for you',
+    globalVision: 'Global Vision', gvDesc: 'Explore historical wealth opportunities & time-travel',
+    startExploring: "Let's Go!", connectAnytime: 'Connect a real wallet anytime to start for real',
+    // Header
+    demoAccount: 'Demo Account', disconnect: 'Disconnect',
+    // Tiers
+    inactive: 'Inactive', basic: 'Basic', vip: 'VIP',
+    // Activation
+    notActivated: 'Account Not Activated',
+    depositPrompt: 'Deposit at least $1 worth of crypto to activate your account and adopt your AI Bot!',
+    depositNow: 'Deposit Now',
+    activated: 'Account Activated!', activatedDesc: 'Now you can adopt your personal AI trading Bot!',
+    adoptBot: 'Adopt My Bot', loadingBot: 'Loading Bot data...',
+    // Global Vision promo
+    gvTitle: 'Global Vision', gvUnlocked: 'Unlocked — Explore all wealth myths & time-travel',
+    gvLocked: 'See what 100U could have become with AI?',
+    gvLockedDesc: '10 years of opportunities · Real data · Stunning visuals',
+    explore: 'Explore', enterExplore: 'Enter',
+    // Quick actions
+    deposit: 'Deposit', depositDesc: 'Add balance or upgrade',
+    upgradeVip: 'Upgrade VIP', vipDesc: '10% profit share · Real trading',
+    apiSettings: 'API Settings', apiDesc: 'Connect exchange for auto-trade',
+    backtest: 'Backtest', backtestDesc: 'Verify Bot history',
+    globalVisionBtn: 'Global Vision', gvBtnDesc: 'Wealth myths explorer',
+    botGrowth: 'Bot Growth', botGrowthDesc: 'Levels · Skins · Rank',
+    vipLevels: 'VIP Levels', vipLevelsDesc: '100 Levels · DEX · Rules',
+    referFriends: 'Refer Friends', referDesc: '+1 Level each',
+    refresh: 'Refresh', refreshDesc: 'Update data',
+    // VIP banner
+    youAreVip: 'You are a VIP Member',
+    shareVip: 'Share your achievement!', shareBtn: 'Share',
+    // Notifications
+    notifications: 'Notifications',
+  },
+  zh: {
+    demoMode: '演示模式', demoDesc: '您正在体验完整功能，所有数据为模拟数据',
+    connectReal: '连接真实钱包', exitDemo: '退出演示',
+    welcomeTitle: '欢迎体验 AIFund!', welcomeDesc: '我们已为您创建了一个演示账户',
+    yourBot: '您的专属Bot', botReady: '「体验Bot」已就绪，正在24/7为您模拟交易',
+    virtualFunds: '虚拟资金', virtualDesc: '$10,000虚拟资金，观察AI如何帮您赚钱',
+    globalVision: '全球视野', gvDesc: '探索历史投资机会，体验"时光旅行"',
+    startExploring: '开始探索！', connectAnytime: '随时可以连接真实钱包，开启真正的AI投资之旅',
+    demoAccount: '演示账户', disconnect: '断开连接',
+    inactive: '未激活', basic: '基础版', vip: 'VIP',
+    notActivated: '账户未激活',
+    depositPrompt: '请充值至少 $1 美元等值的加密货币来激活您的账户并领养您的AI交易Bot！',
+    depositNow: '立即充值',
+    activated: '账户已激活！', activatedDesc: '太棒了！现在您可以领养您的专属AI交易Bot了！',
+    adoptBot: '领养我的Bot', loadingBot: '加载Bot数据中...',
+    gvTitle: '全球视野', gvUnlocked: '已解锁 — 查看全部历史暴富案例和时光旅行',
+    gvLocked: '看看如果有AI，100U能变成多少？',
+    gvLockedDesc: '过去10年的投资机会 · 实际数据 · 震撼展示',
+    explore: '探索机会', enterExplore: '进入探索',
+    deposit: '充值', depositDesc: '增加余额或升级到VIP',
+    upgradeVip: '升级VIP', vipDesc: '10%利润分成 · 真金白银',
+    apiSettings: 'API设置', apiDesc: '连接交易所自动交易',
+    backtest: '模拟回测', backtestDesc: '验证Bot历史表现',
+    globalVisionBtn: '全球视野', gvBtnDesc: '历史暴富机会探索',
+    botGrowth: 'Bot成长', botGrowthDesc: '等级 · 成就 · 排行',
+    vipLevels: 'VIP Levels', vipLevelsDesc: '100级 · DEX · 规则',
+    referFriends: 'Refer Friends', referDesc: '+1 Level each',
+    refresh: '刷新', refreshDesc: '更新账户和Bot数据',
+    youAreVip: '您已是VIP会员',
+    shareVip: '分享您的成就，让朋友也来体验AI交易!', shareBtn: '分享成就',
+    notifications: '通知',
+  }
+};
+
+export const LangProvider = ({ children }) => {
+  const [lang, setLang] = useState(() => localStorage.getItem('aifund_lang') || 'en');
+  
+  const switchLang = (l) => {
+    setLang(l);
+    localStorage.setItem('aifund_lang', l);
+  };
+
+  const t = translations[lang] || translations.en;
+
+  return (
+    <LangContext.Provider value={{ lang, setLang: switchLang, t }}>
+      {children}
+    </LangContext.Provider>
+  );
+};
+
+export const useLang = () => useContext(LangContext);
