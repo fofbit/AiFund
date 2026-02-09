@@ -145,7 +145,13 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
   const [showWalletGuide, setShowWalletGuide] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [showWhitepaper, setShowWhitepaper] = useState(false);
-  const [lang, setLang] = useState('en');
+  
+  // Use global lang context if available, fallback to local
+  let globalLang;
+  try { globalLang = require('../hooks/useLang').useLang(); } catch(e) {}
+  const [localLang, setLocalLang] = useState('en');
+  const lang = globalLang?.lang || localLang;
+  const setLang = (l) => { setLocalLang(l); if (globalLang?.setLang) globalLang.setLang(l); };
 
   const handleConnect = () => {
     if (typeof window.ethereum !== 'undefined') {
