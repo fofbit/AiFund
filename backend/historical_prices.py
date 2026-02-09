@@ -11,6 +11,7 @@ class HistoricalPriceService:
     
     # BTC historical milestones (approximate real data)
     BTC_HISTORY = [
+        {"date": "2010-05-22", "price": 0.003, "event": "Pizza Day — 10,000 BTC for 2 pizzas"},
         {"date": "2010-07-17", "price": 0.05, "event": "首次有记录的交易价格"},
         {"date": "2010-10-01", "price": 0.06, "event": "缓慢上涨"},
         {"date": "2011-02-09", "price": 1.00, "event": "首次达到1美元"},
