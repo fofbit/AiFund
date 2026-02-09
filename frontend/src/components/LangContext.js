@@ -53,7 +53,7 @@ const dashboardTranslations = {
     gvLocked: '看看如果有AI，100U能变成多少？',
     gvLockedDesc: '过去10年的投资机会 · 实际数据 · 震撼展示',
     explore: '探索机会', enterExplore: '进入探索',
-    deposit: '充值', depositDesc: '增加余额或升级到VIP',
+    deposit: '支付', depositDesc: '支付激活或升级',
     upgradeVip: '升级VIP', vipDesc: '10%利润分成 · 真金白银',
     apiSettings: 'API设置', apiDesc: '连接交易所自动交易',
     backtest: '模拟回测', backtestDesc: '验证Bot历史表现',
