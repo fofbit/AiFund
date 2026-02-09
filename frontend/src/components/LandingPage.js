@@ -245,7 +245,9 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
           <div className="text-center mb-10 sm:mb-16">
             <div className="flex items-center justify-center mb-4">
               <Bot className="w-10 h-10 sm:w-14 sm:h-14 text-purple-400 mr-3" />
-              <h1 className="text-4xl sm:text-6xl font-bold text-white">AI<span className="text-purple-400">fund</span>.com</h1>
+              <h1 className="text-4xl sm:text-6xl font-bold text-white">
+                Ai<span className="text-purple-400">Fund</span>.com
+              </h1>
             </div>
             <p className="text-xl sm:text-3xl font-bold text-white mb-2">{t.slogan}</p>
             <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">{t.subtitle}</p>
