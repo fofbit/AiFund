@@ -277,6 +277,14 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
               <Share2 className="w-6 h-6 sm:w-7 sm:h-7 text-green-400 mb-2" /><h4 className="text-sm sm:text-base font-semibold text-white mb-0.5">{t.referFriends}</h4><p className="text-green-200 text-xs">{t.referDesc}</p>
             </button>
 
+            <button onClick={() => setShowNFTRights(true)} className="p-4 sm:p-5 bg-gradient-to-br from-indigo-500/10 to-violet-500/10 hover:from-indigo-500/20 hover:to-violet-500/20 rounded-xl border border-indigo-500/30 transition-all text-left" data-testid="nft-rights-btn">
+              <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 mb-2" /><h4 className="text-sm sm:text-base font-semibold text-white mb-0.5">Account NFT</h4><p className="text-indigo-200 text-xs">Rights · Transfer · Recovery</p>
+            </button>
+
+            <button onClick={() => setShowCoCreator(true)} className="p-4 sm:p-5 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 hover:from-amber-500/20 hover:to-yellow-500/20 rounded-xl border border-amber-500/30 transition-all text-left" data-testid="co-creator-btn">
+              <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400 mb-2" /><h4 className="text-sm sm:text-base font-semibold text-white mb-0.5">Co-Creator</h4><p className="text-amber-200 text-xs">10K Waitlist · Mystery NFT</p>
+            </button>
+
             <button onClick={onRefresh} className="p-4 sm:p-5 bg-white/10 hover:bg-white/20 rounded-xl border border-white/20 transition-all text-left">
               <RefreshCw className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400 mb-2" /><h4 className="text-sm sm:text-base font-semibold text-white mb-0.5">{t.refresh}</h4><p className="text-gray-400 text-xs">{t.refreshDesc}</p>
             </button>
