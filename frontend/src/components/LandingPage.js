@@ -155,7 +155,7 @@ const LandingPage = ({ onConnect, onDemoMode, loading }) => {
 
   const t = lang === 'zh' ? {
     slogan: '让AI帮你赚钱',
-    subtitle: '让每个人都平等享受AI的财富红利',
+    subtitle: '每个人都有平等享受全球财富的权利',
     connectBtn: '连接钱包从1U开始',
     demoBtn: '免费体验演示',
     minDeposit: '最低充值 $1 美元等值加密货币即可激活',
