@@ -163,6 +163,72 @@ class HistoricalPriceService:
         {"date": "2024-04-20", "price": 42.0, "event": "减半效应"},
     ]
 
+    # Tencent history (HK$ converted to simplified)
+    TENCENT_HISTORY = [
+        {"date": "2004-06-16", "price": 0.37, "event": "IPO HK$3.70 (adjusted)"},
+        {"date": "2008-10-27", "price": 2.8, "event": "金融危机低点"},
+        {"date": "2014-03-10", "price": 60.0, "event": "WeChat崛起"},
+        {"date": "2018-01-23", "price": 470.0, "event": "历史高点"},
+        {"date": "2019-01-03", "price": 310.0, "event": "贸易战低点"},
+        {"date": "2021-02-17", "price": 750.0, "event": "疫后高点"},
+        {"date": "2022-10-25", "price": 200.0, "event": "监管低点"},
+        {"date": "2024-10-01", "price": 480.0, "event": "回升"},
+    ]
+    
+    # NVIDIA from IPO
+    NVDA_IPO_HISTORY = [
+        {"date": "1999-01-22", "price": 0.15, "event": "IPO (split-adjusted)"},
+        {"date": "2002-10-09", "price": 0.06, "event": "Dot-com crash"},
+        {"date": "2007-10-31", "price": 1.15, "event": "Pre-crisis peak"},
+        {"date": "2016-01-04", "price": 2.0, "event": "Deep learning era starts"},
+        {"date": "2021-11-22", "price": 82.0, "event": "GPU shortage peak"},
+        {"date": "2023-05-25", "price": 39.0, "event": "ChatGPT AI boom"},
+        {"date": "2024-06-18", "price": 135.0, "event": "World's #1 market cap"},
+        {"date": "2025-01-01", "price": 140.0, "event": "Continued dominance"},
+    ]
+    
+    # Tesla from IPO
+    TSLA_IPO_HISTORY = [
+        {"date": "2010-06-29", "price": 1.13, "event": "IPO (split-adjusted)"},
+        {"date": "2013-05-10", "price": 3.9, "event": "First profitable quarter"},
+        {"date": "2019-06-03", "price": 12.0, "event": "Pre-pandemic low"},
+        {"date": "2020-03-18", "price": 9.3, "event": "COVID crash"},
+        {"date": "2020-08-31", "price": 86.0, "event": "Pre-split surge"},
+        {"date": "2021-11-04", "price": 409.0, "event": "ATH $1.2T market cap"},
+        {"date": "2022-12-28", "price": 37.0, "event": "Bear market low"},
+        {"date": "2024-12-01", "price": 350.0, "event": "Recovery"},
+    ]
+    
+    # Amazon from IPO
+    AMZN_IPO_HISTORY = [
+        {"date": "1997-05-15", "price": 0.075, "event": "IPO (split-adjusted)"},
+        {"date": "1999-12-10", "price": 5.35, "event": "Dot-com bubble peak"},
+        {"date": "2001-09-28", "price": 0.28, "event": "Post-bubble crash"},
+        {"date": "2007-10-16", "price": 4.7, "event": "Pre-crisis"},
+        {"date": "2015-01-02", "price": 15.5, "event": "AWS emerging"},
+        {"date": "2020-09-02", "price": 170.0, "event": "Pandemic boost"},
+        {"date": "2024-12-01", "price": 220.0, "event": "AI & Cloud"},
+    ]
+    
+    # Google from IPO
+    GOOG_HISTORY = [
+        {"date": "2004-08-19", "price": 4.25, "event": "IPO (split-adjusted)"},
+        {"date": "2008-11-20", "price": 12.5, "event": "Financial crisis low"},
+        {"date": "2014-02-07", "price": 28.0, "event": "Mobile ad growth"},
+        {"date": "2020-03-23", "price": 52.0, "event": "COVID crash"},
+        {"date": "2024-07-10", "price": 190.0, "event": "AI integration"},
+    ]
+    
+    # Netflix
+    NFLX_HISTORY = [
+        {"date": "2010-01-04", "price": 7.64, "event": "DVD era"},
+        {"date": "2011-07-13", "price": 42.7, "event": "Streaming launch peak"},
+        {"date": "2012-09-25", "price": 7.8, "event": "Crash after split"},
+        {"date": "2018-07-09", "price": 58.0, "event": "Growth peak"},
+        {"date": "2022-05-12", "price": 16.6, "event": "Subscriber loss crash"},
+        {"date": "2024-12-01", "price": 820.0, "event": "Ad tier + recovery"},
+    ]
+
     @staticmethod
     def get_asset_history(asset_id: str) -> Dict:
         """Get historical data for a specific asset"""
