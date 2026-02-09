@@ -134,7 +134,7 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
             <div className="flex items-center">
               <Bot className="w-7 h-7 sm:w-8 sm:h-8 text-purple-400 mr-2" />
               <h1 className="text-xl sm:text-2xl font-bold text-white cursor-pointer hover:opacity-80" onClick={() => window.location.reload()}>
-                AI<span className="text-purple-400">fund</span>
+                Ai<span className="text-purple-400">Fund</span>
               </h1>
               {isDemoMode && <span className="ml-2 px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/30">{t.demoMode}</span>}
             </div>
