@@ -164,20 +164,26 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
           </div>
         )}
 
-        {/* Tabs */}
+        {/* Tabs - Time Travel Periods */}
         <div className="p-6 border-b border-purple-500/30">
+          <div className="flex items-center mb-3">
+            <Rocket className="w-5 h-5 text-cyan-400 mr-2" />
+            <span className="text-white font-semibold text-sm">Time Travel Back To:</span>
+          </div>
           <div className="flex space-x-2 overflow-x-auto mb-4">
             {[
-              { id: 'all', label: '全部机会', icon: '🌐' },
-              { id: 'crypto', label: '加密货币', icon: '₿' },
-              { id: 'traditional', label: '传统资产', icon: '📈' },
-              { id: 'prediction', label: 'Polymarket', icon: '🎯' },
-              { id: 'recent', label: '昨天机会', icon: '⚡' }
+              { id: 'all', label: 'All', icon: '🌐' },
+              { id: '1year', label: '1 Year Ago', icon: '⏱️' },
+              { id: '2year', label: '2 Years Ago', icon: '⏳' },
+              { id: '3year', label: '3 Years Ago', icon: '🕐' },
+              { id: '5year', label: '5 Years Ago', icon: '🕰️' },
+              { id: '10year', label: '10 Years Ago', icon: '📜' },
+              { id: '15year', label: '15 Years Ago', icon: '🏛️' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => { setSelectedTab(tab.id); setSelectedCategory('all'); }}
-                className={`px-4 py-2 rounded-lg font-semibold transition-all whitespace-nowrap ${
+                className={`px-4 py-2 rounded-lg font-semibold transition-all whitespace-nowrap text-sm ${
                   selectedTab === tab.id ? 'bg-purple-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
                 }`}
                 data-testid={`tab-${tab.id}`}
@@ -187,49 +193,17 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-2 mb-4">
-            <span className="text-gray-400 text-sm">时间维度:</span>
-            {[
-              { id: 'all', label: '全部' }, { id: 'daily', label: '近7天' },
-              { id: 'monthly', label: '近1年' }, { id: 'yearly', label: '1年以上' }
-            ].map((tf) => (
-              <button
-                key={tf.id}
-                onClick={() => setSelectedTimeframe(tf.id)}
-                className={`px-3 py-1 rounded-full text-sm transition-all ${
-                  selectedTimeframe === tf.id ? 'bg-cyan-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
+          {/* Category filters */}
+          <div className="flex items-center space-x-2">
+            <span className="text-gray-400 text-xs">Category:</span>
+            {['all', 'Crypto', 'Stock', 'Meme', 'DeFi', 'Commodity', 'Prediction'].map((cat) => (
+              <button key={cat} onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1 rounded-full text-xs transition-all ${
+                  selectedCategory === cat ? 'bg-cyan-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
                 }`}
-              >
-                {tf.label}
-              </button>
+              >{cat === 'all' ? 'All' : cat}</button>
             ))}
           </div>
-
-          {selectedTab === 'crypto' && (
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-400 text-sm">细分类别:</span>
-              {['all', 'BTC生态', 'ETH生态', '新公链', 'Meme币', 'DeFi'].map((cat) => (
-                <button key={cat} onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1 rounded-full text-sm transition-all ${
-                    selectedCategory === cat ? 'bg-orange-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                  }`}
-                >{cat === 'all' ? '全部' : cat}</button>
-              ))}
-            </div>
-          )}
-
-          {selectedTab === 'traditional' && (
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-400 text-sm">资产类型:</span>
-              {['all', '科技股', '新能源', '能源期货', '股票期权', '贵金属'].map((cat) => (
-                <button key={cat} onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1 rounded-full text-sm transition-all ${
-                    selectedCategory === cat ? 'bg-green-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                  }`}
-                >{cat === 'all' ? '全部' : cat}</button>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Opportunities Grid */}
