@@ -80,7 +80,7 @@ const AiCustomerService = ({ walletAddress }) => {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 w-[360px] sm:w-[400px] max-h-[500px] bg-slate-800 rounded-2xl border border-purple-500/30 shadow-2xl flex flex-col" data-testid="ai-support-panel">
+    <div className="fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-40 w-[340px] sm:w-[400px] max-h-[450px] sm:max-h-[500px] bg-slate-800 rounded-2xl border border-purple-500/30 shadow-2xl flex flex-col" data-testid="ai-support-panel">
       {/* Header */}
       <div className="p-3 border-b border-purple-500/30 bg-gradient-to-r from-purple-600/20 to-pink-600/10 rounded-t-2xl flex items-center justify-between">
         <div className="flex items-center">
