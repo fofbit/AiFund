@@ -357,7 +357,6 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
         </div>
         </div>
       </div>
-      </div>
 
       {/* Unlock Modal - Real Payment */}
       {showUnlockModal && (
