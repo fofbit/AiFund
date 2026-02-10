@@ -273,6 +273,8 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
             </p>
           </div>
         </div>
+        </div>
+      </div>
       </div>
 
       {/* Real Payment Flow */}
