@@ -67,55 +67,50 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
   return (
     <div className="space-y-6">
       {/* Bot Header Card */}
-      <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 border border-purple-400 shadow-2xl">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-4 sm:p-6 border border-purple-400 shadow-2xl">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div className="flex items-center">
-            <div className="text-6xl mr-4">{botEmoji}</div>
+            <div className="text-4xl sm:text-6xl mr-3 sm:mr-4">{botEmoji}</div>
             <div>
-              <h2 className="text-3xl font-bold text-white">{bot.name}</h2>
+              <h2 className="text-xl sm:text-3xl font-bold text-white">{bot.name}</h2>
               <div className="flex items-center mt-1">
-                <span className="text-sm bg-white/20 px-3 py-1 rounded-full text-white">
-                  Level {bot.level}
-                </span>
-                <span className="text-sm text-white/80 ml-3">
-                  {bot.experience} XP
-                </span>
+                <span className="text-xs sm:text-sm bg-white/20 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-white">Lv {bot.level}</span>
+                <span className="text-xs sm:text-sm text-white/80 ml-2">{bot.experience} XP</span>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-sm text-white/80">状态</div>
             <div className="flex items-center">
-              <Activity className="w-4 h-4 text-green-400 mr-1 animate-pulse" />
-              <span className="text-white font-semibold">活跃中</span>
+              <Activity className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 mr-1 animate-pulse" />
+              <span className="text-white font-semibold text-xs sm:text-sm">Active</span>
             </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-4 gap-4 mb-4">
-          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-            <div className="text-white/70 text-sm mb-1">虚拟余额</div>
-            <div className="text-2xl font-bold text-white">
-              ${(bot.virtual_balance + (displayStats.total_profit || 0)).toLocaleString()}
+        {/* Stats Grid - 2 cols mobile, 4 cols desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mb-3 sm:mb-4">
+          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-2 sm:p-4">
+            <div className="text-white/70 text-xs mb-0.5">Balance</div>
+            <div className="text-base sm:text-2xl font-bold text-white">
+              ${(bot.virtual_balance + (displayStats.total_profit || 0)).toLocaleString(undefined, {maximumFractionDigits: 0})}
             </div>
           </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-            <div className="text-white/70 text-sm mb-1">总收益</div>
-            <div className={`text-2xl font-bold ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
-              {isProfit ? '+' : ''}${displayStats.total_profit?.toFixed(2) || '0.00'}
+          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-2 sm:p-4">
+            <div className="text-white/70 text-xs mb-0.5">Profit</div>
+            <div className={`text-base sm:text-2xl font-bold ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
+              {isProfit ? '+' : ''}${displayStats.total_profit?.toFixed(0) || '0'}
             </div>
-            <div className={`text-sm ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
+            <div className={`text-xs ${isProfit ? 'text-green-300' : 'text-red-300'}`}>
               {isProfit ? '+' : ''}{profitPercent}%
             </div>
           </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-            <div className="text-white/70 text-sm mb-1">交易次数</div>
-            <div className="text-2xl font-bold text-white">{displayStats.total_trades || 0}</div>
+          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-2 sm:p-4">
+            <div className="text-white/70 text-xs mb-0.5">Trades</div>
+            <div className="text-base sm:text-2xl font-bold text-white">{displayStats.total_trades || 0}</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-            <div className="text-white/70 text-sm mb-1">胜率</div>
-            <div className="text-2xl font-bold text-white">{displayStats.win_rate?.toFixed(1) || '0.0'}%</div>
+          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-2 sm:p-4">
+            <div className="text-white/70 text-xs mb-0.5">Win Rate</div>
+            <div className="text-base sm:text-2xl font-bold text-white">{displayStats.win_rate?.toFixed(1) || '0.0'}%</div>
           </div>
         </div>
 
