@@ -405,118 +405,80 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
 
   if (phase === 'loading') {
     return (
-      <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black z-[70] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-20 h-20 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-xl">加载历史数据...</p>
-          <p className="text-purple-400 mt-2">准备穿越时空</p>
+          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white text-lg">Loading history...</p>
+          <p className="text-purple-400 mt-2 text-sm">Preparing time travel</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4">
-      <div className="max-w-5xl w-full">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
-            <Rocket className="w-6 h-6 text-purple-400 mr-2 animate-pulse" />
-            <h2 className="text-2xl font-bold text-white">时光旅行</h2>
-            <span className="ml-3 px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full">
-              {assetInfo?.name || opportunity?.title}
-            </span>
-          </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
-            <X className="w-6 h-6" />
+    <div className="fixed inset-0 bg-black z-[70] flex flex-col overflow-y-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-purple-500/30 flex-shrink-0">
+        <div className="flex items-center min-w-0">
+          <Rocket className="w-5 h-5 text-purple-400 mr-2 animate-pulse flex-shrink-0" />
+          <h2 className="text-lg sm:text-2xl font-bold text-white truncate">{assetInfo?.name || opportunity?.title}</h2>
+        </div>
+        <button onClick={onClose} className="text-gray-400 hover:text-white ml-2 flex-shrink-0">
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Stats - 2 cols on mobile, 4 on desktop */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 sm:p-4 flex-shrink-0">
+        <div className="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+          <p className="text-gray-400 text-xs">Date</p>
+          <p className="text-white font-bold text-sm sm:text-base truncate">{currentDate || '---'}</p>
+        </div>
+        <div className="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+          <p className="text-gray-400 text-xs">Price</p>
+          <p className="text-white font-bold text-sm sm:text-base">${formatPrice(currentPrice)}</p>
+        </div>
+        <div className="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+          <p className="text-gray-400 text-xs">100U Value</p>
+          <p className={`font-bold text-sm sm:text-base ${investmentValue >= 100 ? 'text-green-400' : 'text-red-400'}`}>
+            ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 0})}
+          </p>
+        </div>
+        <div className="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+          <p className="text-gray-400 text-xs">Event</p>
+          <p className="text-yellow-400 font-bold text-xs sm:text-sm truncate">{currentMilestone?.event || '---'}</p>
+        </div>
+      </div>
+
+      {/* Canvas - flexible height */}
+      <div className="flex-1 min-h-0 px-3 sm:px-4">
+        <div className="bg-slate-900 rounded-xl overflow-hidden border border-purple-500/30 h-full">
+          <canvas ref={canvasRef} width={900} height={450} className="w-full h-full" />
+        </div>
+      </div>
+
+      {/* Controls - simplified on mobile */}
+      <div className="flex items-center justify-between p-3 sm:p-4 bg-black border-t border-white/10 flex-shrink-0">
+        <div className="flex items-center space-x-1 sm:space-x-2">
+          <button onClick={() => setIsPaused(!isPaused)} className="p-2 sm:p-3 bg-white/10 hover:bg-white/20 rounded-lg text-white">
+            {isPaused ? <Play className="w-4 h-4 sm:w-5 sm:h-5" /> : <Pause className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
+          <button onClick={skipToEnd} className="p-2 sm:p-3 bg-white/10 hover:bg-white/20 rounded-lg text-white">
+            <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+          {[1, 2, 4].map(s => (
+            <button key={s} onClick={() => setSpeed(s)}
+              className={`px-2 py-1 sm:px-3 rounded text-xs sm:text-sm ${speed === s ? 'bg-purple-600 text-white' : 'bg-white/10 text-gray-300'}`}
+            >{s}x</button>
+          ))}
         </div>
-
-        {/* Current Stats */}
-        <div className="bg-white/10 rounded-xl p-4 mb-4 grid grid-cols-4 gap-4">
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">当前日期</p>
-            <p className="text-white font-bold text-lg">{currentDate || '---'}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">当前价格</p>
-            <p className="text-white font-bold text-lg">${formatPrice(currentPrice)}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">100U现值</p>
-            <p className={`font-bold text-lg ${investmentValue >= 100 ? 'text-green-400' : 'text-red-400'}`}>
-              ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 2})}
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">当前事件</p>
-            <p className="text-yellow-400 font-bold text-sm truncate">
-              {currentMilestone?.event || '---'}
-            </p>
+        <div className="flex-1 mx-3 sm:mx-6">
+          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
-
-        {/* Canvas Animation */}
-        <div className="bg-slate-900 rounded-2xl overflow-hidden border border-purple-500/30">
-          <canvas 
-            ref={canvasRef} 
-            width={900} 
-            height={450}
-            className="w-full"
-          />
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-between mt-4 bg-white/5 rounded-xl p-4">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              className="p-3 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all"
-            >
-              {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={skipToEnd}
-              className="p-3 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all"
-            >
-              <SkipForward className="w-5 h-5" />
-            </button>
-            
-            {/* Speed Control */}
-            <div className="flex items-center ml-4 space-x-2">
-              <span className="text-gray-400 text-sm">速度:</span>
-              {[1, 2, 4].map(s => (
-                <button
-                  key={s}
-                  onClick={() => setSpeed(s)}
-                  className={`px-3 py-1 rounded text-sm transition-all ${
-                    speed === s ? 'bg-purple-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                  }`}
-                >
-                  {s}x
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="flex-1 mx-6">
-            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>{assetInfo?.start_date || opportunity?.date}</span>
-              <span>现在</span>
-            </div>
-          </div>
-
-          <div className="text-white font-mono text-lg">
-            {progress.toFixed(0)}%
-          </div>
-        </div>
+        <span className="text-white font-mono text-sm sm:text-lg">{progress.toFixed(0)}%</span>
+      </div>
 
         {/* Result Panel */}
         {phase === 'result' && (
