@@ -78,63 +78,79 @@ const WalletGuideModal = ({ onClose, lang }) => {
 
 const OnboardingVideo = ({ onClose, lang }) => {
   const isEn = lang === 'en';
+  
+  const manifesto = isEn 
+    ? "No matter your wealth, location, education, or connections — with AiFund, you stand shoulder to shoulder with the world's top financial professionals."
+    : "无论贫富贵贱、身居何方、学历高低、人脉多寡——有了AiFund，你都能和全世界最顶尖的金融专家平起平坐。";
+
   const steps = isEn ? [
-    { time: '0:00', title: 'Welcome to AIFund', desc: 'Your AI-powered wealth companion', icon: '👋' },
-    { time: '0:10', title: 'Create a Wallet', desc: 'Download MetaMask or any supported wallet in 3 minutes', icon: '🦊' },
-    { time: '0:20', title: 'Deposit & Activate', desc: 'Send as little as $1 in crypto to get started', icon: '💰' },
-    { time: '0:30', title: 'Adopt Your Bot', desc: 'Give your AI trading Bot a name and watch it grow', icon: '🤖' },
-    { time: '0:40', title: 'Follow Bot Signals', desc: 'Your Bot sends daily buy/sell signals. You decide.', icon: '📊' },
-    { time: '0:50', title: 'Go VIP', desc: 'Connect exchange API, let Bot trade automatically 24/7', icon: '👑' },
+    { time: '0:00', title: 'Your Digital Brain', desc: 'A personal AI that absorbs all of human financial history and wisdom — working for YOU, 24/7. Like having a Wall Street team in your pocket.', icon: '🧠' },
+    { time: '0:08', title: 'Global Vision', desc: 'Your Bot sees every corner of every market — crypto, stocks, futures, commodities — across every country. Opportunities that were invisible to you become crystal clear.', icon: '🌍' },
+    { time: '0:16', title: 'Create Your Wallet', desc: 'Download a crypto wallet (MetaMask, OKX, etc.) in 3 minutes. This is your key to the global financial world. No bank account needed.', icon: '🔑' },
+    { time: '0:24', title: 'Start from $1', desc: 'Activate with just $1. No minimum balance, no hidden fees. Whether you have $1 or $10,000, your Bot works equally hard for you.', icon: '💵' },
+    { time: '0:32', title: 'Adopt Your Bot', desc: 'Name your personal AI Bot. It immediately starts analyzing global markets, learning patterns, and preparing trading signals just for you.', icon: '🤖' },
+    { time: '0:40', title: 'Follow the Signals', desc: 'Every day, your Bot sends buy/sell recommendations across crypto and stocks. You decide whether to act. Your money, your choice — Bot just provides the intelligence.', icon: '📡' },
+    { time: '0:48', title: 'Relax & Earn', desc: 'While you sleep, eat, or spend time with family — your Bot never stops working. The AI revolution means everyone can earn like a pro, effortlessly.', icon: '😌' },
+    { time: '0:55', title: 'Your Wealth Story', desc: 'From $100 to $1,000,000 — this time, YOU are the hero of the wealth myth. Equal access to global wealth is everyone\'s right.', icon: '🏆' },
   ] : [
-    { time: '0:00', title: '欢迎来到 AIFund', desc: '你的AI财富伙伴', icon: '👋' },
-    { time: '0:10', title: '创建钱包', desc: '下载MetaMask或其他钱包，3分钟搞定', icon: '🦊' },
-    { time: '0:20', title: '充值激活', desc: '发送最低1美元等值加密货币即可开始', icon: '💰' },
-    { time: '0:30', title: '领养Bot', desc: '给你的AI交易Bot取个名字，看它成长', icon: '🤖' },
-    { time: '0:40', title: '跟随Bot信号', desc: 'Bot每天发送买卖信号，你来决定是否执行', icon: '📊' },
-    { time: '0:50', title: '升级VIP', desc: '连接交易所API，让Bot 24/7自动帮你赚钱', icon: '👑' },
+    { time: '0:00', title: '你的数字大脑', desc: '一个集合全人类历史金融数据和智慧的AI，24/7只为你一个人工作。相当于把华尔街团队放进了你的口袋。', icon: '🧠' },
+    { time: '0:08', title: '全球视野', desc: '你的Bot能看见全球每个市场的每个角落——加密、股票、期货、大宗商品。曾经看不见的机会，现在一目了然。', icon: '🌍' },
+    { time: '0:16', title: '创建钱包', desc: '3分钟下载一个加密钱包（MetaMask、OKX等）。这就是你通往全球金融世界的钥匙，不需要银行账户。', icon: '🔑' },
+    { time: '0:24', title: '1美元起步', desc: '只需1美元激活。无最低余额、无隐藏费用。无论你有1美元还是1万美元，你的Bot都为你同样努力工作。', icon: '💵' },
+    { time: '0:32', title: '领养Bot', desc: '给你的专属AI Bot取个名字。它会立即开始分析全球市场、学习模式、为你准备交易信号。', icon: '🤖' },
+    { time: '0:40', title: '跟随信号', desc: 'Bot每天发送加密和股票的买卖建议。你来决定是否执行。你的钱、你的选择——Bot只提供情报。', icon: '📡' },
+    { time: '0:48', title: '躺平赚钱', desc: '当你睡觉、吃饭、陪家人时，Bot从不停歇。AI时代意味着每个人都能像专业人士一样轻松赚钱。', icon: '😌' },
+    { time: '0:55', title: '你的财富神话', desc: '从100美元到100万美元——这一次，你就是财富神话的主角。平等享受全球财富，是每个人的权利。', icon: '🏆' },
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-2xl w-full border border-purple-500/30 shadow-2xl">
-        <div className="p-5 border-b border-purple-500/30 flex items-center justify-between">
-          <h3 className="text-xl font-bold text-white flex items-center">
+    <div className="fixed inset-0 bg-black z-[60] overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 to-slate-800">
+        <div className="max-w-2xl mx-auto p-4 sm:p-6">
+        
+        <div className="flex items-center justify-between mb-4 pt-2">
+          <h3 className="text-lg sm:text-xl font-bold text-white flex items-center">
             <Play className="w-5 h-5 text-purple-400 mr-2" />
-            {isEn ? 'Quick Start Guide (60s)' : '新手快速入门 (60秒)'}
+            {isEn ? 'Your Journey Starts Here (60s)' : '你的旅程从这里开始 (60秒)'}
           </h3>
           <button onClick={onClose} className="text-gray-400 hover:text-white"><X className="w-5 h-5" /></button>
         </div>
 
+        {/* Manifesto */}
+        <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-xl p-4 mb-6 text-center">
+          <p className="text-purple-200 text-sm sm:text-base italic leading-relaxed">{manifesto}</p>
+        </div>
+
         {/* Animated timeline */}
-        <div className="p-6">
-          <div className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-yellow-500"></div>
-            <div className="space-y-5">
-              {steps.map((step, i) => (
-                <div key={i} className="relative pl-14 animate-fadeIn" style={{ animationDelay: `${i * 200}ms` }}>
-                  <div className="absolute left-3.5 w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-xs text-white font-bold border-2 border-slate-800">
-                    {i + 1}
-                  </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-purple-400/30 transition-all">
-                    <div className="flex items-center mb-1">
-                      <span className="text-2xl mr-2">{step.icon}</span>
-                      <div>
-                        <span className="text-purple-400 text-xs font-mono mr-2">{step.time}</span>
-                        <span className="text-white font-semibold text-sm">{step.title}</span>
-                      </div>
-                    </div>
-                    <p className="text-gray-400 text-xs ml-9">{step.desc}</p>
-                  </div>
+        <div className="relative mb-6">
+          <div className="absolute left-5 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-yellow-500"></div>
+          <div className="space-y-4">
+            {steps.map((step, i) => (
+              <div key={i} className="relative pl-12 sm:pl-14" style={{ animationDelay: `${i * 150}ms` }}>
+                <div className="absolute left-3 sm:left-3.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-xs text-white font-bold border-2 border-slate-800">
+                  {i + 1}
                 </div>
-              ))}
-            </div>
+                <div className="bg-white/5 rounded-xl p-3 sm:p-4 border border-white/10">
+                  <div className="flex items-center mb-1">
+                    <span className="text-xl sm:text-2xl mr-2">{step.icon}</span>
+                    <div>
+                      <span className="text-purple-400 text-xs font-mono mr-2">{step.time}</span>
+                      <span className="text-white font-semibold text-xs sm:text-sm">{step.title}</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 text-xs ml-8 sm:ml-9 leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="p-5 border-t border-purple-500/30 text-center">
-          <button onClick={onClose} className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:scale-105 transition-all">
-            {isEn ? "Let's Go!" : '开始体验！'}
+        <div className="text-center pb-4">
+          <button onClick={onClose} className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:scale-105 transition-all text-sm sm:text-base">
+            {isEn ? "Start My Journey!" : '开始我的旅程！'}
           </button>
+        </div>
+
         </div>
       </div>
     </div>
