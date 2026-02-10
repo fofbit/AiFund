@@ -480,37 +480,37 @@ const TimeTravelAnimation = ({ opportunity, userAvatar, onClose }) => {
         <span className="text-white font-mono text-sm sm:text-lg">{progress.toFixed(0)}%</span>
       </div>
 
-        {/* Result Panel */}
-        {phase === 'result' && (
-          <div className="mt-4 p-6 bg-gradient-to-r from-green-600/30 to-emerald-600/30 rounded-xl border border-green-500/50 animate-fadeIn">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-3xl font-bold text-white mb-2">
-                时光旅行完成!
-              </h3>
-              <p className="text-green-300 text-xl mb-4">
-                从 {assetInfo?.start_date || opportunity?.date} 到 现在
-              </p>
-              <div className="flex items-center justify-center space-x-8 mb-6">
-                <div>
-                  <p className="text-gray-400">初始投资</p>
-                  <p className="text-2xl font-bold text-white">$100</p>
-                </div>
-                <div className="text-4xl">→</div>
-                <div>
-                  <p className="text-gray-400">现在价值</p>
-                  <p className="text-4xl font-bold text-green-400">
-                    ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 0})}
-                  </p>
-                </div>
+      {/* Result Panel - Full screen overlay on mobile */}
+      {phase === 'result' && (
+        <div className="fixed inset-0 bg-black z-[75] flex items-center justify-center p-4">
+          <div className="max-w-lg w-full bg-gradient-to-br from-green-900/80 to-emerald-900/80 rounded-2xl border border-green-500/50 p-6 sm:p-8 text-center">
+            <div className="text-5xl sm:text-6xl mb-4">🎉</div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Time Travel Complete!</h3>
+            <p className="text-green-300 text-sm sm:text-lg mb-6">
+              {assetInfo?.start_date || opportunity?.date} → Now
+            </p>
+            <div className="flex items-center justify-center space-x-4 sm:space-x-8 mb-6">
+              <div>
+                <p className="text-gray-400 text-sm">Initial</p>
+                <p className="text-xl sm:text-2xl font-bold text-white">$100</p>
               </div>
-              <p className="text-yellow-300 text-lg">
-                💡 这就是为什么你需要AI帮你发现下一个暴富机会！
-              </p>
+              <div className="text-3xl sm:text-4xl text-gray-400">→</div>
+              <div>
+                <p className="text-gray-400 text-sm">Now Worth</p>
+                <p className="text-3xl sm:text-4xl font-bold text-green-400">
+                  ${investmentValue.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                </p>
+              </div>
             </div>
+            <p className="text-yellow-300 text-sm sm:text-base mb-6">
+              This is why you need AI to discover the next wealth opportunity!
+            </p>
+            <button onClick={onClose} className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:scale-105 transition-all text-sm sm:text-base">
+              Back to Global Vision
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
