@@ -66,7 +66,9 @@ class DemoDataGenerator:
             # Generate realistic price based on symbol
             base_prices = {
                 'BTC': 68000, 'ETH': 3500, 'SOL': 180, 'DOGE': 0.12,
-                'PEPE': 0.000012, 'ORDI': 45, 'XRP': 0.62, 'BNB': 580
+                'PEPE': 0.000012, 'ORDI': 45, 'XRP': 0.62, 'BNB': 580,
+                'NVDA': 140, 'TSLA': 350, 'AAPL': 230, 'AMZN': 220,
+                'GOOG': 180, 'META': 570, 'MSFT': 430, 'NFLX': 820
             }
             price = base_prices.get(symbol, 100) * (1 + random.uniform(-0.05, 0.05))
             
