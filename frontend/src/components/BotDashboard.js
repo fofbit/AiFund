@@ -307,29 +307,21 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
       {/* VIP Upgrade CTA */}
       {userData?.user?.tier !== 'vip' && (
         <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-2xl p-6 border-2 border-yellow-400 shadow-lg shadow-yellow-500/20">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <div className="flex items-center mb-2">
-                <Crown className="w-8 h-8 text-white mr-2" />
-                <h3 className="text-2xl font-bold text-white">升级到VIP</h3>
+              <div className="flex items-center mb-1">
+                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-white mr-2" />
+                <h3 className="text-lg sm:text-2xl font-bold text-white">Upgrade to VIP</h3>
               </div>
-              <p className="text-white/90 mb-1">解锁API自动交易，让Bot用真金白银赚钱！</p>
-              <div className="flex items-center space-x-4 text-sm text-white/80">
-                <span>✓ 10%利润分成</span>
-                <span>✓ 亏损不收费</span>
-                <span>✓ 资金安全</span>
+              <p className="text-white/90 text-sm mb-1">Unlock API auto-trading, let Bot earn real money!</p>
+              <div className="flex items-center space-x-3 text-xs text-white/80">
+                <span>✓ 10% profit share</span>
+                <span>✓ No fee on loss</span>
               </div>
             </div>
-            <div className="flex flex-col items-end">
-              <div className="text-white text-5xl mb-2">🚀</div>
-              <button
-                onClick={onShowVIP}
-                className="px-6 py-3 bg-white hover:bg-gray-100 text-orange-600 font-bold rounded-lg transition-all shadow-lg"
-                data-testid="vip-upgrade-cta-btn"
-              >
-                立即升级 99U
-              </button>
-            </div>
+            <button onClick={onShowVIP} className="px-5 py-2.5 bg-white hover:bg-gray-100 text-orange-600 font-bold rounded-lg transition-all shadow-lg text-sm sm:text-base flex-shrink-0" data-testid="vip-upgrade-cta-btn">
+              Upgrade 99U
+            </button>
           </div>
         </div>
       )}
