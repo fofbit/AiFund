@@ -8,14 +8,20 @@ const API = `${BACKEND_URL}/api`;
 // Official exchange links for each market
 const EXCHANGE_LINKS = {
   crypto: [
-    { name: 'Binance', register: 'https://www.binance.com/register', app: 'https://www.binance.com/download', desc: '全球最大加密交易所' },
-    { name: 'OKX', register: 'https://www.okx.com/account/register', app: 'https://www.okx.com/download', desc: '综合性加密交易所' },
-    { name: 'Bybit', register: 'https://www.bybit.com/register', app: 'https://www.bybit.com/download', desc: '衍生品交易首选' },
-    { name: 'Coinbase', register: 'https://www.coinbase.com/signup', app: 'https://www.coinbase.com/wallet/downloads', desc: '美国合规交易所' },
+    { name: 'Binance', register: 'https://www.binance.com/register', app: 'https://www.binance.com/download', desc: 'World\'s largest crypto exchange' },
+    { name: 'OKX', register: 'https://www.okx.com/account/register', app: 'https://www.okx.com/download', desc: 'Comprehensive crypto exchange' },
+    { name: 'Bybit', register: 'https://www.bybit.com/register', app: 'https://www.bybit.com/download', desc: 'Top derivatives exchange' },
+    { name: 'Bitget', register: 'https://www.bitget.com/register', app: 'https://www.bitget.com/download', desc: 'Copy trading & derivatives' },
+    { name: 'Gate.io', register: 'https://www.gate.io/signup', app: 'https://www.gate.io/mobileapp', desc: '1400+ tokens, early listings' },
+    { name: 'Coinbase', register: 'https://www.coinbase.com/signup', app: 'https://www.coinbase.com/wallet/downloads', desc: 'US regulated exchange' },
   ],
   us_stock: [
-    { name: '盈透证券 IBKR', register: 'https://www.interactivebrokers.com/cn/home.php', app: 'https://www.interactivebrokers.com/en/trading/tws-mobile.php', desc: '全球最大在线券商' },
-    { name: '富途证券', register: 'https://www.futunn.com/', app: 'https://www.futunn.com/download', desc: '港美股互联网券商' },
+    { name: 'Robinhood', register: 'https://robinhood.com/signup', app: 'https://robinhood.com/download', desc: 'Most popular US investing app' },
+    { name: 'Webull', register: 'https://www.webull.com/introduce', app: 'https://www.webull.com/download', desc: 'Free stock trading + analytics' },
+    { name: 'Charles Schwab', register: 'https://www.schwab.com/open-an-account', app: 'https://www.schwab.com/mobile', desc: 'Trusted US brokerage' },
+    { name: 'Interactive Brokers', register: 'https://www.interactivebrokers.com', app: 'https://www.interactivebrokers.com/en/trading/tws-mobile.php', desc: 'Global professional broker' },
+    { name: 'Futu / moomoo', register: 'https://www.futunn.com/', app: 'https://www.futunn.com/download', desc: 'Asian-popular US stock app' },
+    { name: 'Tiger Brokers', register: 'https://www.itigerup.com/', app: 'https://www.itigerup.com/download', desc: 'US/HK stock trading' },
     { name: '老虎证券', register: 'https://www.itigerup.com/', app: 'https://www.itigerup.com/download', desc: '华人首选美股券商' },
   ],
   hk_stock: [
