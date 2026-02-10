@@ -159,7 +159,7 @@ const OpportunityDetail = ({ opportunity, userData, onClose, onBack }) => {
       },
     };
 
-    return stories[opp.id] || stories.tsla_2020 ? stories[opp.id] : {
+    return stories[opp.id] || {
       title: `${opp.title} — Wealth Myth`,
       chapters: [
         { year: opp.date?.substring(0, 4) || 'Start', title: 'The Opportunity', text: opp.what_happened || opp.description },
