@@ -48,6 +48,8 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
   const [showCoCreator, setShowCoCreator] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
 
+  const [showAccountMenu, setShowAccountMenu] = useState(false);
+
   useEffect(() => {
     if (userData?.has_bot) loadBotData();
     if (isDemoMode && !localStorage.getItem('demo_guide_shown')) {
