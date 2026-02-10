@@ -127,11 +127,69 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
                 <Bell className="w-4 h-4" />
                 {unreadCount > 0 && <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 text-white text-[9px] rounded-full flex items-center justify-center">{unreadCount > 9 ? '9+' : unreadCount}</span>}
               </button>
-              <div className="hidden sm:flex items-center">
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tierBadge.color} text-white mr-1.5`}>{tierBadge.text}</span>
-                <span className="text-gray-400 text-xs">${userData?.user?.balance_usd?.toFixed(0) || '0'}</span>
+              
+              {/* Account / Wallet button */}
+              <div className="relative">
+                <button 
+                  onClick={() => setShowAccountMenu(!showAccountMenu)} 
+                  className="flex items-center px-2 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 transition-all"
+                  data-testid="account-menu-btn"
+                >
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tierBadge.color} text-white mr-1.5`}>{tierBadge.text}</span>
+                  <span className="text-white text-xs font-mono hidden sm:inline">
+                    {isDemoMode ? 'Demo' : `${walletAddress?.substring(0, 4)}...${walletAddress?.substring(walletAddress.length - 3)}`}
+                  </span>
+                  <Wallet className="w-3.5 h-3.5 text-gray-400 ml-1 sm:hidden" />
+                </button>
+
+                {/* Account dropdown */}
+                {showAccountMenu && (
+                  <div className="absolute right-0 top-full mt-1 w-64 bg-slate-800 border border-white/10 rounded-xl shadow-2xl z-50 p-3" data-testid="account-dropdown">
+                    {/* Connected address */}
+                    <div className="mb-3 p-2.5 bg-white/5 rounded-lg">
+                      <p className="text-gray-400 text-[10px] mb-1">Connected Wallet</p>
+                      <div className="flex items-center">
+                        <span className="text-lg mr-2">{walletAddress?.startsWith('0x') ? '🔷' : walletAddress?.startsWith('T') ? '🔴' : isDemoMode ? '🎮' : '🟣'}</span>
+                        <div className="min-w-0">
+                          <p className="text-white text-xs font-mono truncate">{isDemoMode ? 'Demo Account' : walletAddress}</p>
+                          <p className="text-gray-500 text-[10px]">
+                            {walletAddress?.startsWith('0x') ? 'EVM (Ethereum/BSC/ARB)' : walletAddress?.startsWith('T') ? 'Tron' : isDemoMode ? 'Demo Mode' : 'Solana'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Balance */}
+                    <div className="mb-3 flex items-center justify-between px-2">
+                      <span className="text-gray-400 text-xs">Balance</span>
+                      <span className="text-white text-sm font-bold">${userData?.user?.balance_usd?.toFixed(2) || '0.00'}</span>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="space-y-1">
+                      {isDemoMode && (
+                        <button onClick={() => { setShowAccountMenu(false); onConnectReal(); }}
+                          className="w-full flex items-center px-3 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs font-semibold transition-all"
+                          data-testid="switch-to-real-btn"
+                        >
+                          <Wallet className="w-4 h-4 mr-2" />Connect Real Wallet
+                        </button>
+                      )}
+                      <button onClick={() => { setShowAccountMenu(false); isDemoMode ? onExitDemo() : onDisconnect(); }}
+                        className="w-full flex items-center px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg text-xs font-semibold transition-all"
+                        data-testid="disconnect-btn"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        {isDemoMode ? 'Exit Demo & Switch Wallet' : 'Disconnect & Switch Wallet'}
+                      </button>
+                    </div>
+
+                    <p className="text-gray-600 text-[9px] text-center mt-2">
+                      {isDemoMode ? 'Exit to connect a different wallet' : 'Disconnect to switch to another address'}
+                    </p>
+                  </div>
+                )}
               </div>
-              <button onClick={isDemoMode ? onExitDemo : onDisconnect} className="p-1.5 text-gray-400 hover:text-white rounded"><LogOut className="w-4 h-4" /></button>
             </div>
           </div>
         </div>
