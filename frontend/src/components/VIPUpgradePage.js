@@ -268,13 +268,11 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
           <div className="flex items-start">
             <AlertCircle className="w-5 h-5 text-red-400 mr-2 flex-shrink-0 mt-0.5" />
             <p className="text-red-300 text-sm">
-              <strong>风险提示:</strong> 加密货币交易存在风险，过往业绩不代表未来表现。
-              请根据自身财务状况谨慎投资，切勿投入超过您承受能力的资金。
+              <strong>Risk Warning:</strong> Cryptocurrency trading involves significant risk. Past performance does not guarantee future results.
             </p>
           </div>
         </div>
         </div>
-      </div>
       </div>
 
       {/* Real Payment Flow */}
