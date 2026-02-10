@@ -328,29 +328,24 @@ const BotDashboard = ({ botData, userData, onRefresh, onShowVIP, onShareAchievem
 
       {/* Share Achievement Button */}
       {userData?.user?.tier === 'vip' && (
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 border border-purple-400">
-          <div className="flex items-center justify-between">
+        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 sm:p-6 border border-purple-400">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2 flex items-center">
-                <Crown className="w-6 h-6 text-yellow-400 mr-2" />
-                您已是VIP会员
+              <h3 className="text-lg sm:text-2xl font-bold text-white mb-1 flex items-center">
+                <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400 mr-2" />
+                You are VIP
               </h3>
-              <p className="text-white/80">分享您的成就，让朋友也来体验AI交易!</p>
+              <p className="text-white/80 text-sm">Share your achievement with friends!</p>
             </div>
             <button
               onClick={() => onShareAchievement && onShareAchievement({
-                type: 'profit_milestone',
-                botName: bot.name,
-                botEmoji: botEmoji,
-                botLevel: bot.level,
-                amount: bot.total_profit,
-                roi: ((bot.total_profit / 10000) * 100).toFixed(2)
+                type: 'profit_milestone', botName: bot.name, botEmoji: botEmoji,
+                botLevel: bot.level, amount: bot.total_profit, roi: ((bot.total_profit / 10000) * 100).toFixed(2)
               })}
-              className="px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg transition-all flex items-center"
+              className="px-5 py-2.5 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg transition-all flex items-center justify-center text-sm flex-shrink-0"
               data-testid="share-achievement-btn"
             >
-              <Share2 className="w-5 h-5 mr-2" />
-              分享成就
+              <Share2 className="w-4 h-4 mr-2" />Share
             </button>
           </div>
         </div>
