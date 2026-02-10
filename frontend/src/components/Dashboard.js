@@ -50,6 +50,17 @@ const Dashboard = ({ walletAddress, userData, onDisconnect, onRefresh, isDemoMod
 
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
+  // Close account menu when clicking outside
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (showAccountMenu && !e.target.closest('[data-testid="account-menu-btn"]') && !e.target.closest('[data-testid="account-dropdown"]')) {
+        setShowAccountMenu(false);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [showAccountMenu]);
+
   useEffect(() => {
     if (userData?.has_bot) loadBotData();
     if (isDemoMode && !localStorage.getItem('demo_guide_shown')) {
