@@ -240,6 +240,7 @@ const VIPLevelSystem = ({ onClose, currentLevel = 1 }) => {
           )}
         </div>
       </div>
+      </div>
     </div>
   );
 };
