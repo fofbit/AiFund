@@ -113,11 +113,12 @@ const GlobalVisionPage = ({ walletAddress, userData, onClose, onUnlock }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 rounded-2xl max-w-6xl w-full border-2 border-purple-500/50 shadow-2xl my-8">
+    <div className="fixed inset-0 bg-black z-50 overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <div className="relative p-6 border-b border-purple-500/30">
+        <div className="relative p-4 sm:p-6 border-b border-purple-500/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4 animate-pulse">
