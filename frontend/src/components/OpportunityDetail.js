@@ -172,18 +172,19 @@ const OpportunityDetail = ({ opportunity, userData, onClose, onBack }) => {
   const story = getStory(opportunity);
 
   return (
-    <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[55] p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900 rounded-2xl max-w-4xl w-full border border-purple-500/30 shadow-2xl my-8">
+    <div className="fixed inset-0 bg-black z-[65] overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900">
+        <div className="max-w-4xl mx-auto">
         
         {/* Header */}
-        <div className="p-6 border-b border-purple-500/30 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
-          <div className="flex items-center justify-between mb-4">
-            <button onClick={onBack} className="flex items-center text-gray-400 hover:text-white transition-colors">
-              <ArrowLeft className="w-5 h-5 mr-1" />
-              返回
+        <div className="p-4 sm:p-6 border-b border-purple-500/30 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <button onClick={onBack} className="flex items-center text-gray-400 hover:text-white transition-colors text-sm">
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
+              Back
             </button>
             <button onClick={onClose} className="text-gray-400 hover:text-white">
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
           
