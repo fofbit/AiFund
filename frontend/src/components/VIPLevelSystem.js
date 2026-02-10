@@ -62,8 +62,9 @@ const VIPLevelSystem = ({ onClose, currentLevel = 1 }) => {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 rounded-2xl max-w-5xl w-full border border-yellow-500/30 shadow-2xl my-4">
+    <div className="fixed inset-0 bg-black z-50 overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+        <div className="max-w-5xl mx-auto">
         
         {/* Header */}
         <div className="p-4 sm:p-6 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-600/20 to-orange-600/20">
