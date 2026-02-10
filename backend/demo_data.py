@@ -59,7 +59,7 @@ class DemoDataGenerator:
         balance = start_balance
         
         for i in range(num_trades):
-            symbol = random.choice(DemoDataGenerator.CRYPTO_SYMBOLS)
+            symbol = random.choice(DemoDataGenerator.ALL_SYMBOLS)
             is_win = random.random() < win_rate
             action = random.choice(['buy', 'sell'])
             
