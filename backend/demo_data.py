@@ -11,6 +11,8 @@ class DemoDataGenerator:
     """Generate realistic demo data for the platform"""
     
     CRYPTO_SYMBOLS = ['BTC', 'ETH', 'SOL', 'DOGE', 'PEPE', 'ORDI', 'XRP', 'BNB']
+    STOCK_SYMBOLS = ['NVDA', 'TSLA', 'AAPL', 'AMZN', 'GOOG', 'META', 'MSFT', 'NFLX']
+    ALL_SYMBOLS = CRYPTO_SYMBOLS + STOCK_SYMBOLS
     
     TRADE_REASONS_BUY = [
         "检测到MACD金叉信号，RSI处于超卖区域，建议买入",
