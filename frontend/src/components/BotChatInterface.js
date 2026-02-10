@@ -19,6 +19,10 @@ const ASSET_LINKS = {
   'TSLA': 'https://finance.yahoo.com/quote/TSLA',
   'AAPL': 'https://finance.yahoo.com/quote/AAPL',
   'META': 'https://finance.yahoo.com/quote/META',
+  'AMZN': 'https://finance.yahoo.com/quote/AMZN',
+  'GOOG': 'https://finance.yahoo.com/quote/GOOG',
+  'MSFT': 'https://finance.yahoo.com/quote/MSFT',
+  'NFLX': 'https://finance.yahoo.com/quote/NFLX',
 };
 
 const BotChatInterface = ({ botData, onClose }) => {
