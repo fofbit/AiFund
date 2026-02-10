@@ -44,12 +44,13 @@ const VIPUpgradePage = ({ walletAddress, userData, onClose, onSuccess }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900 rounded-2xl max-w-4xl w-full border-2 border-yellow-500/50 shadow-2xl my-8">
+    <div className="fixed inset-0 bg-black z-50 overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900">
+        <div className="max-w-4xl mx-auto">
         
         {/* Header with Crown */}
-        <div className="relative p-8 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-600/20 to-orange-600/20">
-          <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <div className="relative p-5 sm:p-8 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-600/20 to-orange-600/20">
+          <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-400 hover:text-white">
             <X className="w-6 h-6" />
           </button>
           
