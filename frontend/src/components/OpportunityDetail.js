@@ -257,23 +257,24 @@ const OpportunityDetail = ({ opportunity, userData, onClose, onBack }) => {
         </div>
 
         {/* Time Travel CTA */}
-        <div className="p-6 border-t border-purple-500/30 bg-black/20">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-t border-purple-500/30 bg-black/20">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h4 className="text-white font-bold text-lg">穿越时空，亲眼见证这个神话</h4>
-              <p className="text-gray-400 text-sm">用时光旅行动画重现{opportunity.title}的完整历程</p>
+              <h4 className="text-white font-bold text-base sm:text-lg">Experience this wealth myth in time-travel</h4>
+              <p className="text-gray-400 text-xs sm:text-sm">Watch the full {opportunity.title} journey animated</p>
             </div>
             <button
               onClick={() => setShowTimeTravel(true)}
-              className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl transition-all flex items-center shadow-lg shadow-purple-500/30"
+              className="px-6 sm:px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl transition-all flex items-center justify-center shadow-lg shadow-purple-500/30 text-sm sm:text-base flex-shrink-0"
               data-testid="detail-time-travel-btn"
             >
-              <Rocket className="w-5 h-5 mr-2" />
-              开始时光旅行
-              <ChevronRight className="w-5 h-5 ml-1" />
+              <Rocket className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              Start Time Travel
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1" />
             </button>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Time Travel Animation */}
