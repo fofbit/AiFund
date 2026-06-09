@@ -157,6 +157,14 @@ async def update_user_tier(wallet_address: str):
 async def root():
     return {"message": "Welcome to AIfund.com API", "status": "active"}
 
+@api_router.get("/aifundpay")
+async def aifundpay_page():
+    """Serve AiFundPay product page"""
+    from fastapi.responses import FileResponse
+    import os
+    html_path = os.path.join(os.path.dirname(__file__), "static_aifundpay.html")
+    return FileResponse(html_path, media_type="text/html")
+
 @api_router.post("/wallet/connect")
 async def connect_wallet(req: ConnectWalletRequest):
     """Connect wallet and create/get user"""

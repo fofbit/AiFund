@@ -21,19 +21,19 @@ const BacktestSimulator = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
 
   const periods = [
-    { id: '1week', label: '过去1周', days: 7 },
-    { id: '1month', label: '过去1个月', days: 30 },
-    { id: '3month', label: '过去3个月', days: 90 },
-    { id: '6month', label: '过去6个月', days: 180 },
-    { id: '1year', label: '过去1年', days: 365 },
-    { id: '3year', label: '过去3年', days: 1095 },
+    { id: '1week', label: '1 Week', days: 7 },
+    { id: '1month', label: '1 Month', days: 30 },
+    { id: '3month', label: '3 Months', days: 90 },
+    { id: '6month', label: '6 Months', days: 180 },
+    { id: '1year', label: '1 Year', days: 365 },
+    { id: '3year', label: '3 Years', days: 1095 },
   ];
 
   const markets = [
-    { id: 'all', label: '全部市场', icon: '🌐' },
-    { id: 'crypto', label: '加密货币', icon: '₿' },
-    { id: 'us_stock', label: '美股', icon: '🇺🇸' },
-    { id: 'futures', label: '期货', icon: '📊' },
+    { id: 'all', label: 'All', icon: '🌐' },
+    { id: 'crypto', label: 'Crypto', icon: '₿' },
+    { id: 'us_stock', label: 'Stocks', icon: '📈' },
+    { id: 'futures', label: 'Futures', icon: '📊' },
   ];
 
   const runBacktest = async () => {
@@ -129,65 +129,45 @@ const BacktestSimulator = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-slate-900 via-indigo-900/30 to-slate-900 rounded-2xl max-w-6xl w-full border border-cyan-500/30 shadow-2xl my-4">
+    <div className="fixed inset-0 bg-black z-50 overflow-y-auto">
+      <div className="min-h-full bg-gradient-to-br from-slate-900 via-indigo-900/30 to-slate-900">
+        <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <div className="p-6 border-b border-cyan-500/30 bg-gradient-to-r from-cyan-600/20 to-blue-600/20">
+        <div className="p-4 sm:p-6 border-b border-cyan-500/30 bg-gradient-to-r from-cyan-600/20 to-blue-600/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-4 shadow-lg shadow-cyan-500/30">
-                <Rewind className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3 shadow-lg shadow-cyan-500/30">
+                <Rewind className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white flex items-center">
-                  模拟回测
-                  <span className="ml-3 px-3 py-1 bg-cyan-500/20 text-cyan-400 text-sm rounded-full border border-cyan-500/30">
-                    AI策略验证
-                  </span>
-                </h2>
-                <p className="text-cyan-200">回顾历史，验证Bot策略在过去的表现</p>
+                <h2 className="text-lg sm:text-2xl font-bold text-white">Backtest Simulator</h2>
+                <p className="text-cyan-200 text-xs sm:text-sm">Verify Bot strategy with historical data</p>
               </div>
             </div>
-            <button onClick={onClose} className="text-gray-400 hover:text-white text-2xl">×</button>
+            <button onClick={onClose} className="text-gray-400 hover:text-white text-xl">×</button>
           </div>
         </div>
 
         {/* Configuration */}
-        <div className="p-6 border-b border-white/10 bg-slate-800/50">
-          <div className="grid md:grid-cols-3 gap-4">
+        <div className="p-4 sm:p-6 border-b border-white/10 bg-slate-800/50">
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
             {/* Period Selection */}
             <div>
-              <label className="text-gray-400 text-sm mb-2 block">回测时间段</label>
-              <div className="relative">
-                <select
-                  value={selectedPeriod}
-                  onChange={(e) => setSelectedPeriod(e.target.value)}
-                  className="w-full p-3 bg-white/5 border border-white/20 rounded-lg text-white appearance-none cursor-pointer"
-                >
-                  {periods.map(p => (
-                    <option key={p.id} value={p.id}>{p.label}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" />
-              </div>
+              <label className="text-gray-400 text-xs sm:text-sm mb-1 block">Period</label>
+              <select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}
+                className="w-full p-2.5 sm:p-3 bg-white/5 border border-white/20 rounded-lg text-white text-sm appearance-none cursor-pointer">
+                {periods.map(p => (<option key={p.id} value={p.id}>{p.label}</option>))}
+              </select>
             </div>
 
             {/* Market Selection */}
             <div>
-              <label className="text-gray-400 text-sm mb-2 block">交易市场</label>
-              <div className="relative">
-                <select
-                  value={selectedMarket}
-                  onChange={(e) => setSelectedMarket(e.target.value)}
-                  className="w-full p-3 bg-white/5 border border-white/20 rounded-lg text-white appearance-none cursor-pointer"
-                >
-                  {markets.map(m => (
-                    <option key={m.id} value={m.id}>{m.icon} {m.label}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" />
-              </div>
+              <label className="text-gray-400 text-xs sm:text-sm mb-1 block">Market</label>
+              <select value={selectedMarket} onChange={(e) => setSelectedMarket(e.target.value)}
+                className="w-full p-2.5 sm:p-3 bg-white/5 border border-white/20 rounded-lg text-white text-sm appearance-none cursor-pointer">
+                {markets.map(m => (<option key={m.id} value={m.id}>{m.icon} {m.label}</option>))}
+              </select>
             </div>
 
             {/* Run Button */}
@@ -400,6 +380,7 @@ const BacktestSimulator = ({ onClose }) => {
             </div>
           </div>
         )}
+      </div>
       </div>
     </div>
   );
