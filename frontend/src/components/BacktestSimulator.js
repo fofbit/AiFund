@@ -180,12 +180,12 @@ const BacktestSimulator = ({ onClose }) => {
                 {isRunning ? (
                   <>
                     <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                    回测中... {progress}%
+                    Running... {progress}%
                   </>
                 ) : (
                   <>
                     <Play className="w-5 h-5 mr-2" />
-                    开始回测
+                    Start Backtest
                   </>
                 )}
               </button>
@@ -212,19 +212,19 @@ const BacktestSimulator = ({ onClose }) => {
             <div className="p-6 bg-gradient-to-r from-green-600/10 to-emerald-600/10 border-b border-green-500/30">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center">
                 <BarChart3 className="w-5 h-5 text-green-400 mr-2" />
-                {results.period} 回测结果
+                {results.period} Backtest Results
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">初始资金</p>
+                  <p className="text-gray-400 text-xs mb-1">Initial Capital</p>
                   <p className="text-white font-bold">${results.initialCapital.toLocaleString()}</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">最终资金</p>
+                  <p className="text-gray-400 text-xs mb-1">Final Capital</p>
                   <p className="text-green-400 font-bold">${Number(results.finalCapital).toLocaleString()}</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">总收益</p>
+                  <p className="text-gray-400 text-xs mb-1">Total Profit</p>
                   <p className={`font-bold ${Number(results.totalProfit) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                     {Number(results.totalProfit) >= 0 ? '+' : ''}${Number(results.totalProfit).toLocaleString()}
                   </p>
@@ -240,15 +240,15 @@ const BacktestSimulator = ({ onClose }) => {
                   <p className="text-white font-bold">{results.totalTrades}</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">胜率</p>
+                  <p className="text-gray-400 text-xs mb-1">Win Rate</p>
                   <p className="text-cyan-400 font-bold">{results.winRate}%</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">最大回撤</p>
+                  <p className="text-gray-400 text-xs mb-1">Max Drawdown</p>
                   <p className="text-orange-400 font-bold">-{results.maxDrawdown}%</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-gray-400 text-xs mb-1">夏普比率</p>
+                  <p className="text-gray-400 text-xs mb-1">Sharpe Ratio</p>
                   <p className="text-purple-400 font-bold">{results.sharpeRatio}</p>
                 </div>
               </div>
@@ -282,7 +282,7 @@ const BacktestSimulator = ({ onClose }) => {
                       }}
                       formatter={(value) => [`$${value.toLocaleString()}`, '资金']}
                     />
-                    <ReferenceLine y={10000} stroke="#6B7280" strokeDasharray="5 5" label={{ value: '初始资金', fill: '#6B7280', fontSize: 10 }} />
+                    <ReferenceLine y={10000} stroke="#6B7280" strokeDasharray="5 5" label={{ value: 'Initial Capital', fill: '#6B7280', fontSize: 10 }} />
                     <Area
                       type="monotone"
                       dataKey="capital"
@@ -356,7 +356,7 @@ const BacktestSimulator = ({ onClose }) => {
             <div className="w-24 h-24 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Rewind className="w-12 h-12 text-cyan-400" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">选择时间段开始回测</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">选择时间段Start Backtest</h3>
             <p className="text-gray-400 mb-6 max-w-md mx-auto">
               回测功能可以让您看到Bot策略在历史数据上的表现，
               帮助您建立对AI交易的信心
@@ -365,7 +365,7 @@ const BacktestSimulator = ({ onClose }) => {
               <div className="bg-white/5 rounded-xl p-4 border border-white/10">
                 <div className="text-3xl mb-2">📊</div>
                 <p className="text-white font-semibold">详细统计</p>
-                <p className="text-gray-400 text-sm">胜率、收益、回撤等</p>
+                <p className="text-gray-400 text-sm">Win Rate、收益、回撤等</p>
               </div>
               <div className="bg-white/5 rounded-xl p-4 border border-white/10">
                 <div className="text-3xl mb-2">📈</div>
@@ -374,8 +374,8 @@ const BacktestSimulator = ({ onClose }) => {
               </div>
               <div className="bg-white/5 rounded-xl p-4 border border-white/10">
                 <div className="text-3xl mb-2">📋</div>
-                <p className="text-white font-semibold">交易记录</p>
-                <p className="text-gray-400 text-sm">每笔交易详情</p>
+                <p className="text-white font-semibold">Trade History</p>
+                <p className="text-gray-400 text-sm">Details of each trade</p>
               </div>
             </div>
           </div>
