@@ -1,8 +1,7 @@
 """
-crypto-wallet-lite — Minimal Backend Demo
+AiFund Pay — Demo Server
+https://aifund.com/pay
 Run: pip install fastapi motor httpx uvicorn && python demo_server.py
-
-This starts a FastAPI server with wallet connect + payment verification.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +22,7 @@ client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
 # Create FastAPI app
-app = FastAPI(title="crypto-wallet-lite Demo")
+app = FastAPI(title="AiFund Pay Demo")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"], allow_credentials=True)
 
 # Mount the wallet and payment routers
@@ -32,7 +31,7 @@ app.include_router(create_payment_router(db, RECEIVING_ADDRESSES, GAS_TOLERANCE)
 
 @app.get("/api/")
 async def root():
-    return {"message": "crypto-wallet-lite demo server", "status": "active"}
+    return {"message": "AiFund Pay demo server", "status": "active"}
 
 if __name__ == "__main__":
     import uvicorn

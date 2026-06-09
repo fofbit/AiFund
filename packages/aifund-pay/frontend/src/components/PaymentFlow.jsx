@@ -1,6 +1,7 @@
 /**
- * PaymentFlow — 3-step USDT payment with on-chain verification
- * Step 1: Select chain → Step 2: Show address + QR → Step 3: Auto-verify
+ * AiFund Pay — PaymentFlow
+ * 3-step USDT payment with on-chain verification.
+ * https://aifund.com/pay
  */
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
@@ -175,6 +176,14 @@ export function PaymentFlow({ walletAddress, amount, paymentType = 'payment', on
             <button onClick={() => { stopPolling(); setStep('pay'); }} style={{ ...styles.secondaryBtn, marginTop: '12px' }}>Back</button>
           </div>
         )}
+
+        {/* Powered by */}
+        <div style={{ textAlign: 'center', paddingTop: '8px', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '12px' }}>
+          <a href="https://aifund.com/pay" target="_blank" rel="noopener noreferrer"
+            style={{ color: '#4B5563', fontSize: '9px', textDecoration: 'none' }}>
+            Powered by <span style={{ color: '#7C3AED' }}>AiFund Pay</span>
+          </a>
+        </div>
       </div>
     </div>
   );

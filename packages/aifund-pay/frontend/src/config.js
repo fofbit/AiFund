@@ -1,5 +1,8 @@
 /**
- * crypto-wallet-lite — Configuration
+ * AiFund Pay — Configuration
+ * Accept crypto payments in 3 minutes.
+ * https://aifund.com/pay
+ * 
  * Customize all settings here. No code changes needed.
  */
 

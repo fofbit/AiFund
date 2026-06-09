@@ -1,12 +1,7 @@
 /**
- * useWalletConnect — Core wallet connection hook
- * Zero-dependency crypto wallet connect for React apps
- * 
- * Usage:
- *   const wallet = useWalletConnect({ backendUrl, storageKey });
- *   wallet.connect()    — connect MetaMask/EVM wallet
- *   wallet.disconnect() — disconnect and clear session
- *   wallet.enterDemo()  — enter demo mode (no wallet needed)
+ * AiFund Pay — useWalletConnect Hook
+ * Zero-dependency crypto wallet connect for React apps.
+ * https://aifund.com/pay
  */
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';

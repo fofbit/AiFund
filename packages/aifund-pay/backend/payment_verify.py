@@ -1,7 +1,8 @@
 """
-crypto-wallet-lite — On-chain USDT Payment Verification
-Drop-in FastAPI router for crypto payment verification.
+AiFund Pay — On-chain USDT Payment Verification
+https://aifund.com/pay
 
+Drop-in FastAPI router for crypto payment verification.
 Usage:
     from payment_verify import create_payment_router
     app.include_router(create_payment_router(db, ADDRESSES), prefix="/api")

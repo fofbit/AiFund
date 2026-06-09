@@ -1,7 +1,8 @@
 """
-crypto-wallet-lite — Wallet Connect API Routes
-Drop-in FastAPI router for wallet connection.
+AiFund Pay — Wallet Connect API Routes
+https://aifund.com/pay
 
+Drop-in FastAPI router for wallet connection.
 Usage:
     from wallet_connect import create_wallet_router
     app.include_router(create_wallet_router(db), prefix="/api")

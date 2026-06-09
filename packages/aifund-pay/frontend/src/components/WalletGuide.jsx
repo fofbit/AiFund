@@ -1,6 +1,7 @@
 /**
- * WalletGuide — Installation guide for users without a wallet extension
- * Shows supported wallets with official + Chrome extension store links
+ * AiFund Pay — WalletGuide
+ * Installation guide for users without a wallet extension.
+ * https://aifund.com/pay
  */
 import React from 'react';
 import config from '../config';

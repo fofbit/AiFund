@@ -1,6 +1,7 @@
 """
-crypto-wallet-lite — Backend Configuration
-Replace with your own values.
+AiFund Pay — Backend Configuration
+https://aifund.com/pay
+Replace with your own USDT receiving addresses.
 """
 
 # USDT Receiving Addresses (one per chain)

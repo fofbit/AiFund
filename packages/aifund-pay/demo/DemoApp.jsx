@@ -1,12 +1,6 @@
 /**
- * crypto-wallet-lite — Minimal Demo App
- * Copy this to see the module in action.
- * 
- * Setup:
- *   1. npm install axios
- *   2. Start your backend (see backend/ folder)
- *   3. Update config.js with your addresses
- *   4. Run this React app
+ * AiFund Pay — Demo App
+ * https://aifund.com/pay
  */
 import React, { useState } from 'react';
 import { useWalletConnect } from '../frontend/src/hooks/useWalletConnect';
@@ -21,8 +15,8 @@ export default function DemoApp() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0F172A', color: '#fff', padding: '40px', fontFamily: 'system-ui' }}>
-      <h1 style={{ fontSize: '32px', marginBottom: '8px' }}>crypto-wallet-lite Demo</h1>
-      <p style={{ color: '#9CA3AF', marginBottom: '32px' }}>Zero-dependency wallet connect + USDT payment</p>
+      <h1 style={{ fontSize: '32px', marginBottom: '8px' }}>AiFund Pay Demo</h1>
+      <p style={{ color: '#9CA3AF', marginBottom: '32px' }}>Accept crypto payments in 3 minutes · <a href="https://aifund.com/pay" style={{color:'#A78BFA'}}>aifund.com/pay</a></p>
 
       {/* Wallet Button (handles connect/disconnect/account menu) */}
       <div style={{ marginBottom: '24px' }}>

@@ -1,6 +1,7 @@
 /**
- * WalletButton — Connect/Disconnect wallet button with account dropdown
- * Handles: connect, disconnect, demo mode, account menu
+ * AiFund Pay — WalletButton
+ * Connect/disconnect button with account dropdown.
+ * https://aifund.com/pay
  */
 import React, { useState, useEffect } from 'react';
 
@@ -108,3 +109,4 @@ const styles = {
   disconnectBtn: { width: '100%', padding: '8px', background: 'rgba(239,68,68,0.1)', color: '#F87171', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' },
   hint: { textAlign: 'center', fontSize: '9px', color: '#4B5563', marginTop: '8px' },
 };
+
