@@ -193,9 +193,9 @@ aifundpay/
 | v1.2 | SIWE signature verification (x401 security) | ✅ Released |
 | v1.3 | Multi-wallet: EVM + Solana + Bitcoin + Atomicals | ✅ Released |
 | v1.4 | x402 HTTP micropayment protocol | ✅ Released |
-| v2.0 | Multi-token payment (USDC, ETH, BTC, SOL) | Next |
-| v2.1 | Subscription payments (recurring billing) | Planned |
-| v3.0 | AI Agent autonomous payment standard | Planned |
+| v2.0 | Multi-token: USDT + USDC + ETH + BTC + SOL + BNB | ✅ Released |
+| v2.1 | Subscription payments (recurring billing) | ✅ Released |
+| v3.0 | AI Agent autonomous payment standard | Next |
 
 ## Who is this for?
 
