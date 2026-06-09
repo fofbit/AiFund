@@ -21,6 +21,7 @@ from historical_prices import historical_price_service
 from whitepaper import get_whitepaper_pdf
 from payment_verifier import payment_verifier
 from ai_customer_service import ai_chat_service
+from agent_payments import create_agent_router
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -880,8 +881,10 @@ async def download_wallet_doc_cn():
         headers={"Content-Disposition": "attachment; filename=AiFund_Wallet_Payment_Module_CN_v1.0.pdf"}
     )
 
-# Include router
+# Include routers
 app.include_router(api_router)
+agent_router = create_agent_router(db)
+app.include_router(agent_router, prefix="/api")
 
 # CORS
 app.add_middleware(
