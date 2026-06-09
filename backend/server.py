@@ -859,6 +859,19 @@ async def download_wallet_doc():
         headers={"Content-Disposition": "attachment; filename=AiFund_Wallet_Connect_Module_v1.0.pdf"}
     )
 
+@api_router.get("/docs/wallet-module-cn")
+async def download_wallet_doc_cn():
+    """Download Wallet + Payment Module documentation (Chinese version) as PDF"""
+    from generate_wallet_doc_cn import generate_wallet_doc_cn_pdf
+    pdf_buffer = generate_wallet_doc_cn_pdf()
+    pdf_bytes = pdf_buffer.getvalue()
+    from io import BytesIO
+    return StreamingResponse(
+        BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=AiFund_Wallet_Payment_Module_CN_v1.0.pdf"}
+    )
+
 # Include router
 app.include_router(api_router)
 
