@@ -846,6 +846,19 @@ async def download_whitepaper():
         headers={"Content-Disposition": "attachment; filename=AIFund_Whitepaper_v1.0.0.pdf"}
     )
 
+@api_router.get("/docs/wallet-module")
+async def download_wallet_doc():
+    """Download Wallet Connect Module documentation as PDF"""
+    from generate_wallet_doc import generate_wallet_doc_pdf
+    pdf_buffer = generate_wallet_doc_pdf()
+    pdf_bytes = pdf_buffer.getvalue()
+    from io import BytesIO
+    return StreamingResponse(
+        BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=AiFund_Wallet_Connect_Module_v1.0.pdf"}
+    )
+
 # Include router
 app.include_router(api_router)
 
